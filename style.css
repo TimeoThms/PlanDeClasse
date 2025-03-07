@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+#menu {
+    background-color: white;
+    width: 350px;
+    height: 100vh;
+    padding: 15px;
+    box-shadow: 5px 5px 15px #cfcfcf;
+}
+
+p {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.main-title {
+    margin: 0;
+    margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.basic-flex {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 10px
+}
+
+.filename {
+    height: 30px;
+    border-color: #415A77;
+    border-radius: 4px;
+    font-family: Arial;
+    font-size: 14px;
+    width: 100%;
+}
+
+.btn {
+    background-color: #415A77;
+    border-radius: 4px;
+    width: 100%;
+    color: white;
+    height: 40px;
+    outline: none;
+    border: 0;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
