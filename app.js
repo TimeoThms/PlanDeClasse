@@ -1,23 +1,24 @@
-var width = window.innerWidth;
-var height = window.innerHeight - 25;
+// Stage init
 
-// Init stage
-var stage = new Konva.Stage({
-    container: 'container',
-    width: width,
-    height: height,
+const container = document.getElementById("container");
+
+const stage = new Konva.Stage({
+    container: "container",
+    width: 1485,
+    height: 1050,
 });
 
-var layer = new Konva.Layer();
+const layer = new Konva.Layer();
 stage.add(layer);
 
-var testRect = new Konva.Rect({
-    x: 300,
+const canvas = new Konva.Rect({
+    x: 0,
     y: 0,
-    width: width-300,
-    height: height,
-    fill: 'green',  
-    shadowBlur: 10,
-    cornerRadius: 10,
+    width: stage.width(),
+    height: stage.height(),
+    fill: "white",
 });
-layer.add(testRect);
+layer.add(canvas);
+canvas.moveToBottom();
+
+updateGrid();

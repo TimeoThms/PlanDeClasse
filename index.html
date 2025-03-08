@@ -1,27 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/konva@9.3.18/konva.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <title>PlanDeClasse</title>
-</head>
-<body>
-    <div id="menu">
-        <h1 class="main-title">PlanDeClasse</h1>
-        <p>Système de gestion de plan de classe.</p>
-        <div class="basic-flex">
-            <input type="text" placeholder="Nom du fichier" class="filename"></div>
-        <div class="basic-flex">
-            <button class="btn">Importer</button>
-            <button class="btn">Exporter</button>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://unpkg.com/konva@9.3.18/konva.min.js"></script>
+        <link rel="stylesheet" href="style.css" />
+        <title>PlanDeClasse</title>
+    </head>
+    <body>
+        <div id="menu">
+            <h1 class="main-title">PlanDeClasse</h1>
+            <p>Système de gestion de plan de classe.</p>
+            <div class="basic-flex">
+                <input
+                    type="text"
+                    placeholder="Nom du fichier"
+                    class="filename"
+                />
+            </div>
+            <div class="basic-flex">
+                <button class="btn">Importer</button>
+                <button class="btn">Exporter</button>
+            </div>
+            <div class="basic-flex">
+                <button class="btn" id="downloadBtn">Télécharger Image</button>
+            </div>
+
+            <div class="separator"></div>
+            <div class="elements-container">
+                <h2>Grille</h2>
+                <button class="btn">Afficher</button>
+                <h4>Résolution</h4>
+                <input
+                    type="range"
+                    class="range"
+                    id="resolution-input"
+                    min="0"
+                    max="3"
+                    step="1"
+                />
+            </div>
+
+            <div class="separator"></div>
+
+            <div class="elements-container">
+                <h2>Murs</h2>
+                <p>
+                    Créer des murs point par point. Cliquer sur le point de
+                    départ pour terminer.
+                </p>
+                <div class="basic-flex">
+                    <button class="btn" id="btn-create-walls">Créer</button>
+                    <button class="btn caution" id="btn-delete-walls">Supprimer</button>
+                </div>
+            </div>
+
+            <div class="separator"></div>
         </div>
-        <div class="basic-flex">
-            <button class="btn">Télécharger Image</button>
+        <div class="plan-view">
+            <div id="container"></div>
         </div>
-    </div>
-    <!-- <div id="container"></div> -->
-    <script src="app.js"></script>
-</body>
+
+        <script src="scripts/grid.js"></script>
+
+        <script src="app.js"></script>
+
+        <script src="scripts/movement.js"></script>
+
+        <script src="scripts/walls.js"></script>
+
+        <script src="scripts/buttons.js"></script>
+    </body>
 </html>
