@@ -7,7 +7,7 @@ body {
     flex-direction: row;
     height: 100vh;
     font-family: Arial;
-  }
+}
 
 #menu {
     background-color: white;
@@ -16,12 +16,34 @@ body {
     padding: 15px;
     box-shadow: 5px 5px 15px #cfcfcf;
     z-index: 10;
+    overflow: auto;
+}
+
+#menu h2 {
+    cursor: pointer;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+}
+
+h3 {
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+#menu h2:hover {
+    background-color: #f0f0f0;
 }
 
 p {
     font-size: 14px;
+    margin: 0;
+    margin-bottom: 8px;
 }
 
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
 
 .main-title {
     margin: 0;
@@ -36,16 +58,29 @@ p {
     align-items: center;
 }
 
-.filename {
+.checkbox-container {
+    display: flex;
+    gap: 15px;
+}
+
+input[type="text"] {
     height: 30px;
-    border-color: #415A77;
+    border-color: #415a77;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+}
+
+input[type="number"] {
+    height: 30px;
+    border-color: #415a77;
     border-radius: 4px;
     font-size: 14px;
     width: 100%;
 }
 
 .btn {
-    background-color: #415A77;
+    background-color: #415a77;
     border-radius: 4px;
     width: 100%;
     color: white;
@@ -54,7 +89,7 @@ p {
     border: 0;
     font-size: 14px;
     font-weight: bold;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .caution {
@@ -68,7 +103,7 @@ p {
     overflow: hidden;
     position: relative;
     width: 100%;
-    flex: 1,
+    flex: 1;
 }
 
 #container {
@@ -80,14 +115,26 @@ p {
 .separator {
     width: 100%;
     height: 1px;
-    margin: 20px 0;
     background-color: rgb(196, 196, 196);
     border-radius: 100px;
 }
 
 .range {
     width: 100%;
-    background: #415A77;
+    background: #415a77;
 }
 
+.menu-tab {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    padding-inline: 8px;
+}
 
+.menu-tab.open {
+    max-height: 500px;
+}
+
+.menu-tab > :not(.basic-flex):last-child {
+    margin-bottom: 20px;
+}

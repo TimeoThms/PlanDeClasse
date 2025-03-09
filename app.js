@@ -8,6 +8,9 @@ const stage = new Konva.Stage({
     height: 1050,
 });
 
+widthInput.value = stage.width() / 100;
+heightInput.value = stage.height() / 100;
+
 const layer = new Konva.Layer();
 stage.add(layer);
 

@@ -16,21 +16,37 @@ stage.on("click", (e) => {
     if (!isDrawingPolygon) return;
     const pos = stage.getPointerPosition();
 
-    const nearestGridPoint = getNearestGridPoint(pos.x, pos.y);
+    let coords = [pos.x, pos.y];
 
-    if (nearestGridPoint[0] == points[0] && nearestGridPoint[1] == points[1]) {
-        // Check if start point is clicked
-        isDrawingPolygon = false;
-        return;
+    if (gridToggled) {
+        // If the grid in enabled, map the point to the neared grid point
+        coords = getNearestGridPoint(pos.x, pos.y);
+
+        if (coords[0] == points[0] && coords[1] == points[1]) {
+            // Check if start point is clicked
+            isDrawingPolygon = false;
+            return;
+        }
+    } else {
+        // If grid is disabled, check euclidian distance between clicked point and first point
+        if (
+            Math.sqrt(
+                (points[0] - coords[0]) ** 2 + (points[1] - coords[1]) ** 2
+            ) < 10
+        ) {
+            // Check if start point is clicked
+            isDrawingPolygon = false;
+            return;
+        }
     }
 
-    points.push(nearestGridPoint[0], nearestGridPoint[1]);
+    points.push(coords[0], coords[1]);
 
     polygon.points(points);
 
     let circle = new Konva.Circle({
-        x: nearestGridPoint[0],
-        y: nearestGridPoint[1],
+        x: coords[0],
+        y: coords[1],
         radius: 5,
         fill: "#1B263B",
         draggable: true,
@@ -52,12 +68,12 @@ stage.on("click", (e) => {
         newX = Math.max(8, Math.min(stageWidth - 8, newX));
         newY = Math.max(8, Math.min(stageHeight - 8, newY));
 
-        const nearestGridPoint = getNearestGridPoint(newX, newY);
+        const coords = getNearestGridPoint(newX, newY);
 
-        circle.position({ x: nearestGridPoint[0], y: nearestGridPoint[1] });
+        circle.position({ x: coords[0], y: coords[1] });
 
-        points[index * 2] = nearestGridPoint[0];
-        points[index * 2 + 1] = nearestGridPoint[1];
+        points[index * 2] = coords[0];
+        points[index * 2 + 1] = coords[1];
 
         polygon.points(points);
         layer.batchDraw();
@@ -72,7 +88,7 @@ function createWalls() {
         alert("Il y a déjà des murs ! Supprimez les avant.");
         return;
     }
-    console.log("start drawing")
+    console.log("start drawing");
     isDrawingPolygon = true;
 }
 
@@ -83,6 +99,6 @@ function deleteWalls() {
     });
     pointsHandles = [];
     polygon.points([]);
-    points = []
+    points = [];
     layer.batchDraw();
 }

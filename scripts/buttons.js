@@ -10,7 +10,7 @@ downloadBtn.addEventListener("click", () => {
     });
 
     const dataURL = stage.toDataURL({
-        pixelRatio: 3,
+        pixelRatio: 2, // On the canvas, 1px = 1cm, on export, the resolution is doubled
     });
 
     // Create link and click it
@@ -27,14 +27,48 @@ downloadBtn.addEventListener("click", () => {
     });
 });
 
+// Grid
+const toggleGridBtn = document.getElementById("btn-toggle-grid");
+toggleGridBtn.addEventListener("click", () => {
+    toggleGrid();
+});
+
 // Start drawing and delete walls
 const createWallsBtn = document.getElementById("btn-create-walls");
 const deleteWallsBtn = document.getElementById("btn-delete-walls");
 
 createWallsBtn.addEventListener("click", () => {
     createWalls();
-})
+});
 
 deleteWallsBtn.addEventListener("click", () => {
     deleteWalls();
+});
+
+// Height and width input
+const widthInput = document.getElementById("width-input");
+const heightInput = document.getElementById("height-input");
+
+widthInput.addEventListener("change", function () {
+    const value = widthInput.value;
+
+    if (value >= 0) {
+        stage.width(value * 100);
+        canvas.width(value * 100);
+        updateGrid();
+    } else {
+        alert("Valeur invalide ! Veuillez entrer un nombre positif");
+    }
+});
+
+heightInput.addEventListener("change", function () {
+    const value = heightInput.value;
+
+    if (value >= 0) {
+        stage.height(value * 100);
+        canvas.height(value * 100);
+        updateGrid();
+    } else {
+        alert("Valeur invalide ! Veuillez entrer un nombre positif");
+    }
 });

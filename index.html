@@ -27,10 +27,41 @@
             </div>
 
             <div class="separator"></div>
-            <div class="elements-container">
-                <h2>Grille</h2>
-                <button class="btn">Afficher</button>
-                <h4>Résolution</h4>
+
+            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                Taille
+            </h2>
+            <div class="menu-tab">
+                <h3>Dimensions (mètres)</h3>
+                <div class="basic-flex">
+                    <div class="basic-flex">
+                        <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="Largeur"
+                            id="width-input"
+                        />
+                        x
+                        <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="Hauteur"
+                            id="height-input"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                Grille
+            </h2>
+            <div class="menu-tab">
+                <button class="btn" id="btn-toggle-grid">Afficher</button>
+                <h3>Résolution</h3>
                 <input
                     type="range"
                     class="range"
@@ -43,19 +74,30 @@
 
             <div class="separator"></div>
 
-            <div class="elements-container">
-                <h2>Murs</h2>
+            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                Murs
+            </h2>
+            <div class="menu-tab">
                 <p>
                     Créer des murs point par point. Cliquer sur le point de
                     départ pour terminer.
                 </p>
                 <div class="basic-flex">
                     <button class="btn" id="btn-create-walls">Créer</button>
-                    <button class="btn caution" id="btn-delete-walls">Supprimer</button>
+                    <button class="btn caution" id="btn-delete-walls">
+                        Supprimer
+                    </button>
                 </div>
             </div>
 
             <div class="separator"></div>
+
+            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                Éléments
+            </h2>
+            <div class="menu-tab">
+                <p>Glisser déposer des éléments pour les ajouter au plan.</p>
+            </div>
         </div>
         <div class="plan-view">
             <div id="container"></div>
@@ -63,12 +105,12 @@
 
         <script src="scripts/grid.js"></script>
 
+        <script src="scripts/buttons.js"></script>
+
         <script src="app.js"></script>
 
         <script src="scripts/movement.js"></script>
 
         <script src="scripts/walls.js"></script>
-
-        <script src="scripts/buttons.js"></script>
     </body>
 </html>
