@@ -22,23 +22,15 @@ stage.on("click", (e) => {
         // If the grid in enabled, map the point to the neared grid point
         coords = getNearestGridPoint(pos.x, pos.y);
 
-        if (coords[0] == points[0] && coords[1] == points[1]) {
-            // Check if start point is clicked
-            isDrawingPolygon = false;
-            return;
-        }
-    } else {
-        // If grid is disabled, check euclidian distance between clicked point and first point
-        if (
-            Math.sqrt(
-                (points[0] - coords[0]) ** 2 + (points[1] - coords[1]) ** 2
-            ) < 10
-        ) {
-            // Check if start point is clicked
-            isDrawingPolygon = false;
-            return;
-        }
     }
+
+        if (coords[0] == points[0] && coords[1] == points[1] || Math.sqrt(
+            (points[0] - coords[0]) ** 2 + (points[1] - coords[1]) ** 2
+        ) < 10) {
+            // Check if start point is clicked
+            isDrawingPolygon = false;
+            return;
+        }
 
     points.push(coords[0], coords[1]);
 

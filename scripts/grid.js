@@ -1,10 +1,17 @@
 const resolutionInput = document.getElementById("resolution-input");
 
+
+
 let gridToggled = true;
 
 function toggleGrid() {
     gridToggled = !gridToggled;
     updateGrid();
+    if (gridToggled) {
+        toggleGridBtn.innerText = "Cacher";
+    } else {
+        toggleGridBtn.innerText = "Afficher";
+    }
 }
 
 function getNearestGridPoint(x, y) {
@@ -40,7 +47,7 @@ function updateGrid() {
     for (let i = 0; i < Math.floor(stage.width() / gridResolution) + 1; i++) {
         const gridLine = new Konva.Line({
             points: [i * gridResolution, 0, i * gridResolution, stage.height()],
-            stroke: "#eee",
+            stroke: "#ccc",
             strokeWidht: 1,
         });
         gridLines.push(gridLine);
@@ -52,7 +59,7 @@ function updateGrid() {
     for (let i = 0; i < Math.floor(stage.height() / gridResolution) + 1; i++) {
         const gridLine = new Konva.Line({
             points: [0, i * gridResolution, stage.width(), i * gridResolution],
-            stroke: "#eee",
+            stroke: "#ccc",
             strokeWidht: 1,
         });
         gridLines.push(gridLine);
