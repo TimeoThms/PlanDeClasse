@@ -1,0 +1,86 @@
+{
+    "title": "Salle de Permanence",
+    "width": 10,
+    "height": 10,
+    "walls": [0, 0, 1, 1, 2, 2],
+    "elements": [
+        {
+            "type": "table",
+            "x": 0,
+            "y": 0,
+            "rotation": 90,
+            "label": "Marcel",
+            "color": "green"
+        },
+        {
+            "type": "doubletable",
+            "x": 0,
+            "y": 0,
+            "rotation": 90,
+            "label-1": "Jean",
+            "label-2": "Prenom",
+            "color": "green"
+        },
+        {
+            "type": "door",
+            "doortype": "normal/safety",
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "rotation": 90,
+            "label": ""
+        },
+        {
+            "type": "storage",
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "rotation": 90,
+            "label": "Etagere"
+        },
+        {
+            "type": "rectangle",
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 1,
+            "rotation": 90,
+            "label": "",
+            "color": "purple"
+        },
+        {
+            "type": "circle",
+            "x": 0,
+            "y": 0,
+            "radius": 2,
+            "rotation": 90,
+            "label": "",
+            "color": "purple"
+        },
+        {
+            "type": "whiteboard",
+            "x": 0,
+            "y": 0,
+            "width": 10,
+            "rotation": 90,
+            "label": ""
+        },
+        {
+            "type": "desk",
+            "x": 0,
+            "y": 0,
+            "rotation": 90,
+            "label": ""
+        },
+        {
+            "type": "text",
+            "x": 0,
+            "y": 0,
+            "rotation": 0,
+            "font-size": 12,
+            "label": "Hello",
+            "color": "black"
+        }
+    ]
+}
