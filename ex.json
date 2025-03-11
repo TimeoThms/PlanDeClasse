@@ -1,8 +1,8 @@
 {
-    "title": "Salle de Permanence",
+    "filename": "Salle de Permanence",
     "width": 10,
     "height": 10,
-    "walls": [0, 0, 1, 1, 2, 2],
+    "walls": [20, 20, 20, 260, 300, 200, 300, 20],
     "elements": [
         {
             "type": "table",

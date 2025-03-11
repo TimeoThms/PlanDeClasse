@@ -79,6 +79,10 @@ input[type="number"] {
     width: 100%;
 }
 
+input[type="file"] {
+    appearance: none;
+}
+
 .btn {
     background-color: #415a77;
     border-radius: 4px;
@@ -90,6 +94,13 @@ input[type="number"] {
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    background-color: #374969;
 }
 
 .caution {
