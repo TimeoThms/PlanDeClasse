@@ -149,3 +149,48 @@ input[type="file"] {
 .menu-tab > :not(.basic-flex):last-child {
     margin-bottom: 20px;
 }
+
+
+
+
+.elements-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.element {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #eee;
+    flex: 1;
+    min-width: 100px;
+}
+
+.icons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 30%;
+    justify-content: space-between;
+}
+
+.element-left {
+    width: 60%;
+}
+
+
+.element-icon {
+    aspect-ratio: 4/3;
+    background-color: #b95757;
+    border-radius: 8px;
+}
+
+.round-icon {
+    aspect-ratio: 1/1;
+    background-color: #415a77;
+    border-radius: 100%;
+}

@@ -2,13 +2,10 @@
 
 const planView = document.querySelector(".plan-view");
 
-// Init scale on load to fit 90% of the height or width
 let scale = Math.min(
     (planView.offsetWidth / stage.width()) * 0.9,
     (planView.offsetHeight / stage.height()) * 0.9
 );
-container.style.transform = `scale(${scale})`;
-
 let isDragging = false;
 let startX, startY;
 let offsetX = 0,
@@ -16,6 +13,22 @@ let offsetX = 0,
 let minScale = 0.05;
 let maxScale = 10;
 let isCtrlPressed = false;
+
+function resetZoom() {
+    scale = Math.min(
+        (planView.offsetWidth / stage.width()) * 0.9,
+        (planView.offsetHeight / stage.height()) * 0.9
+    );
+    container.style.transform = `scale(${scale})`;
+    offsetX = 0;
+    offsetY = 0;
+    minScale = 0.05;
+    maxScale = 10;
+}
+
+// Init scale on load to fit 90% of the height or width
+
+resetZoom();
 
 // Listener for control key
 window.addEventListener("keydown", (e) => {

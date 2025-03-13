@@ -1,7 +1,5 @@
 const resolutionInput = document.getElementById("resolution-input");
 
-
-
 let gridToggled = true;
 
 function toggleGrid() {

@@ -16,7 +16,7 @@ downloadBtn.addEventListener("click", () => {
     // Create link and click it
     const a = document.createElement("a");
     a.href = dataURL;
-    a.download = "plan_de_classe.png"; // Filename
+    a.download = projectData.filename + "_IMG.png"; // Filename
     a.click();
 
     pointsHandles.forEach(function (circle) {
@@ -55,6 +55,9 @@ widthInput.addEventListener("change", function () {
     if (value >= 0) {
         stage.width(value * 100);
         canvas.width(value * 100);
+        projectData.width = value * 100;
+        
+        resetZoom();
         updateGrid();
     } else {
         alert("Valeur invalide ! Veuillez entrer un nombre positif");
@@ -67,6 +70,9 @@ heightInput.addEventListener("change", function () {
     if (value >= 0) {
         stage.height(value * 100);
         canvas.height(value * 100);
+        projectData.height = value * 100;
+
+        resetZoom();
         updateGrid();
     } else {
         alert("Valeur invalide ! Veuillez entrer un nombre positif");
