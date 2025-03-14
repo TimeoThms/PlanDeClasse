@@ -48,6 +48,7 @@
                             step="0.01"
                             placeholder="Largeur"
                             id="width-input"
+                            class="size-input"
                         />
                         x
                         <input
@@ -56,6 +57,7 @@
                             step="0.01"
                             placeholder="Hauteur"
                             id="height-input"
+                            class="size-input"
                         />
                     </div>
                 </div>
@@ -105,84 +107,174 @@
             <div class="menu-tab">
                 <p>Glisser déposer des éléments pour les ajouter au plan.</p>
                 <div class="elements-container">
+
                     <div class="element">
-                        <div class="element-left">      
+                        <div class="element-top">
                             <h3>Table</h3>
-                            <div class="element-icon"></div>
+                            <button class="btn" id="add-table-btn">Ajouter</button>
                         </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
-                        </div>
-                    </div>
-                    <div class="element">
-                        <div class="element-left">      
-                            <h3>Bureau</h3>
-                            <div class="element-icon"></div>
-                        </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Couleur</h4>
+                                <input type="color" name="" id="table-color" hidden>
+                                <label for="table-color" class="color-label"></label>
+                            </div>
+                            <div class="attribute">
+                                <h4>Texte</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
                         </div>
                     </div>
+
                     <div class="element">
-                        <div class="element-left">      
-                            <h3>Table</h3>
-                            <div class="element-icon"></div>
+                        <div class="element-top">
+                            <h3>Table double</h3>
+                            <button class="btn">Ajouter</button>
                         </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Couleur</h4>
+                                <input type="color" name="" id="table-color" hidden>
+                                <label for="table-color" class="color-label"></label>
+                            </div>
+                            <div class="attribute">
+                                <h4>Texte 1</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
+                            <div class="attribute">
+                                <h4>Texte 2</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
                         </div>
                     </div>
+
                     <div class="element">
-                        <div class="element-left">      
-                            <h3>Bureau</h3>
-                            <div class="element-icon"></div>
+                        <div class="element-top">
+                            <h3>Porte</h3>
+                            <button class="btn">Ajouter</button>
                         </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Type</h4>
+                                <div class="radio-list">
+                                    <input type="radio" class="radio-input" name="" id="normal-door">
+                                    <label for="normal-door">Normal</label>
+                                    <input type="radio" class="radio-input" name="" id="safety-door">
+                                    <label for="safety-door">Secours</label>
+                                </div>
+                            </div>
+                            <div class="attribute">
+                                <h4>Texte</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="element">
-                        <div class="element-left">      
-                            <h3>Table</h3>
-                            <div class="element-icon"></div>
+                        <div class="element-top">
+                            <h3>Bureau professeur</h3>
+                            <button class="btn">Ajouter</button>
                         </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Texte</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
                         </div>
                     </div>
+
                     <div class="element">
-                        <div class="element-left">      
-                            <h3>Bureau</h3>
-                            <div class="element-icon"></div>
+                        <div class="element-top">
+                            <h3>Texte</h3>
+                            <button class="btn">Ajouter</button>
                         </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Couleur</h4>
+                                <input type="color" name="" id="table-color" hidden>
+                                <label for="table-color" class="color-label"></label>
+                            </div>
+                            <div class="attribute">
+                                <h4>Taille</h4>
+                                <input type="number" name="" id="" class="font-size-input">
+                            </div>
+                            <div class="attribute">
+                                <h4>Contenu</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
                         </div>
                     </div>
+
+
                     <div class="element">
-                        <div class="element-left">      
-                            <h3>Table</h3>
-                            <div class="element-icon"></div>
+                        <div class="element-top">
+                            <h3>Stockage</h3>
+                            <button class="btn">Ajouter</button>
                         </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Texte</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
                         </div>
                     </div>
+
+
                     <div class="element">
-                        <div class="element-left">      
-                            <h3>Bureau</h3>
-                            <div class="element-icon"></div>
+                        <div class="element-top">
+                            <h3>Tableau</h3>
+                            <button class="btn">Ajouter</button>
                         </div>
-                        <div class="icons-container">
-                            <div class="modify-icon round-icon"></div>
-                            <div class="add-icon round-icon"></div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Texte</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element">
+                        <div class="element-top">
+                            <h3>Rectangle</h3>
+                            <button class="btn">Ajouter</button>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Couleur</h4>
+                                <input type="color" name="" id="table-color" hidden>
+                                <label for="table-color" class="color-label"></label>
+                            </div>
+                            <div class="attribute">
+                                <h4>Texte</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="element">
+                        <div class="element-top">
+                            <h3>Cercle</h3>
+                            <button class="btn">Ajouter</button>
+                        </div>
+                        <div class="separator"></div>
+                        <div class="element-bottom">
+                            <div class="attribute">
+                                <h4>Couleur</h4>
+                                <input type="color" name="" id="table-color" hidden>
+                                <label for="table-color" class="color-label"></label>
+                            </div>
+                            <div class="attribute">
+                                <h4>Texte</h4>
+                                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+                            </div>
                         </div>
                     </div>
                     
@@ -205,8 +297,15 @@
         <script src="scripts/walls.js"></script>
 
         <script src="scripts/filemanager.js"></script>
+        
+        <script src="scripts/elements/table.js"></script>
+
+
+
+
         <script>
             resetZoom();
+            addTable(200, 200);
         </script>
     </body>
 </html>
