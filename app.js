@@ -24,4 +24,25 @@ const canvas = new Konva.Rect({
 layer.add(canvas);
 canvas.moveToBottom();
 
+
+let elements = [];
+
+const elementsLayer = new Konva.Layer();
+stage.add(elementsLayer);
+
+const transformerNoResize = new Konva.Transformer({
+    nodes: [],
+    rotateEnabled: true,
+    resizeEnabled: false,
+    enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right"],
+    rotateAnchorOffset: 20,
+    rotationSnaps: Array.from({ length: 73 }, (_, i) => i * 5), // [0, 5, 10, 15, ..., 355]
+});
+
+elementsLayer.add(transformerNoResize);
+
 updateGrid();
+
+function generateId() { // Uses timestamp as unique identifier
+    return `id_${Date.now()}`;
+}

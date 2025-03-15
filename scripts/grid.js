@@ -28,7 +28,6 @@ let gridResolution = 5 * Math.pow(2, resolutionInput.value);
 resolutionInput.addEventListener("input", function () {
     gridResolution = 5 * Math.pow(2, this.value);
     updateGrid();
-    console.log(gridResolution);
 });
 
 // Pretty straightforward

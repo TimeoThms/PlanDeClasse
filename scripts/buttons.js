@@ -8,6 +8,7 @@ downloadBtn.addEventListener("click", () => {
     gridLines.forEach(function (line) {
         line.visible(false);
     });
+    transformerNoResize.visible(false);
 
     const dataURL = stage.toDataURL({
         pixelRatio: 2, // On the canvas, 1px = 1cm, on export, the resolution is doubled
@@ -25,6 +26,7 @@ downloadBtn.addEventListener("click", () => {
     gridLines.forEach(function (line) {
         line.visible(true);
     });
+    transformerNoResize.visible(true);
 });
 
 // Grid
