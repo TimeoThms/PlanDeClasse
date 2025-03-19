@@ -79,8 +79,9 @@ function addTable(
     group.on("click", (e) => {
         let nodes = transformerNoResize.nodes();
         if (nodes.includes(group)) {
-            if (!e.evt.ctrlKey ) { // If click element without CTRL on multiple selection, select only it
-                nodes.forEach(element => {
+            if (!e.evt.ctrlKey) {
+                // If click element without CTRL on multiple selection, select only it
+                nodes.forEach((element) => {
                     element.draggable(false);
                 });
                 transformerNoResize.nodes([group]);
@@ -97,6 +98,9 @@ function addTable(
                 transformerNoResize.nodes([...nodes, group]);
             } else {
                 // Else just set the nodes to the element
+                nodes.forEach((element) => {
+                    element.draggable(false);
+                });
                 transformerNoResize.nodes([group]);
             }
             group.draggable(true);
@@ -121,7 +125,8 @@ function addTable(
 
     elementsLayer.batchDraw();
 
-    if (!projectData.elements.some((e) => e.id === id)) { // If not in project data yet, aka newly added element
+    if (!projectData.elements.some((e) => e.id === id)) {
+        // If not in project data yet, aka newly added element
         projectData.elements.push({
             id: id,
             type: "table",
