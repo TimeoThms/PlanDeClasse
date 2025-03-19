@@ -19,7 +19,7 @@ function addTable(
     let group = new Konva.Group({
         x: x,
         y: y,
-        draggable: true,
+        draggable: false,
     });
 
     let chair = new Konva.Rect({
@@ -65,50 +65,63 @@ function addTable(
 
     elementsLayer.add(group);
 
-    transformerNoResize.nodes([...transformerNoResize.nodes(), group]);
-
-    group.on("dragmove", (e) => {
-        const node = e.target;
-        const stage = node.getStage();
-        const { width, height } = stage.size();
-        const box = node.getClientRect(); // Group dimensions
-
-        // Snap to grid
-        let [newX, newY] = getNearestGridPoint(node.x(), node.y());
-
-        // Check if outside of stage
-        newX = Math.max(0, Math.min(width - box.width, newX));
-        newY = Math.max(0, Math.min(height - box.height, newY));
-
-        node.position({ x: newX, y: newY });
-
-        const tableElement = projectData.elements.find(
-            (element) => element.id === id
-        );
-        if (tableElement) {
-            tableElement.x = newX;
-            tableElement.y = newY;
-        }
-    });
-
     group.on("transformend", (e) => {
         const tableElement = projectData.elements.find(
             (element) => element.id === id
         );
         if (tableElement) {
             tableElement.rotation = e.target.rotation();
+            tableElement.x = e.target.x();
+            tableElement.y = e.target.y();
         }
     });
 
-    group.on("click", () => {
-        transformerNoResize.nodes([group]);
+    group.on("click", (e) => {
+        let nodes = transformerNoResize.nodes();
+        if (nodes.includes(group)) {
+            if (!e.evt.ctrlKey ) { // If click element without CTRL on multiple selection, select only it
+                nodes.forEach(element => {
+                    element.draggable(false);
+                });
+                transformerNoResize.nodes([group]);
+                group.draggable(true);
+            } else {
+                transformerNoResize.nodes(
+                    nodes.filter((node) => node !== group)
+                );
+                group.draggable(false);
+            }
+        } else {
+            if (e.evt.ctrlKey) {
+                // If control key is pressed, add element to transformer nodes
+                transformerNoResize.nodes([...nodes, group]);
+            } else {
+                // Else just set the nodes to the element
+                transformerNoResize.nodes([group]);
+            }
+            group.draggable(true);
+        }
+
+        // transformerNoResize.nodes([group]);
+
+        elementsLayer.batchDraw();
+    });
+
+    group.on("dragend", (e) => {
+        const tableElement = projectData.elements.find(
+            (element) => element.id === id
+        );
+        if (tableElement) {
+            tableElement.x = e.target.x();
+            tableElement.y = e.target.y();
+        }
 
         elementsLayer.batchDraw();
     });
 
     elementsLayer.batchDraw();
 
-    if (!projectData.elements.some((e) => e.id === id)) {
+    if (!projectData.elements.some((e) => e.id === id)) { // If not in project data yet, aka newly added element
         projectData.elements.push({
             id: id,
             type: "table",
@@ -118,6 +131,9 @@ function addTable(
             label: labelContent,
             color: color,
         });
+
+        transformerNoResize.nodes([group]);
+        group.draggable(true);
     }
 
     elements.push(group);
