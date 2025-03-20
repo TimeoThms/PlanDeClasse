@@ -71,6 +71,8 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     // Add element to project data if not already in
     if (!projectData.elements.some((e) => e.id === id)) {
         projectData.elements.push({ id, type, x, y, rotation, ...config });
+        let nodes = transformerNoResize.nodes();
+        nodes.forEach((el) => el.draggable(false));
         transformerNoResize.nodes([group]);
         group.draggable(true);
     }
