@@ -1,5 +1,4 @@
 // Stage init
-
 const container = document.getElementById("container");
 
 const stage = new Konva.Stage({
@@ -8,6 +7,7 @@ const stage = new Konva.Stage({
     height: 1050,
 });
 
+// Fill size inputs, in meters, 1px = 1cm
 widthInput.value = stage.width() / 100;
 heightInput.value = stage.height() / 100;
 
@@ -24,19 +24,14 @@ const canvas = new Konva.Rect({
 layer.add(canvas);
 canvas.moveToBottom();
 
-layer.on("click", () => {
-    transformerNoResize.nodes().forEach((node) => {
-        node.draggable(false);
-    });
-    transformerNoResize.nodes([]);
-    elementsLayer.batchDraw();
-})
 
 let elements = [];
 
 const elementsLayer = new Konva.Layer();
 stage.add(elementsLayer);
 
+
+// Init the transformer for elements that dont need to have a resize function
 const transformerNoResize = new Konva.Transformer({
     nodes: [],
     rotateEnabled: true,
@@ -61,15 +56,16 @@ transformerNoResize.on("dragmove", (e) => {
     let minX = Infinity,
         minY = Infinity;
 
+    // Find the minimum X and Y of the selection
     transformerNoResize.nodes().forEach((node) => {
         minX = Math.min(minX, node.x());
         minY = Math.min(minY, node.y());
     });
 
-
     let newX = minX;
     let newY = minY;
 
+    // Correct coords if selection is dragged out of the stage
     if (minX < 0) {
         newX = 0;
     }
@@ -88,6 +84,7 @@ transformerNoResize.on("dragmove", (e) => {
         [newX, newY] = getNearestGridPoint(newX, newY);
     }
 
+    // Elements potions relatively to their position with the selection
     transformerNoResize.nodes().forEach((element) => {
         element.position({
             x: newX + (element.x() - minX),
@@ -96,6 +93,30 @@ transformerNoResize.on("dragmove", (e) => {
     });
 
     elementsLayer.batchDraw();
+});
+
+// Unselect all elements if layer is clicked (aka background rect and grid lines)
+layer.on("click", () => {
+    transformerNoResize.nodes().forEach((node) => {
+        node.draggable(false);
+    });
+    transformerNoResize.nodes([]);
+    elementsLayer.batchDraw();
+});
+
+window.addEventListener("keydown", (e) => {
+    if (e.key === "Delete" || e.key === "Backspace") {
+        const selectedNodes = transformerNoResize.nodes();
+        selectedNodes.forEach((node) => {
+            node.destroy();
+            projectData.elements = projectData.elements.filter(
+                (obj) => obj.id !== node.id()
+            );
+        });
+        transformerNoResize.nodes([]);
+        elementsLayer.batchDraw();
+        console.log(projectData.elements.length);
+    }
 });
 
 elementsLayer.add(transformerNoResize);

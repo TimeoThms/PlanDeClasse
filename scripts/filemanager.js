@@ -2,6 +2,7 @@ const fileInput = document.getElementById("input-file");
 const filenameInput = document.getElementById("input-filename");
 const exportBtn = document.getElementById("btn-export");
 
+// Default, empty project data
 let projectData = {
     filename: "",
     width: stage.width(),
@@ -80,14 +81,15 @@ function loadProject() {
 
     elementsLayer.batchDraw();
 
-    // Clear transformer nodes
+    // Clear transformer nodes of all previous elements
     transformerNoResize.nodes([]);
 
+    // Fill size inputs with their values
     filenameInput.value = projectData.filename;
-
-    widthInput.value = projectData.width / 100;
+    widthInput.value = projectData.width / 100; // Values in meters, 1px = 1cm
     heightInput.value = projectData.height / 100;
 
+    // Match size to the size of the loaded project
     stage.width(projectData.width);
     canvas.width(projectData.width);
     stage.height(projectData.height);
@@ -97,11 +99,10 @@ function loadProject() {
 
     // Load elements
     projectData.elements.forEach((e) => {
-        if (e.type === "table") {
-            addTable(e.id, e.x, e.y, e.rotation, e.color, e.label);
-        }
+        // Get attributes of the element. ...config corresponds to the remaining arguments (aka type-related args)
+        const { type, id, x, y, rotation, ...config } = e;
+        addElement({ type, id, x, y, rotation, config });
     });
-
 
     resetZoom();
     updateGrid();
