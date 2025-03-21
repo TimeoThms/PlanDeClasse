@@ -9,6 +9,10 @@ body {
     font-family: Arial;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 #menu {
     background-color: white;
     width: 350px;

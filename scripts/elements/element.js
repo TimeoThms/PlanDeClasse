@@ -47,7 +47,8 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         elementsLayer.batchDraw();
 
         if (transformerNoResize.nodes().length == 1) {
-            elementEditor.innerHTML = getEditor(type, config);
+            // elementEditor.innerHTML = getEditor(type, config);
+            displayEditor(id);
             elementEditor.style.top = "8px";
         } else {
             elementEditor.style.top = "-100px";
@@ -88,7 +89,8 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
 
     elements.push(group);
 
-    elementEditor.innerHTML = getEditor(type, config);
+    // elementEditor.innerHTML = getEditor(type, config);
+    displayEditor(id);
     elementEditor.style.top = "8px";
 }
 
@@ -104,12 +106,60 @@ function createShape(type, config) {
     }
 }
 
-function getEditor(type, config) {
+// Function used to fill the content of the editor inputs with the values of the selected element
+function syncEditorValues(type, config) {
     switch (type) {
         case "table":
-            return getTableEditor(config);
+            return syncTableEditor(config);
         default:
             console.warn("Unknown type:", type);
             return null;
     }
+}
+
+function displayEditor(id) {
+    const element = projectData.elements.find((el) => el.id === id);
+
+    // Hide all attributes
+    document.querySelectorAll("#element-editor .attribute").forEach((attr) => {
+        attr.hidden = true;
+    });
+
+    // Show attributes related to the type
+    document
+        .querySelectorAll(`#element-editor .${element.type}-attribute`)
+        .forEach((attr) => {
+            attr.hidden = false;
+        });
+
+    const config = Object.fromEntries(
+        // Convert to key-value arrays and filter it to only keep type-related config
+        Object.entries(element).filter(
+            ([key]) => !["type", "id", "x", "y", "rotation"].includes(key)
+        )
+    );
+
+    syncEditorValues(element.type, config);
+}
+
+function updateElement({ type, id, config = {} }) {
+    // Get element in elements list
+    const element = elements.find((el) => el.id() === id);
+
+    // Get the new shapes
+    element.destroyChildren();
+    let shapes = createShape(type, config);
+
+    // Update the group
+    if (Array.isArray(shapes)) {
+        shapes.forEach((shape) => element.add(shape));
+    } else {
+        element.add(shapes);
+    }
+
+    elementsLayer.batchDraw();
+
+    // Merge old element data with updated data
+    let elementData = projectData.elements.find((el) => el.id === id);
+    Object.assign(elementData, config);
 }

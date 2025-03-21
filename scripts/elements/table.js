@@ -9,7 +9,7 @@ tableColorInput.addEventListener("input", (event) => {
 });
 
 // Returns the list of shapes used to make the table
-function createTable({ color = "#000", labelContent = "" }) {
+function createTable({ color = "#000", label = "" }) {
     let chair = new Konva.Rect({
         x: 12,
         y: 40,
@@ -32,10 +32,10 @@ function createTable({ color = "#000", labelContent = "" }) {
         strokeWidth: strokeWidth,
     });
 
-    let label = new Konva.Text({
+    let text = new Konva.Text({
         x: 0,
         y: 0,
-        text: labelContent,
+        text: label,
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#000",
@@ -46,7 +46,7 @@ function createTable({ color = "#000", labelContent = "" }) {
         verticalAlign: "middle",
     });
 
-    return [chair, plank, label];
+    return [chair, plank, text];
 }
 
 addTableBtn.addEventListener("click", () => {
@@ -58,21 +58,44 @@ addTableBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: tableColorInput.value,
-            labelContent: tableLabelInput.value,
+            label: tableLabelInput.value,
         },
     });
 });
 
-function getTableEditor({ color = "#000", labelContent = "" }) {
-    return `
-    <div class="attribute">
-        <h4>Couleur</h4>
-        <input type="color" name="" id="table-color" value="${color}" hidden>
-        <label for="table-color" class="color-label" id="table-color-label" style="background-color: ${color}"></label>
-    </div>
-    <div class="attribute">
-        <h4>Texte</h4>
-        <input type="text" name="" id="table-label-input" class="label-input" placeholder="Aucun" value="${labelContent}">
-    </div>
-    `
+// EDITOR
+
+const editorTableColorInput = document.getElementById("editor-table-color");
+const editorTableColorLabel = document.getElementById(
+    "editor-table-color-label"
+);
+const editorTableLabelInput = document.getElementById(
+    "editor-table-label-input"
+);
+
+editorTableColorInput.addEventListener("input", (event) => {
+    const selectedColor = event.target.value;
+    editorTableColorLabel.style.backgroundColor = selectedColor;
+    updateTable();
+});
+
+editorTableLabelInput.addEventListener("input", () => {
+    updateTable();
+});
+
+function updateTable() {
+    updateElement({
+        type: "table",
+        id: transformerNoResize.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        config: {
+            color: editorTableColorInput.value,
+            label: editorTableLabelInput.value,
+        },
+    });
+}
+
+function syncTableEditor({ color = "#000", label = "" }) {
+    editorTableColorInput.value = color;
+    editorTableColorLabel.style.backgroundColor = color;
+    editorTableLabelInput.value = label;
 }
