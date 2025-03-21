@@ -102,10 +102,12 @@ layer.on("click", () => {
     });
     transformerNoResize.nodes([]);
     elementsLayer.batchDraw();
+
+    elementEditor.style.top = "-100px"
 });
 
 window.addEventListener("keydown", (e) => {
-    if (e.key === "Delete" || e.key === "Backspace") {
+    if (e.key === "Delete") {
         const selectedNodes = transformerNoResize.nodes();
         selectedNodes.forEach((node) => {
             node.destroy();
@@ -115,7 +117,7 @@ window.addEventListener("keydown", (e) => {
         });
         transformerNoResize.nodes([]);
         elementsLayer.batchDraw();
-        console.log(projectData.elements.length);
+        elementEditor.style.top = "-100px"
     }
 });
 

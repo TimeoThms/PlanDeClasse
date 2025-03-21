@@ -229,3 +229,28 @@ input[type="file"] {
     font-size: 14px;
     width: 100%;
 }
+
+.element-editor {
+    position: absolute;
+    top: -100px;
+    right: 8px;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 5px 5px 15px #aaa;
+    background-color: #efefef;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    gap: 20px;
+    transition: top 0.2s ease-in-out;
+}
+
+.element-editor .label-input {
+    max-width: 128px;
+}
+
+.element-editor h4 {
+    color: #333;
+    margin: 0;
+    margin-bottom: 8px;
+}

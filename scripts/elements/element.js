@@ -1,3 +1,5 @@
+const elementEditor = document.getElementById("element-editor");
+
 function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     let group = new Konva.Group({
         id: id,
@@ -43,6 +45,13 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
             group.draggable(true);
         }
         elementsLayer.batchDraw();
+
+        if (transformerNoResize.nodes().length == 1) {
+            elementEditor.innerHTML = getEditor(type, config);
+            elementEditor.style.top = "8px";
+        } else {
+            elementEditor.style.top = "-100px";
+        }
     });
 
     // Save coordinates after the element is dragged
@@ -78,6 +87,9 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     }
 
     elements.push(group);
+
+    elementEditor.innerHTML = getEditor(type, config);
+    elementEditor.style.top = "8px";
 }
 
 function createShape(type, config) {
@@ -86,6 +98,16 @@ function createShape(type, config) {
             return createTable(config);
         case "doubletable":
             return createDoubleTable(config);
+        default:
+            console.warn("Unknown type:", type);
+            return null;
+    }
+}
+
+function getEditor(type, config) {
+    switch (type) {
+        case "table":
+            return getTableEditor(config);
         default:
             console.warn("Unknown type:", type);
             return null;

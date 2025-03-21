@@ -62,3 +62,17 @@ addTableBtn.addEventListener("click", () => {
         },
     });
 });
+
+function getTableEditor({ color = "#000", labelContent = "" }) {
+    return `
+    <div class="attribute">
+        <h4>Couleur</h4>
+        <input type="color" name="" id="table-color" value="${color}" hidden>
+        <label for="table-color" class="color-label" id="table-color-label" style="background-color: ${color}"></label>
+    </div>
+    <div class="attribute">
+        <h4>Texte</h4>
+        <input type="text" name="" id="table-label-input" class="label-input" placeholder="Aucun" value="${labelContent}">
+    </div>
+    `
+}
