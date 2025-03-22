@@ -128,7 +128,10 @@ let clipboard = [];
 let clipboardCoords = { x: 0, y: 0 };
 
 function copySelection() {
-    clipboard = transformer.nodes();
+    clipboard = [];
+    transformer.nodes().forEach((node) => {
+        clipboard.push(projectData.elements.find((el) => el.id === node.id()));
+    });
 
     // Find selection coordinates
     let minX = Infinity,
@@ -146,22 +149,24 @@ function pasteSelection() {
     nodes.forEach((el) => el.draggable(false));
     transformer.nodes([]);
 
-    let pastedElementsIds = [];
+    let pastedElements = [];
 
-    clipboard.forEach((node) => {
-        const element = projectData.elements.find((el) => el.id === node.id());
+    clipboard.forEach((element) => {
         let { type, id, x, y, rotation, ...config } = element;
         const newId = generateId();
         x = x + 20;
         y = y + 20;
         addElement({ type, id: newId, x, y, rotation, config });
-        pastedElementsIds.push(newId);
+        pastedElements.push(elements.find((el) => el.id() === newId));
     });
 
-    pastedElementsIds.forEach((elId) => {
-        const element = elements.find((el) => el.id() === elId);
-        transformer.nodes([...transformer.nodes(), element]);
+    pastedElements.forEach((element) => {
+        if (!transformer.nodes().includes(element)) {
+            transformer.nodes([...transformer.nodes(), element]);
+        }
     });
+
+    console.log(transformer.nodes());
 }
 
 elementsLayer.add(transformer);
