@@ -82,7 +82,7 @@ function loadProject() {
     elementsLayer.batchDraw();
 
     // Clear transformer nodes of all previous elements
-    transformerNoResize.nodes([]);
+    transformer.nodes([]);
 
     // Fill size inputs with their values
     filenameInput.value = projectData.filename;

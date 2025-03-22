@@ -86,7 +86,7 @@ editorTableLabelInput.addEventListener("input", () => {
 function updateTable() {
     updateElement({
         type: "table",
-        id: transformerNoResize.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
         config: {
             color: editorTableColorInput.value,
             label: editorTableLabelInput.value,

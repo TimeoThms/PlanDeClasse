@@ -8,7 +8,7 @@ downloadBtn.addEventListener("click", () => {
     gridLines.forEach(function (line) {
         line.visible(false);
     });
-    transformerNoResize.visible(false);
+    transformer.visible(false);
 
     const dataURL = stage.toDataURL({
         pixelRatio: 2, // On the canvas, 1px = 1cm, on export, the resolution is doubled
@@ -26,7 +26,7 @@ downloadBtn.addEventListener("click", () => {
     gridLines.forEach(function (line) {
         line.visible(true);
     });
-    transformerNoResize.visible(true);
+    transformer.visible(true);
 });
 
 // Grid
@@ -58,7 +58,7 @@ widthInput.addEventListener("change", function () {
         stage.width(value * 100);
         canvas.width(value * 100);
         projectData.width = value * 100;
-        
+
         resetZoom();
         updateGrid();
     } else {

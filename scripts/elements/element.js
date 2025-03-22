@@ -1,5 +1,7 @@
 const elementEditor = document.getElementById("element-editor");
 
+const notResizeableTypes = ["table", "doubletable", "door"];
+
 function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     let group = new Konva.Group({
         id: id,
@@ -8,6 +10,7 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         rotation: rotation,
         draggable: false,
     });
+
 
     // Get the list of shapes to add in the group
     let element = createShape(type, config);
@@ -23,30 +26,35 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
 
     // Selection managment
     group.on("click", (e) => {
-        let nodes = transformerNoResize.nodes();
+        let nodes = transformer.nodes();
         if (nodes.includes(group)) {
             if (!e.evt.ctrlKey) {
+                // If simple click on the element and element is already selected, select only this element
                 nodes.forEach((el) => el.draggable(false));
-                transformerNoResize.nodes([group]);
+                transformer.nodes([group]);
                 group.draggable(true);
             } else {
-                transformerNoResize.nodes(
-                    nodes.filter((node) => node !== group)
-                );
+                // If ctrl+click on a selected element, unselect it
+                transformer.nodes(nodes.filter((node) => node !== group));
                 group.draggable(false);
             }
         } else {
             if (e.evt.ctrlKey) {
-                transformerNoResize.nodes([...nodes, group]);
+                // If ctrl+click on new element, append it to the transformer nodes
+                transformer.nodes([...nodes, group]);
             } else {
+                // Else, select only the element
                 nodes.forEach((el) => el.draggable(false));
-                transformerNoResize.nodes([group]);
+                transformer.nodes([group]);
             }
+
             group.draggable(true);
         }
+
+        updateTransformerResizeState();
         elementsLayer.batchDraw();
 
-        if (transformerNoResize.nodes().length == 1) {
+        if (transformer.nodes().length == 1) {
             // elementEditor.innerHTML = getEditor(type, config);
             displayEditor(id);
             elementEditor.style.top = "8px";
@@ -80,16 +88,17 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
 
     // Add element to project data if not already in
     if (!projectData.elements.some((e) => e.id === id)) {
-        projectData.elements.push({ id, type, x, y, rotation, ...config });
-        let nodes = transformerNoResize.nodes();
+        projectData.elements.push({ type, id, x, y, rotation, ...config });
+        let nodes = transformer.nodes();
         nodes.forEach((el) => el.draggable(false));
-        transformerNoResize.nodes([group]);
+        transformer.nodes([group]);
         group.draggable(true);
     }
 
     elements.push(group);
 
-    // elementEditor.innerHTML = getEditor(type, config);
+    updateTransformerResizeState();
+
     displayEditor(id);
     elementEditor.style.top = "8px";
 }
