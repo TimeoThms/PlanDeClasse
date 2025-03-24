@@ -32,7 +32,13 @@ stage.add(elementsLayer);
 
 updateGrid();
 
+let last_id = null;
 function generateId() {
     // Uses timestamp as unique identifier
-    return `id_${Date.now()}`;
+    id = `id_${Date.now()}`;
+    while (id == last_id) {
+        id = `id_${Date.now()}`;
+    }
+    last_id = id;
+    return id;
 }

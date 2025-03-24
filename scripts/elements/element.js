@@ -52,15 +52,9 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         }
 
         updateTransformerResizeState();
-        elementsLayer.batchDraw();
+        displayEditor();
 
-        if (transformer.nodes().length == 1) {
-            // elementEditor.innerHTML = getEditor(type, config);
-            displayEditor(id);
-            elementEditor.style.top = "8px";
-        } else {
-            elementEditor.style.top = "-100px";
-        }
+        elementsLayer.batchDraw();
     });
 
     // Save coordinates after the element is dragged
@@ -126,29 +120,39 @@ function syncEditorValues(type, config) {
     }
 }
 
-function displayEditor(id) {
-    const element = projectData.elements.find((el) => el.id === id);
+function displayEditor() {
 
-    // Hide all attributes
-    document.querySelectorAll("#element-editor .attribute").forEach((attr) => {
-        attr.hidden = true;
-    });
+    if (transformer.nodes().length == 1) {
+        const id = transformer.nodes()[0].id();
+        const element = projectData.elements.find((el) => el.id === id);
 
-    // Show attributes related to the type
-    document
-        .querySelectorAll(`#element-editor .${element.type}-attribute`)
-        .forEach((attr) => {
-            attr.hidden = false;
+        // Hide all attributes
+        document.querySelectorAll("#element-editor .attribute").forEach((attr) => {
+            attr.hidden = true;
         });
+    
+        // Show attributes related to the type
+        document
+            .querySelectorAll(`#element-editor .${element.type}-attribute`)
+            .forEach((attr) => {
+                attr.hidden = false;
+            });
+    
+        const config = Object.fromEntries(
+            // Convert to key-value arrays and filter it to only keep type-related config
+            Object.entries(element).filter(
+                ([key]) => !["type", "id", "x", "y", "rotation"].includes(key)
+            )
+        );
+    
+        syncEditorValues(element.type, config);
 
-    const config = Object.fromEntries(
-        // Convert to key-value arrays and filter it to only keep type-related config
-        Object.entries(element).filter(
-            ([key]) => !["type", "id", "x", "y", "rotation"].includes(key)
-        )
-    );
+        elementEditor.style.top = "8px";
+    } else {
+        elementEditor.style.top = "-100px";
+    }
 
-    syncEditorValues(element.type, config);
+    
 }
 
 function updateElement({ type, id, config = {} }) {

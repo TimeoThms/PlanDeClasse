@@ -166,7 +166,9 @@ function pasteSelection() {
         }
     });
 
-    console.log(transformer.nodes());
+    displayEditor();
+
+    layer.batchDraw();
 }
 
 elementsLayer.add(transformer);
