@@ -102,7 +102,7 @@ function createShape(type, config) {
         case "table":
             return createTable(config);
         case "doubletable":
-            return createDoubleTable(config);
+            return createDoubletable(config);
         default:
             console.warn("Unknown type:", type);
             return null;
@@ -114,6 +114,8 @@ function syncEditorValues(type, config) {
     switch (type) {
         case "table":
             return syncTableEditor(config);
+        case "doubletable":
+            return syncDoubletableEditor(config);
         default:
             console.warn("Unknown type:", type);
             return null;

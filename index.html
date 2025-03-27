@@ -148,7 +148,7 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Table double</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-doubletable-btn">Ajouter</button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -157,13 +157,14 @@
                                 <input
                                     type="color"
                                     name=""
-                                    id="double-table-color"
+                                    id="doubletable-color"
                                     value="#415A77"
                                     hidden
                                 />
                                 <label
-                                    for="double-table-color"
+                                    for="doubletable-color"
                                     class="color-label"
+                                    id="doubletable-color-label"
                                 ></label>
                             </div>
                             <div class="attribute">
@@ -171,7 +172,7 @@
                                 <input
                                     type="text"
                                     name=""
-                                    id=""
+                                    id="doubletable-label1-input"
                                     class="label-input"
                                     placeholder="Aucun"
                                 />
@@ -181,7 +182,7 @@
                                 <input
                                     type="text"
                                     name=""
-                                    id=""
+                                    id="doubletable-label2-input"
                                     class="label-input"
                                     placeholder="Aucun"
                                 />
@@ -427,6 +428,39 @@
                 />
             </div>
 
+            <!-- DOUBLE TABLES ATTRIBUTES -->
+            <div class="attribute doubletable-attribute">
+                <h4>Couleur</h4>
+                <input type="color" name="" id="editor-doubletable-color" hidden />
+                <label
+                    for="editor-doubletable-color"
+                    class="color-label"
+                    id="editor-doubletable-color-label"
+                ></label>
+            </div>
+            <div class="attribute doubletable-attribute">
+                <h4>Texte 1</h4>
+                <input
+                    type="text"
+                    name=""
+                    id="editor-doubletable-label1-input"
+                    class="label-input"
+                    placeholder="Aucun"
+                />
+            </div>
+            <div class="attribute doubletable-attribute">
+                <h4>Texte 2</h4>
+                <input
+                    type="text"
+                    name=""
+                    id="editor-doubletable-label2-input"
+                    class="label-input"
+                    placeholder="Aucun"
+                />
+            </div>
+
+
+
             <!-- <div class="attribute">
                 <h4>Couleur</h4>
                 <input type="color" name="" id="double-table-color" value="#415A77" hidden>
@@ -459,6 +493,8 @@
         <script src="scripts/elements/element.js"></script>
 
         <script src="scripts/elements/table.js"></script>
+
+        <script src="scripts/elements/doubletable.js"></script>
 
         <script>
             resetZoom();

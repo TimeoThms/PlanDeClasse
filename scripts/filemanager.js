@@ -106,6 +106,7 @@ function loadProject() {
 
     resetZoom();
     updateGrid();
+    displayEditor();
 
     layer.batchDraw();
     elementsLayer.batchDraw();
