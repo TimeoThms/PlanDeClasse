@@ -1,6 +1,6 @@
 const elementEditor = document.getElementById("element-editor");
 
-const notResizeableTypes = ["table", "doubletable", "door"];
+const notResizeableTypes = ["table", "doubletable", "door", "desk", "whiteboard"];
 
 function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     let group = new Konva.Group({
@@ -103,6 +103,12 @@ function createShape(type, config) {
             return createTable(config);
         case "doubletable":
             return createDoubletable(config);
+        case "door":
+            return createDoor(config);
+        case "desk":
+            return createDesk(config);
+        case "whiteboard":
+            return createWhiteboard(config);
         default:
             console.warn("Unknown type:", type);
             return null;
@@ -116,6 +122,12 @@ function syncEditorValues(type, config) {
             return syncTableEditor(config);
         case "doubletable":
             return syncDoubletableEditor(config);
+        case "door":
+            return syncDoorEditor(config);
+        case "desk":
+            return syncDeskEditor(config);
+        case "whiteboard":
+            return syncWhiteboardEditor(config);
         default:
             console.warn("Unknown type:", type);
             return null;

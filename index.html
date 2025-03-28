@@ -193,7 +193,7 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Porte</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-door-btn">Ajouter</button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -205,6 +205,7 @@
                                         class="radio-input"
                                         name="door-type"
                                         id="normal-door"
+                                        checked
                                     />
                                     <label for="normal-door">Normal</label>
                                     <input
@@ -221,7 +222,7 @@
                                 <input
                                     type="text"
                                     name=""
-                                    id=""
+                                    id="door-label-input"
                                     class="label-input"
                                     placeholder="Aucun"
                                 />
@@ -232,7 +233,7 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Bureau professeur</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-desk-btn">Ajouter</button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -241,7 +242,7 @@
                                 <input
                                     type="text"
                                     name=""
-                                    id=""
+                                    id="desk-label-input"
                                     class="label-input"
                                     placeholder="Aucun"
                                 />
@@ -315,7 +316,7 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Tableau</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-whiteboard-btn">Ajouter</button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -324,7 +325,7 @@
                                 <input
                                     type="text"
                                     name=""
-                                    id=""
+                                    id="whiteboard-label-input"
                                     class="label-input"
                                     placeholder="Aucun"
                                 />
@@ -459,6 +460,60 @@
                 />
             </div>
 
+            <!-- DOORS ATTRIBUTES -->
+            <div class="attribute door-attribute">
+                <h4>Type</h4>
+                <div class="radio-list">
+                    <input
+                        type="radio"
+                        class="radio-input"
+                        name="door-type"
+                        id="editor-normal-door"
+                    />
+                    <label for="editor-normal-door">Normal</label>
+                    <input
+                        type="radio"
+                        class="radio-input"
+                        name="door-type"
+                        id="editor-safety-door"
+                    />
+                    <label for="editor-safety-door">Secours</label>
+                </div>
+            </div>
+            <div class="attribute door-attribute">
+                <h4>Texte</h4>
+                <input
+                    type="text"
+                    name=""
+                    id="editor-door-label-input"
+                    class="editor-label-input"
+                    placeholder="Aucun"
+                />
+            </div>
+
+            <!-- DESK ATTRIBUTE -->
+            <div class="attribute desk-attribute">
+                <h4>Texte</h4>
+                <input
+                    type="text"
+                    name=""
+                    id="editor-desk-label-input"
+                    class="label-input"
+                    placeholder="Aucun"
+                />
+            </div>
+            
+            <!-- WHITEBOARD ATTRIBUTE -->
+            <div class="attribute whiteboard-attribute">
+                <h4>Texte</h4>
+                <input
+                    type="text"
+                    name=""
+                    id="editor-whiteboard-label-input"
+                    class="label-input"
+                    placeholder="Aucun"
+                />
+            </div>
 
 
             <!-- <div class="attribute">
@@ -495,6 +550,12 @@
         <script src="scripts/elements/table.js"></script>
 
         <script src="scripts/elements/doubletable.js"></script>
+
+        <script src="scripts/elements/door.js"></script>
+
+        <script src="scripts/elements/desk.js"></script>
+
+        <script src="scripts/elements/whiteboard.js"></script>
 
         <script>
             resetZoom();
