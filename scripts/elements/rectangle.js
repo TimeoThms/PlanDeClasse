@@ -1,6 +1,7 @@
 const addRectangleBtn = document.getElementById("add-rectangle-btn");
 const rectangleColorInput = document.getElementById("rectangle-color");
 const rectangleColorLabel = document.getElementById("rectangle-color-label");
+const rectangleLabelInput = document.getElementById("rectangle-label-input");
 
 rectangleColorInput.addEventListener("input", (event) => {
     const selectedColor = event.target.value;
@@ -8,28 +9,29 @@ rectangleColorInput.addEventListener("input", (event) => {
 });
 
 // Returns the list of shapes used to make the rectangle
-function createRectangle({ color = "#000"}) {
+function createRectangle({ color = "#000", label = "", width = 100, height = 100}) {
     let rect = new Konva.Rect({
         x: 0,
         y: 0,
-        width: 100,
-        height: 100,
+        width: width,
+        height: height,
         fill: color
     });
 
     let text = new Konva.Text({
         x: 0,
         y: 0,
-        text: "test",
+        width: width,
+        height: height,
+        text: label,
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#000",
-        padding: 4,
         align: "center",
         verticalAlign: "middle",
     });
 
-    return [rect, text  ];
+    return [rect, text];
 }
 
 addRectangleBtn.addEventListener("click", () => {
@@ -41,6 +43,9 @@ addRectangleBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: rectangleColorInput.value,
+            label: rectangleLabelInput.value,
+            width: 100,
+            height: 100,
         },
     });
 });
@@ -50,10 +55,17 @@ const editorRectangleColorInput = document.getElementById("editor-rectangle-colo
 const editorRectangleColorLabel = document.getElementById(
     "editor-rectangle-color-label"
 );
+const editorRectangleLabelInput = document.getElementById(
+    "editor-rectangle-label-input"
+);
 
 editorRectangleColorInput.addEventListener("input", (event) => {
     const selectedColor = event.target.value;
     editorRectangleColorLabel.style.backgroundColor = selectedColor;
+    updateRectangle();
+});
+
+editorRectangleLabelInput.addEventListener("input", () => {
     updateRectangle();
 });
 
@@ -63,11 +75,15 @@ function updateRectangle() {
         id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
         config: {
             color: editorRectangleColorInput.value,
+            label: editorRectangleLabelInput.value,
+            width: transformer.nodes()[0].width(),
+            height: transformer.nodes()[0].height(),
         },
     });
 }
 
-function syncRectangleEditor({ color = "#000"}) {
+function syncRectangleEditor({ color = "#000", label = ""}) {
     editorRectangleColorInput.value = color;
     editorRectangleColorLabel.style.backgroundColor = color;
+    editorRectangleLabelInput.value = label;
 }

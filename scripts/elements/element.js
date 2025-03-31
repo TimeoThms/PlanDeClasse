@@ -1,19 +1,21 @@
 const elementEditor = document.getElementById("element-editor");
 
-const notResizeableTypes = ["table", "doubletable", "door", "desk", "whiteboard"];
+const notResizeableTypes = [
+    "table",
+    "doubletable",
+    "door",
+    "desk",
+    "whiteboard",
+];
 
-// SCALE MIGHT BE USELESS
-function addElement({ type, id, x = 100, y = 100, scaleX = 1, scaleY = 1, rotation = 0, config = {} }) {
+function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     let group = new Konva.Group({
         id: id,
         x: x,
         y: y,
-        scaleX: scaleX,
-        scaleY: scaleY,
         rotation: rotation,
         draggable: false,
     });
-
 
     // Get the list of shapes to add in the group
     let element = createShape(type, config);
@@ -26,6 +28,10 @@ function addElement({ type, id, x = 100, y = 100, scaleX = 1, scaleY = 1, rotati
     }
 
     elementsLayer.add(group);
+
+    const size = getSize(group);
+    group.width(size.w);
+    group.height(size.h);
 
     // Selection managment
     group.on("click", (e) => {
@@ -77,32 +83,43 @@ function addElement({ type, id, x = 100, y = 100, scaleX = 1, scaleY = 1, rotati
             elementData.rotation = e.target.rotation();
             elementData.x = e.target.x();
             elementData.y = e.target.y();
-            elementData.width = e.target.width();
-            elementData.height = e.target.height();
+
+            if (!notResizeableTypes.includes(elementData.type)) {
+                const size = getSize(group);
+
+                elementData.width = size.w;
+                elementData.height = size.h;
+                group.width(size.w);
+                group.height(size.h);
+            }
         }
     });
 
     group.on("transform", (e) => {
-        const box = group.getClientRect();
-
-        console.log(e.target.scaleX(), e.target.scaleY());
-
         // NOT WORKING
-        group.getChildren().forEach(shape => {
-            shape.x(shape.x() * Math.round(e.target.scaleX()*100)/100);
-            shape.y(shape.y() * Math.round(e.target.scaleY()*100)/100);
-            shape.width(shape.width() * Math.round(e.target.scaleX()*100)/100);
-            shape.height(shape.height() * Math.round(e.target.scaleY()*100)/100);
-        })
-
-    })
+        group.getChildren().forEach((shape) => {
+            shape.x(shape.x() * group.scaleX());
+            shape.y(shape.y() * group.scaleY());
+            shape.width(shape.width() * group.scaleX());
+            shape.height(shape.height() * group.scaleY());
+        });
+        group.scaleX(1);
+        group.scaleY(1);
+    });
 
     // Refresh view
     elementsLayer.batchDraw();
 
     // Add element to project data if not already in
     if (!projectData.elements.some((e) => e.id === id)) {
-        projectData.elements.push({ type, id, x, y, scaleX, scaleY, rotation, ...config });
+        projectData.elements.push({
+            type,
+            id,
+            x,
+            y,
+            rotation,
+            ...config,
+        });
         let nodes = transformer.nodes();
         nodes.forEach((el) => el.draggable(false));
         transformer.nodes([group]);
@@ -115,6 +132,27 @@ function addElement({ type, id, x = 100, y = 100, scaleX = 1, scaleY = 1, rotati
 
     displayEditor(id);
     elementEditor.style.top = "8px";
+}
+
+function getSize(group) {
+    // Calculate height and width of the group
+    let minX = Infinity,
+        minY = Infinity;
+    let maxX = -Infinity,
+        maxY = -Infinity;
+
+    group.getChildren().forEach((child) => {
+        const box = child.getClientRect(); // Boîte englobante de l'enfant
+        minX = Math.min(minX, box.x);
+        minY = Math.min(minY, box.y);
+        maxX = Math.max(maxX, box.x + box.width);
+        maxY = Math.max(maxY, box.y + box.height);
+    });
+
+    const w = maxX - minX;
+    const h = maxY - minY;
+
+    return { w, h };
 }
 
 function createShape(type, config) {
@@ -163,38 +201,37 @@ function syncEditorValues(type, config) {
 }
 
 function displayEditor() {
-
     if (transformer.nodes().length == 1) {
         const id = transformer.nodes()[0].id();
         const element = projectData.elements.find((el) => el.id === id);
 
         // Hide all attributes
-        document.querySelectorAll("#element-editor .attribute").forEach((attr) => {
-            attr.hidden = true;
-        });
-    
+        document
+            .querySelectorAll("#element-editor .attribute")
+            .forEach((attr) => {
+                attr.hidden = true;
+            });
+
         // Show attributes related to the type
         document
             .querySelectorAll(`#element-editor .${element.type}-attribute`)
             .forEach((attr) => {
                 attr.hidden = false;
             });
-    
+
         const config = Object.fromEntries(
             // Convert to key-value arrays and filter it to only keep type-related config
             Object.entries(element).filter(
                 ([key]) => !["type", "id", "x", "y", "rotation"].includes(key)
             )
         );
-    
+
         syncEditorValues(element.type, config);
 
         elementEditor.style.top = "8px";
     } else {
         elementEditor.style.top = "-100px";
     }
-
-    
 }
 
 function updateElement({ type, id, config = {} }) {

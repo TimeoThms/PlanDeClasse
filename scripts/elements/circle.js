@@ -1,6 +1,7 @@
 const addCircleBtn = document.getElementById("add-circle-btn");
 const circleColorInput = document.getElementById("circle-color");
 const circleColorLabel = document.getElementById("circle-color-label");
+const circleLabelInput = document.getElementById("circle-label-input");
 
 circleColorInput.addEventListener("input", (event) => {
     const selectedColor = event.target.value;
@@ -8,15 +9,29 @@ circleColorInput.addEventListener("input", (event) => {
 });
 
 // Returns the list of shapes used to make the circle
-function createCircle({ color = "#000"}) {
-    let rect = new Konva.Circle({
+function createCircle({ color = "#000", label = "empty", width = 100, height = 100}) {
+    let ellipse = new Konva.Ellipse({
         x: 50,
         y: 50,
-        radius: 50,
+        width: 100,
+        height: 100,
         fill: color
     });
 
-    return [rect];
+    let text = new Konva.Text({
+        x: 0,
+        y: 0,
+        width: width,
+        height: height,
+        text: label,
+        fontSize: 10,
+        fontFamily: "Arial",
+        fill: "#000",
+        align: "center",
+        verticalAlign: "middle",
+    });
+
+    return [ellipse, text];
 }
 
 addCircleBtn.addEventListener("click", () => {
@@ -28,6 +43,7 @@ addCircleBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: circleColorInput.value,
+            label: circleLabelInput.value,
         },
     });
 });
@@ -37,10 +53,17 @@ const editorCircleColorInput = document.getElementById("editor-circle-color");
 const editorCircleColorLabel = document.getElementById(
     "editor-circle-color-label"
 );
+const editorCircleLabelInput = document.getElementById(
+    "editor-circle-label-input"
+);
+
 
 editorCircleColorInput.addEventListener("input", (event) => {
     const selectedColor = event.target.value;
     editorCircleColorLabel.style.backgroundColor = selectedColor;
+    updateCircle();
+});
+editorCircleLabelInput.addEventListener("input", () => {
     updateCircle();
 });
 
@@ -50,11 +73,15 @@ function updateCircle() {
         id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
         config: {
             color: editorCircleColorInput.value,
+            label: editorCircleLabelInput.value,
+            width: transformer.nodes()[0].width(),
+            height: transformer.nodes()[0].height(),
         },
     });
 }
 
-function syncCircleEditor({ color = "#000"}) {
+function syncCircleEditor({ color = "#000", label = ""}) {
     editorCircleColorInput.value = color;
     editorCircleColorLabel.style.backgroundColor = color;
+    editorCircleLabelInput.value = label;
 }
