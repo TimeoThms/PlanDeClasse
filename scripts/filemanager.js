@@ -98,10 +98,11 @@ function loadProject() {
     loadWalls(projectData.walls);
 
     // Load elements
+    // SCALE MIGHT BE USELESS
     projectData.elements.forEach((e) => {
         // Get attributes of the element. ...config corresponds to the remaining arguments (aka type-related args)
-        const { type, id, x, y, rotation, ...config } = e;
-        addElement({ type, id, x, y, rotation, config });
+        const { type, id, x, y, scaleX, scaleY, rotation, ...config } = e;
+        addElement({ type, id, x, y, scaleX, scaleY, rotation, config });
     });
 
     resetZoom();

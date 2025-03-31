@@ -6,13 +6,14 @@ const transformer = new Konva.Transformer({
     rotateEnabled: true,
     resizeEnabled: true,
     keepRatio: false,
-    enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right"],
+    enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right", "middle-right", "middle-left", "top-center", "bottom-center"],
     rotateAnchorOffset: 20,
     anchorCornerRadius: 100,
     rotationSnaps: Array.from({ length: 73 }, (_, i) => i * 5), // [0, 5, 10, 15, ..., 360]
     draggable: true,
     shouldOverdrawWholeArea: true,
     ignoreStroke: true,
+    flipEnabled: false,
 });
 
 function updateTransformerResizeState() {

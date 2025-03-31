@@ -2,11 +2,14 @@ const elementEditor = document.getElementById("element-editor");
 
 const notResizeableTypes = ["table", "doubletable", "door", "desk", "whiteboard"];
 
-function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
+// SCALE MIGHT BE USELESS
+function addElement({ type, id, x = 100, y = 100, scaleX = 1, scaleY = 1, rotation = 0, config = {} }) {
     let group = new Konva.Group({
         id: id,
         x: x,
         y: y,
+        scaleX: scaleX,
+        scaleY: scaleY,
         rotation: rotation,
         draggable: false,
     });
@@ -74,15 +77,32 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
             elementData.rotation = e.target.rotation();
             elementData.x = e.target.x();
             elementData.y = e.target.y();
+            elementData.width = e.target.width();
+            elementData.height = e.target.height();
         }
     });
+
+    group.on("transform", (e) => {
+        const box = group.getClientRect();
+
+        console.log(e.target.scaleX(), e.target.scaleY());
+
+        // NOT WORKING
+        group.getChildren().forEach(shape => {
+            shape.x(shape.x() * Math.round(e.target.scaleX()*100)/100);
+            shape.y(shape.y() * Math.round(e.target.scaleY()*100)/100);
+            shape.width(shape.width() * Math.round(e.target.scaleX()*100)/100);
+            shape.height(shape.height() * Math.round(e.target.scaleY()*100)/100);
+        })
+
+    })
 
     // Refresh view
     elementsLayer.batchDraw();
 
     // Add element to project data if not already in
     if (!projectData.elements.some((e) => e.id === id)) {
-        projectData.elements.push({ type, id, x, y, rotation, ...config });
+        projectData.elements.push({ type, id, x, y, scaleX, scaleY, rotation, ...config });
         let nodes = transformer.nodes();
         nodes.forEach((el) => el.draggable(false));
         transformer.nodes([group]);
@@ -109,6 +129,10 @@ function createShape(type, config) {
             return createDesk(config);
         case "whiteboard":
             return createWhiteboard(config);
+        case "rectangle":
+            return createRectangle(config);
+        case "circle":
+            return createCircle(config);
         default:
             console.warn("Unknown type:", type);
             return null;
@@ -128,6 +152,10 @@ function syncEditorValues(type, config) {
             return syncDeskEditor(config);
         case "whiteboard":
             return syncWhiteboardEditor(config);
+        case "rectangle":
+            return syncRectangleEditor(config);
+        case "circle":
+            return syncCircleEditor(config);
         default:
             console.warn("Unknown type:", type);
             return null;

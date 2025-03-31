@@ -108,6 +108,7 @@
             <div class="menu-tab">
                 <p>Glisser déposer des éléments pour les ajouter au plan.</p>
                 <div class="elements-container">
+                    <!-- TABLE -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Table</h3>
@@ -145,6 +146,7 @@
                         </div>
                     </div>
 
+                    <!-- DOUBLE TABLE -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Table double</h3>
@@ -190,6 +192,7 @@
                         </div>
                     </div>
 
+                    <!-- DOOR -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Porte</h3>
@@ -230,6 +233,7 @@
                         </div>
                     </div>
 
+                    <!-- DESK -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Bureau professeur</h3>
@@ -249,7 +253,8 @@
                             </div>
                         </div>
                     </div>
-
+                    
+                    <!-- TEXT -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Texte</h3>
@@ -293,6 +298,7 @@
                         </div>
                     </div>
 
+                    <!-- STORAGE -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Stockage</h3>
@@ -313,6 +319,7 @@
                         </div>
                     </div>
 
+                    <!-- WHITEBOARD -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Tableau</h3>
@@ -333,10 +340,11 @@
                         </div>
                     </div>
 
+                    <!-- RECTANGLE -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Rectangle</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-rectangle-btn">Ajouter</button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -345,32 +353,24 @@
                                 <input
                                     type="color"
                                     name=""
-                                    id="rect-color"
+                                    id="rectangle-color"
                                     value="#415A77"
                                     hidden
                                 />
                                 <label
                                     for="rect-color"
                                     class="color-label"
+                                    id="rectangle-color-label"
                                 ></label>
-                            </div>
-                            <div class="attribute">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
                             </div>
                         </div>
                     </div>
 
+                    <!-- CIRCLE -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Cercle</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-circle-btn">Ajouter</button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -386,17 +386,8 @@
                                 <label
                                     for="circle-color"
                                     class="color-label"
+                                    id="circle-color-label"
                                 ></label>
-                            </div>
-                            <div class="attribute">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
                             </div>
                         </div>
                     </div>
@@ -515,20 +506,34 @@
                 />
             </div>
 
-
-            <!-- <div class="attribute">
+            <!-- RECTANGLE ATTRIBUTE -->
+            <div class="attribute rectangle-attribute">
                 <h4>Couleur</h4>
-                <input type="color" name="" id="double-table-color" value="#415A77" hidden>
-                <label for="double-table-color" class="color-label"></label>
+                <input type="color" name="" id="editor-rectangle-color" hidden />
+                <label
+                    for="editor-rectangle-color"
+                    class="color-label"
+                    id="editor-rectangle-color-label"
+                ></label>
             </div>
-            <div class="attribute">
-                <h4>Texte 1</h4>
-                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
+
+            <!-- CIRCLE ATTRIBUTE -->
+            <div class="attribute circle-attribute">
+                <h4>Couleur</h4>
+                <input
+                    type="color"
+                    name=""
+                    id="editor-circle-color"
+                    value="#415A77"
+                    hidden
+                />
+                <label
+                    for="editor-circle-color"
+                    class="color-label"
+                    id="editor-circle-color-label"
+                ></label>
             </div>
-            <div class="attribute">
-                <h4>Texte 2</h4>
-                <input type="text" name="" id="" class="label-input" placeholder="Aucun">
-            </div> -->
+
         </div>
 
         <script src="scripts/grid.js"></script>
@@ -556,6 +561,10 @@
         <script src="scripts/elements/desk.js"></script>
 
         <script src="scripts/elements/whiteboard.js"></script>
+
+        <script src="scripts/elements/rectangle.js"></script>
+        
+        <script src="scripts/elements/circle.js"></script>
 
         <script>
             resetZoom();
