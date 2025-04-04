@@ -18,10 +18,14 @@ const transformer = new Konva.Transformer({
 
 function updateTransformerResizeState() {
     transformer.resizeEnabled(true);
+    transformer.enabledAnchors(["top-left", "top-right", "bottom-left", "bottom-right", "middle-right", "middle-left", "top-center", "bottom-center"]);
     transformer.nodes().forEach((node) => {
         const elementData = projectData.elements.find(
             (el) => el.id === node.id()
         );
+        if (elementData.type =="text") {
+            transformer.enabledAnchors(["top-center", "bottom-center"]); 
+        }
         if (notResizeableTypes.includes(elementData.type)) {
             transformer.resizeEnabled(false);
         }

@@ -11,10 +11,10 @@ circleColorInput.addEventListener("input", (event) => {
 // Returns the list of shapes used to make the circle
 function createCircle({ color = "#000", label = "empty", width = 100, height = 100}) {
     let ellipse = new Konva.Ellipse({
-        x: 50,
-        y: 50,
-        width: 100,
-        height: 100,
+        x: width/2,
+        y: height/2,
+        width: width,
+        height: height,
         fill: color
     });
 

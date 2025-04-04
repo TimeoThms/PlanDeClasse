@@ -96,8 +96,16 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     });
 
     group.on("transform", (e) => {
-        // NOT WORKING
-        group.getChildren().forEach((shape) => {
+        const id = transformer.nodes()[0].id();
+        const element = projectData.elements.find((el) => el.id === id);
+
+        if (element.type == "text") {
+            textShape = group.getChildren()[0];
+            textShape.fontSize(textShape.height() * group.scaleY());
+            textShape.width(textShape.width() * group.scaleY());
+            textShape.height(textShape.height() * group.scaleY());
+        } else {
+            group.getChildren().forEach((shape) => {
             shape.x(shape.x() * group.scaleX());
             shape.y(shape.y() * group.scaleY());
             shape.width(shape.width() * group.scaleX());
@@ -105,6 +113,9 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         });
         group.scaleX(1);
         group.scaleY(1);
+    }
+
+       
     });
 
     // Refresh view
@@ -171,6 +182,8 @@ function createShape(type, config) {
             return createRectangle(config);
         case "circle":
             return createCircle(config);
+        case "text":
+            return createText(config);
         default:
             console.warn("Unknown type:", type);
             return null;
@@ -194,6 +207,8 @@ function syncEditorValues(type, config) {
             return syncRectangleEditor(config);
         case "circle":
             return syncCircleEditor(config);
+        case "text":
+            return syncTextEditor(config)
         default:
             console.warn("Unknown type:", type);
             return null;

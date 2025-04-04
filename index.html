@@ -258,7 +258,7 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Texte</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-text-btn">Ajouter</button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -274,23 +274,15 @@
                                 <label
                                     for="text-color"
                                     class="color-label"
+                                    id="text-color-label"
                                 ></label>
-                            </div>
-                            <div class="attribute">
-                                <h4>Taille</h4>
-                                <input
-                                    type="number"
-                                    name=""
-                                    id=""
-                                    class="font-size-input"
-                                />
                             </div>
                             <div class="attribute">
                                 <h4>Contenu</h4>
                                 <input
                                     type="text"
                                     name=""
-                                    id=""
+                                    id="text-label-input"
                                     class="label-input"
                                     placeholder="Aucun"
                                 />
@@ -574,6 +566,27 @@
                 />
             </div>
 
+            <!-- TEXT ATTRIBUTES -->
+            <div class="attribute text-attribute">
+                <h4>Couleur</h4>
+                <input type="color" name="" id="editor-text-color" hidden />
+                <label
+                    for="editor-text-color"
+                    class="color-label"
+                    id="editor-text-color-label"
+                ></label>
+            </div>
+            <div class="attribute text-attribute">
+                <h4>Texte</h4>
+                <input
+                    type="text"
+                    name=""
+                    id="editor-text-label-input"
+                    class="editor-label-input"
+                    placeholder="Aucun"
+                />
+            </div>
+
         </div>
 
         <script src="scripts/grid.js"></script>
@@ -605,6 +618,8 @@
         <script src="scripts/elements/rectangle.js"></script>
         
         <script src="scripts/elements/circle.js"></script>
+
+        <script src="scripts/elements/text.js"></script>
 
         <script>
             resetZoom();
