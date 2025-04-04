@@ -99,11 +99,15 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         const id = transformer.nodes()[0].id();
         const element = projectData.elements.find((el) => el.id === id);
 
-        if (element.type == "text") {
+        if (element.type == "text" && transformer.getActiveAnchor() != "rotater") {
             textShape = group.getChildren()[0];
-            textShape.fontSize(textShape.height() * group.scaleY());
-            textShape.width(textShape.width() * group.scaleY());
-            textShape.height(textShape.height() * group.scaleY());
+            let scale = Math.floor(group.scaleY()*1000000000)/1000000000;
+            let width = Math.floor(textShape.width()*1000000000)/1000000000;
+            let height = Math.floor(textShape.height()*1000000000)/1000000000;
+            console.log(scale);
+            textShape.fontSize(height * scale);
+            textShape.width((width - 20) * scale + 20);
+            textShape.height(height * scale);
         } else {
             group.getChildren().forEach((shape) => {
             shape.x(shape.x() * group.scaleX());

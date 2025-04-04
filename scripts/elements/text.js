@@ -24,6 +24,8 @@ function createText({ color = "#000", label = "", height = 16}) {
         verticalAlign: "middle",
     });
 
+    text.width(text.width() + 20)
+
     return [text];
 }
 
