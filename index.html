@@ -150,7 +150,9 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Table double</h3>
-                            <button class="btn" id="add-doubletable-btn">Ajouter</button>
+                            <button class="btn" id="add-doubletable-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -196,7 +198,9 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Porte</h3>
-                            <button class="btn" id="add-door-btn">Ajouter</button>
+                            <button class="btn" id="add-door-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -237,7 +241,9 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Bureau professeur</h3>
-                            <button class="btn" id="add-desk-btn">Ajouter</button>
+                            <button class="btn" id="add-desk-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -253,12 +259,14 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- TEXT -->
                     <div class="element">
                         <div class="element-top">
                             <h3>Texte</h3>
-                            <button class="btn" id="add-text-btn">Ajouter</button>
+                            <button class="btn" id="add-text-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -294,7 +302,9 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Stockage</h3>
-                            <button class="btn">Ajouter</button>
+                            <button class="btn" id="add-storage-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -303,7 +313,7 @@
                                 <input
                                     type="text"
                                     name=""
-                                    id=""
+                                    id="storage-label-input"
                                     class="label-input"
                                     placeholder="Aucun"
                                 />
@@ -315,7 +325,9 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Tableau</h3>
-                            <button class="btn" id="add-whiteboard-btn">Ajouter</button>
+                            <button class="btn" id="add-whiteboard-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -336,7 +348,9 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Rectangle</h3>
-                            <button class="btn" id="add-rectangle-btn">Ajouter</button>
+                            <button class="btn" id="add-rectangle-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -355,7 +369,7 @@
                                     id="rectangle-color-label"
                                 ></label>
                             </div>
-                             <div class="attribute">
+                            <div class="attribute">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -372,7 +386,9 @@
                     <div class="element">
                         <div class="element-top">
                             <h3>Cercle</h3>
-                            <button class="btn" id="add-circle-btn">Ajouter</button>
+                            <button class="btn" id="add-circle-btn">
+                                Ajouter
+                            </button>
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
@@ -391,7 +407,7 @@
                                     id="circle-color-label"
                                 ></label>
                             </div>
-                             <div class="attribute">
+                            <div class="attribute">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -435,7 +451,12 @@
             <!-- DOUBLE TABLES ATTRIBUTES -->
             <div class="attribute doubletable-attribute">
                 <h4>Couleur</h4>
-                <input type="color" name="" id="editor-doubletable-color" hidden />
+                <input
+                    type="color"
+                    name=""
+                    id="editor-doubletable-color"
+                    hidden
+                />
                 <label
                     for="editor-doubletable-color"
                     class="color-label"
@@ -505,7 +526,19 @@
                     placeholder="Aucun"
                 />
             </div>
-            
+
+            <!-- STORAGE ATTRIBUTE -->
+            <div class="attribute storage-attribute">
+                <h4>Texte</h4>
+                <input
+                    type="text"
+                    name=""
+                    id="editor-storage-label-input"
+                    class="label-input"
+                    placeholder="Aucun"
+                />
+            </div>
+
             <!-- WHITEBOARD ATTRIBUTE -->
             <div class="attribute whiteboard-attribute">
                 <h4>Texte</h4>
@@ -521,7 +554,12 @@
             <!-- RECTANGLE ATTRIBUTE -->
             <div class="attribute rectangle-attribute">
                 <h4>Couleur</h4>
-                <input type="color" name="" id="editor-rectangle-color" hidden />
+                <input
+                    type="color"
+                    name=""
+                    id="editor-rectangle-color"
+                    hidden
+                />
                 <label
                     for="editor-rectangle-color"
                     class="color-label"
@@ -586,7 +624,6 @@
                     placeholder="Aucun"
                 />
             </div>
-
         </div>
 
         <script src="scripts/grid.js"></script>
@@ -616,10 +653,12 @@
         <script src="scripts/elements/whiteboard.js"></script>
 
         <script src="scripts/elements/rectangle.js"></script>
-        
+
         <script src="scripts/elements/circle.js"></script>
 
         <script src="scripts/elements/text.js"></script>
+
+        <script src="scripts/elements/storage.js"></script>
 
         <script>
             resetZoom();

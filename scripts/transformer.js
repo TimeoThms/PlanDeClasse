@@ -61,10 +61,11 @@ transformer.on("dragmove", (e) => {
     let minX = Infinity,
         minY = Infinity;
 
-    // Find the minimum X and Y of the selection
+    // Loop through all nodes to calculate the minimum X and Y values
     transformer.nodes().forEach((node) => {
-        minX = Math.min(minX, node.x());
-        minY = Math.min(minY, node.y());
+        const nodeBox = node.getClientRect(); // Get the bounding box of each element without transformer
+        minX = Math.min(minX, nodeBox.x);
+        minY = Math.min(minY, nodeBox.y);
     });
 
     let newX = minX;

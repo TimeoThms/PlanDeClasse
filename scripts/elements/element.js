@@ -79,19 +79,24 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     // Save after transformation (rotation)
     group.on("transformend", (e) => {
         const elementData = projectData.elements.find((el) => el.id === id);
+
         if (elementData) {
-            elementData.rotation = e.target.rotation();
-            elementData.x = e.target.x();
-            elementData.y = e.target.y();
+            const rotation = group.rotation();
+            group.rotation(0);
+            const box = group.getClientRect();
+            elementData.rotation = rotation;
+            elementData.x = box.x;
+            elementData.y = box.y;
 
             if (!notResizeableTypes.includes(elementData.type)) {
-                const size = getSize(group);
+                // const size = getSize(group);
 
-                elementData.width = size.w;
-                elementData.height = size.h;
-                group.width(size.w);
-                group.height(size.h);
+                elementData.width = box.width;
+                elementData.height = box.height;
+                group.width(box.width);
+                group.height(box.height);
             }
+            group.rotation(rotation);
         }
     });
 
@@ -99,31 +104,63 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         const id = transformer.nodes()[0].id();
         const element = projectData.elements.find((el) => el.id === id);
 
-        if (
-            element.type == "text" &&
-            transformer.getActiveAnchor() != "rotater"
-        ) {
-            console.log(transformer.getActiveAnchor());
-            textShape = group.getChildren()[0];
-            let scale = group.scaleY();
-            let width = textShape.width();
-            let height = textShape.height();
-            if (transformer.getActiveAnchor() == "top-center") {
-                group.y(group.y() + (height - height * scale));
-            }
-            textShape.fontSize(height * scale);
+        if (transformer.getActiveAnchor() == "rotater") {
+            return;
+        }
+        const rotation = group.rotation();
+        group.rotation(0); // Set the rotation to 0 to prevent errors with the width and height being modified indirectly by the rotation
+
+        if (element.type == "text") {
+            const textShape = group.getChildren()[0];
+            const anchor = transformer.getActiveAnchor();
+
+            const oldBox = group.getClientRect({ skipTransform: false });
+
+            const scale = group.scaleY();
+            const width = textShape.width();
+            const height = textShape.height();
+            const newHeight = height * scale;
+
+            textShape.fontSize(newHeight);
             textShape.width((width - 20) * scale + 20);
-            textShape.height(height * scale);
+            textShape.height(newHeight);
+
+            group.scaleX(1);
+            group.scaleY(1);
+
+            // If resized from the top anchor, adapt element's Y coordinate
+            if (anchor === "top-center") {
+                const newBox = group.getClientRect({ skipTransform: false });
+
+                const oldBottom = oldBox.y + oldBox.height;
+                const newBottom = newBox.y + newBox.height;
+
+                const deltaY = oldBottom - newBottom;
+
+                group.y(group.y() + deltaY);
+            }
         } else {
             group.getChildren().forEach((shape) => {
-                shape.x(shape.x() * group.scaleX());
-                shape.y(shape.y() * group.scaleY());
-                shape.width(shape.width() * group.scaleX());
-                shape.height(shape.height() * group.scaleY());
+                if (shape instanceof Konva.Image) {
+                    const box = group.getClientRect();
+                    let freeSpace = Math.min(box.width, box.height);
+                    shape.setAttrs({
+                        x: freeSpace * 0.2,
+                        y: freeSpace * 0.2,
+                        width: freeSpace * 0.6,
+                        height: freeSpace * 0.6,
+                    });
+                } else {
+                    shape.x(shape.x() * group.scaleX());
+                    shape.y(shape.y() * group.scaleY());
+                    shape.width(shape.width() * group.scaleX());
+                    shape.height(shape.height() * group.scaleY());
+                }
             });
             group.scaleX(1);
             group.scaleY(1);
         }
+        group.rotation(rotation); // Set rotation back to normal
     });
 
     // Refresh view
@@ -192,6 +229,8 @@ function createShape(type, config) {
             return createCircle(config);
         case "text":
             return createText(config);
+        case "storage":
+            return createStorage(config);
         default:
             console.warn("Unknown type:", type);
             return null;
@@ -217,6 +256,8 @@ function syncEditorValues(type, config) {
             return syncCircleEditor(config);
         case "text":
             return syncTextEditor(config);
+        case "storage":
+            return syncStorageEditor(config);
         default:
             console.warn("Unknown type:", type);
             return null;
