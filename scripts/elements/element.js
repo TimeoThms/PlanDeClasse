@@ -99,27 +99,31 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         const id = transformer.nodes()[0].id();
         const element = projectData.elements.find((el) => el.id === id);
 
-        if (element.type == "text" && transformer.getActiveAnchor() != "rotater") {
+        if (
+            element.type == "text" &&
+            transformer.getActiveAnchor() != "rotater"
+        ) {
+            console.log(transformer.getActiveAnchor());
             textShape = group.getChildren()[0];
-            let scale = Math.floor(group.scaleY()*1000000000)/1000000000;
-            let width = Math.floor(textShape.width()*1000000000)/1000000000;
-            let height = Math.floor(textShape.height()*1000000000)/1000000000;
-            console.log(scale);
+            let scale = group.scaleY();
+            let width = textShape.width();
+            let height = textShape.height();
+            if (transformer.getActiveAnchor() == "top-center") {
+                group.y(group.y() + (height - height * scale));
+            }
             textShape.fontSize(height * scale);
             textShape.width((width - 20) * scale + 20);
             textShape.height(height * scale);
         } else {
             group.getChildren().forEach((shape) => {
-            shape.x(shape.x() * group.scaleX());
-            shape.y(shape.y() * group.scaleY());
-            shape.width(shape.width() * group.scaleX());
-            shape.height(shape.height() * group.scaleY());
-        });
-        group.scaleX(1);
-        group.scaleY(1);
-    }
-
-       
+                shape.x(shape.x() * group.scaleX());
+                shape.y(shape.y() * group.scaleY());
+                shape.width(shape.width() * group.scaleX());
+                shape.height(shape.height() * group.scaleY());
+            });
+            group.scaleX(1);
+            group.scaleY(1);
+        }
     });
 
     // Refresh view
@@ -212,7 +216,7 @@ function syncEditorValues(type, config) {
         case "circle":
             return syncCircleEditor(config);
         case "text":
-            return syncTextEditor(config)
+            return syncTextEditor(config);
         default:
             console.warn("Unknown type:", type);
             return null;

@@ -6,7 +6,16 @@ const transformer = new Konva.Transformer({
     rotateEnabled: true,
     resizeEnabled: true,
     keepRatio: false,
-    enabledAnchors: ["top-left", "top-right", "bottom-left", "bottom-right", "middle-right", "middle-left", "top-center", "bottom-center"],
+    enabledAnchors: [
+        "top-left",
+        "top-right",
+        "bottom-left",
+        "bottom-right",
+        "middle-right",
+        "middle-left",
+        "top-center",
+        "bottom-center",
+    ],
     rotateAnchorOffset: 20,
     anchorCornerRadius: 100,
     rotationSnaps: Array.from({ length: 73 }, (_, i) => i * 5), // [0, 5, 10, 15, ..., 360]
@@ -18,13 +27,22 @@ const transformer = new Konva.Transformer({
 
 function updateTransformerResizeState() {
     transformer.resizeEnabled(true);
-    transformer.enabledAnchors(["top-left", "top-right", "bottom-left", "bottom-right", "middle-right", "middle-left", "top-center", "bottom-center"]);
+    transformer.enabledAnchors([
+        "top-left",
+        "top-right",
+        "bottom-left",
+        "bottom-right",
+        "middle-right",
+        "middle-left",
+        "top-center",
+        "bottom-center",
+    ]);
     transformer.nodes().forEach((node) => {
         const elementData = projectData.elements.find(
             (el) => el.id === node.id()
         );
-        if (elementData.type =="text") {
-            transformer.enabledAnchors(["top-center", "bottom-center"]); 
+        if (elementData.type == "text") {
+            transformer.enabledAnchors(["top-center", "bottom-center"]);
         }
         if (notResizeableTypes.includes(elementData.type)) {
             transformer.resizeEnabled(false);
@@ -86,6 +104,15 @@ transformer.on("dragmove", (e) => {
 layer.on("click", () => {
     transformer.nodes().forEach((node) => {
         node.draggable(false);
+        let elementData = projectData.elements.find(
+            (el) => el.id === node.id()
+        );
+        if (elementData.type == "text" && elementData.label == "") {
+            node.destroy();
+            projectData.elements = projectData.elements.filter(
+                (obj) => obj.id !== node.id()
+            );
+        }
     });
     transformer.nodes([]);
     elementsLayer.batchDraw();
