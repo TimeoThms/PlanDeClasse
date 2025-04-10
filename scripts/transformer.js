@@ -44,46 +44,55 @@ function updateTransformerResizeState() {
         if (elementData.type == "text") {
             transformer.enabledAnchors(["top-center", "bottom-center"]);
         }
+        if (horizontalResizeableTypes.includes(elementData.type)) {
+            transformer.enabledAnchors(["middle-right", "middle-left"]);
+        }
         if (notResizeableTypes.includes(elementData.type)) {
             transformer.resizeEnabled(false);
         }
     });
+    transformer.zIndex(transformer.nodes().length);
+}
+
+function getSelectionBoundingBox(nodes) {
+    let minX = Infinity,
+        minY = Infinity,
+        maxX = -Infinity,
+        maxY = -Infinity;
+
+    nodes.forEach((node) => {
+        const box = node.getClientRect({ skipTransform: false });
+        minX = Math.min(minX, box.x);
+        minY = Math.min(minY, box.y);
+        maxX = Math.max(maxX, box.x + box.width);
+        maxY = Math.max(maxY, box.y + box.height);
+    });
+
+    return {
+        x: minX,
+        y: minY,
+        width: maxX - minX,
+        height: maxY - minY,
+    };
 }
 
 transformer.on("dragmove", (e) => {
     const tr = e.target;
     const stage = tr.getStage();
-    let { width, height } = stage.size();
-    height += transformer.rotateAnchorOffset() + 5;
+    let { width: stageW, height: stageH } = stage.size();
+    // stageH += transformer.rotateAnchorOffset() + 5;
 
-    const box = tr.getClientRect();
+    const selectionBox = getSelectionBoundingBox(transformer.nodes());
 
-    let minX = Infinity,
-        minY = Infinity;
+    let newX = selectionBox.x;
+    let newY = selectionBox.y;
 
-    // Loop through all nodes to calculate the minimum X and Y values
-    transformer.nodes().forEach((node) => {
-        const nodeBox = node.getClientRect(); // Get the bounding box of each element without transformer
-        minX = Math.min(minX, nodeBox.x);
-        minY = Math.min(minY, nodeBox.y);
-    });
-
-    let newX = minX;
-    let newY = minY;
-
-    // Correct coords if selection is dragged out of the stage
-    if (minX < 0) {
-        newX = 0;
-    }
-    if (minY < 0) {
-        newY = 0;
-    }
-    if (minX + box.width > width) {
-        newX = width - box.width;
-    }
-    if (minY + box.height > height) {
-        newY = height - box.height;
-    }
+    if (selectionBox.x < 0) newX = 0;
+    if (selectionBox.y < 0) newY = 0;
+    if (selectionBox.x + selectionBox.width > stageW)
+        newX = stageW - selectionBox.width;
+    if (selectionBox.y + selectionBox.height > stageH)
+        newY = stageH - selectionBox.height;
 
     if (gridToggled) {
         // Snap to the grid
@@ -91,11 +100,11 @@ transformer.on("dragmove", (e) => {
     }
 
     // Elements potions relatively to their position with the selection
+    const deltaX = newX - selectionBox.x;
+    const deltaY = newY - selectionBox.y;
     transformer.nodes().forEach((element) => {
-        element.position({
-            x: newX + (element.x() - minX),
-            y: newY + (element.y() - minY),
-        });
+        element.x(element.x() + deltaX);
+        element.y(element.y() + deltaY);
     });
 
     elementsLayer.batchDraw();

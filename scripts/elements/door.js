@@ -5,7 +5,7 @@ const addDoorBtn = document.getElementById("add-door-btn");
 const doorLabelInput = document.getElementById("door-label-input");
 
 // Returns the list of shapes used to make the door
-function createDoor({ doortype = "normal", label = "" }) {
+function createDoor({ doortype = "normal", label = "", width = 100 }) {
     let color;
     if (doortype == "normal") {
         color = "#1B263B";
@@ -16,7 +16,7 @@ function createDoor({ doortype = "normal", label = "" }) {
     let door = new Konva.Rect({
         x: 0,
         y: 0,
-        width: 100,
+        width: width,
         height: 10,
         fill: color,
         cornerRadius: 100,
@@ -29,7 +29,7 @@ function createDoor({ doortype = "normal", label = "" }) {
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#fff",
-        width: 100,
+        width: width,
         height: 10,
         padding: 2,
         align: "center",
@@ -55,6 +55,7 @@ addDoorBtn.addEventListener("click", () => {
         config: {
             doortype: doortype,
             label: doorLabelInput.value,
+            width: 100,
         },
     });
 });
@@ -88,12 +89,15 @@ function updateDoor() {
     } else if (editorSafetyDoorInput.checked) {
         doortype = "safety";
     }
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
+    const box = group.getClientRect({ skipTransform: true });
     updateElement({
         type: "door",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(),
         config: {
             doortype: doortype,
             label: editorDoorLabelInput.value,
+            width: box.width,
         },
     });
 }

@@ -9,13 +9,18 @@ rectangleColorInput.addEventListener("input", (event) => {
 });
 
 // Returns the list of shapes used to make the rectangle
-function createRectangle({ color = "#000", label = "", width = 100, height = 100}) {
+function createRectangle({
+    color = "#000",
+    label = "",
+    width = 100,
+    height = 100,
+}) {
     let rect = new Konva.Rect({
         x: 0,
         y: 0,
         width: width,
         height: height,
-        fill: color
+        fill: color,
     });
 
     let text = new Konva.Text({
@@ -51,7 +56,9 @@ addRectangleBtn.addEventListener("click", () => {
 });
 
 // EDITOR
-const editorRectangleColorInput = document.getElementById("editor-rectangle-color");
+const editorRectangleColorInput = document.getElementById(
+    "editor-rectangle-color"
+);
 const editorRectangleColorLabel = document.getElementById(
     "editor-rectangle-color-label"
 );
@@ -70,19 +77,21 @@ editorRectangleLabelInput.addEventListener("input", () => {
 });
 
 function updateRectangle() {
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
+    const box = group.getClientRect({ skipTransform: true });
     updateElement({
         type: "rectangle",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(),
         config: {
             color: editorRectangleColorInput.value,
             label: editorRectangleLabelInput.value,
-            width: transformer.nodes()[0].width(),
-            height: transformer.nodes()[0].height(),
+            width: box.width,
+            height: box.height,
         },
     });
 }
 
-function syncRectangleEditor({ color = "#000", label = ""}) {
+function syncRectangleEditor({ color = "#000", label = "" }) {
     editorRectangleColorInput.value = color;
     editorRectangleColorLabel.style.backgroundColor = color;
     editorRectangleLabelInput.value = label;

@@ -3,10 +3,12 @@ const elementEditor = document.getElementById("element-editor");
 const notResizeableTypes = [
     "table",
     "doubletable",
-    "door",
+    // "door",
     "desk",
-    "whiteboard",
+    // "whiteboard",
 ];
+
+const horizontalResizeableTypes = ["door", "whiteboard"];
 
 function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     let group = new Konva.Group({
@@ -89,12 +91,12 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
             elementData.y = box.y;
 
             if (!notResizeableTypes.includes(elementData.type)) {
-                // const size = getSize(group);
-
+                if (!horizontalResizeableTypes.includes(elementData.type)) {
+                    elementData.height = box.height;
+                    group.height(box.height);
+                }
                 elementData.width = box.width;
-                elementData.height = box.height;
                 group.width(box.width);
-                group.height(box.height);
             }
             group.rotation(rotation);
         }

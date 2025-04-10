@@ -68,14 +68,16 @@ editorCircleLabelInput.addEventListener("input", () => {
 });
 
 function updateCircle() {
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
+    const box = group.getClientRect({ skipTransform: true });
     updateElement({
         type: "circle",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(),
         config: {
             color: editorCircleColorInput.value,
             label: editorCircleLabelInput.value,
-            width: transformer.nodes()[0].width(),
-            height: transformer.nodes()[0].height(),
+            width: box.width,
+            height: box.height,
         },
     });
 }

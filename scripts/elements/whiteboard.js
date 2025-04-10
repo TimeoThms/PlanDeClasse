@@ -2,11 +2,11 @@ const addWhiteboardBtn = document.getElementById("add-whiteboard-btn");
 const whiteboardLabelInput = document.getElementById("whiteboard-label-input");
 
 // Returns the list of shapes used to make the whiteboard
-function createWhiteboard({ label = "" }) {
+function createWhiteboard({ label = "", width = 100 }) {
     let board = new Konva.Rect({
         x: 0,
         y: 0,
-        width: 220,
+        width: width,
         height: 10,
         fill: "#fff",
         cornerRadius: 100,
@@ -21,7 +21,7 @@ function createWhiteboard({ label = "" }) {
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#000",
-        width: 220,
+        width: width,
         height: 10,
         padding: 2,
         align: "center",
@@ -40,6 +40,7 @@ addWhiteboardBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             label: whiteboardLabelInput.value,
+            width: 220,
         },
     });
 });
@@ -55,11 +56,18 @@ editorWhiteboardLabelInput.addEventListener("input", () => {
 });
 
 function updateWhiteboard() {
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
+    const box = group.getClientRect({
+        skipTransform: true,
+        skipStroke: true,
+    });
+    console.log(box.width);
     updateElement({
         type: "whiteboard",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
         config: {
             label: editorWhiteboardLabelInput.value,
+            width: box.width,
         },
     });
 }

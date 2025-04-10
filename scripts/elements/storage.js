@@ -65,13 +65,15 @@ editorStorageLabelInput.addEventListener("input", () => {
 });
 
 function updateStorage() {
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
+    const box = group.getClientRect({ skipTransform: true });
     updateElement({
         type: "storage",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(),
         config: {
             label: editorStorageLabelInput.value,
-            width: transformer.nodes()[0].width(),
-            height: transformer.nodes()[0].height(),
+            width: box.width,
+            height: box.height,
         },
     });
 }

@@ -64,13 +64,15 @@ editorTextLabelInput.addEventListener("input", () => {
 });
 
 function updateText() {
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
+    const box = group.getClientRect({ skipTransform: true });
     updateElement({
         type: "text",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(),
         config: {
             color: editorTextColorInput.value,
             label: editorTextLabelInput.value,
-            height: transformer.nodes()[0].height(),
+            height: box.height(),
         },
     });
 }
