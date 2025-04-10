@@ -14,7 +14,7 @@ function createStorage({ label = "", width = 100, height = 100 }) {
 
     const imageObj = new Image();
     imageObj.src =
-        "/ressources/images/storage_icon.png";
+        "ressources/images/storage_icon.png";
     let freeSpace = Math.min(width, height);
     const icon = new Konva.Image({
         x: freeSpace * 0.2,
