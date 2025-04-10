@@ -13,8 +13,9 @@ function createStorage({ label = "", width = 100, height = 100 }) {
     });
 
     const imageObj = new Image();
+    imageObj.crossOrigin = "anonymous";
     imageObj.src =
-        "ressources/images/storage_icon.png";
+        "https://timeothms.github.io/PlanDeClasse/ressources/images/storage_icon.png";
     let freeSpace = Math.min(width, height);
     const icon = new Konva.Image({
         x: freeSpace * 0.2,
