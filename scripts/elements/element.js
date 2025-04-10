@@ -57,6 +57,10 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
                 // Else, select only the element
                 nodes.forEach((el) => el.draggable(false));
                 transformer.nodes([group]);
+                if (!isZPressed) {
+                    transformer.nodes()[0].moveToTop();
+                    transformer.moveToTop();
+                }
             }
 
             group.draggable(true);
@@ -321,3 +325,16 @@ function updateElement({ type, id, config = {} }) {
     let elementData = projectData.elements.find((el) => el.id === id);
     Object.assign(elementData, config);
 }
+
+let isZPressed = false;
+document.addEventListener("keydown", (e) => {
+    if (e.key === "z" || e.key === "Z") {
+        isZPressed = true;
+    }
+});
+
+document.addEventListener("keyup", (e) => {
+    if (e.key === "z" || e.key === "Z") {
+        isZPressed = false;
+    }
+});

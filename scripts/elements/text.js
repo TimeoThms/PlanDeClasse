@@ -72,7 +72,7 @@ function updateText() {
         config: {
             color: editorTextColorInput.value,
             label: editorTextLabelInput.value,
-            height: box.height(),
+            height: box.height,
         },
     });
 }

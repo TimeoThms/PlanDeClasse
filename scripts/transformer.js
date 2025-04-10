@@ -20,7 +20,6 @@ const transformer = new Konva.Transformer({
     anchorCornerRadius: 100,
     rotationSnaps: Array.from({ length: 73 }, (_, i) => i * 5), // [0, 5, 10, 15, ..., 360]
     draggable: true,
-    shouldOverdrawWholeArea: true,
     ignoreStroke: true,
     flipEnabled: false,
 });
@@ -51,7 +50,7 @@ function updateTransformerResizeState() {
             transformer.resizeEnabled(false);
         }
     });
-    transformer.zIndex(transformer.nodes().length);
+    transformer.moveToTop();
 }
 
 function getSelectionBoundingBox(nodes) {
