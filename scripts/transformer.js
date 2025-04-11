@@ -22,6 +22,7 @@ const transformer = new Konva.Transformer({
     draggable: true,
     ignoreStroke: true,
     flipEnabled: false,
+    shouldOverdrawWholeArea: true,
 });
 
 function updateTransformerResizeState() {
@@ -205,11 +206,27 @@ function pasteSelection() {
         if (!transformer.nodes().includes(element)) {
             transformer.nodes([...transformer.nodes(), element]);
         }
+        element.draggable(true);
     });
 
     displayEditor();
 
     layer.batchDraw();
 }
+
+transformer.on("click", (e) => {
+    const pointer = stage.getPointerPosition();
+    const hits = stage.getAllIntersections(pointer);
+    let found_parents = [];
+    hits.forEach((shape) => {
+        const parent = shape.getParent();
+        if (transformer.nodes().includes(parent)) {
+            if (!found_parents.includes(parent)) {
+                parent.fire("click", { evt: e.evt }, true);
+            }
+            found_parents.push(parent);
+        }
+    });
+});
 
 elementsLayer.add(transformer);
