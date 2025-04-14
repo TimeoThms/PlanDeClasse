@@ -6,11 +6,12 @@ let walls = new Konva.Line({
     strokeWidth: 3,
     lineJoin: "round",
     lineCap: "round",
-    closed: true,
+    closed: false,
 });
 layer.add(walls);
 
 let pointsHandles = [];
+let lengthDisplays = [];
 
 function createPoint(x, y) {
     points.push(x, y);
@@ -52,6 +53,8 @@ function createPoint(x, y) {
         projectData.walls[index * 2 + 1] = coords[1];
 
         walls.points(points);
+
+        updateWallLengthLabel(index);
         layer.batchDraw();
     });
 }
@@ -74,11 +77,14 @@ stage.on("click", (e) => {
     ) {
         // Check if start point is clicked
         isDrawingWalls = false;
+        walls.closed(true);
+        addWallLengthLabel();
         return;
     }
-
     createPoint(coords[0], coords[1]);
     walls.points(points);
+
+    addWallLengthLabel();
 
     layer.batchDraw();
 });
@@ -94,10 +100,15 @@ function createWalls() {
 function deleteWalls() {
     pointsHandles.forEach(function (handle) {
         handle.destroy();
-        isDrawingWalls = false;
     });
+    lengthDisplays.forEach(function (label) {
+        label.destroy();
+    });
+    walls.closed(false);
+    isDrawingWalls = false;
     pointsHandles = [];
-    projectData.walls = []
+    projectData.walls = [];
+    lengthDisplays = [];
     walls.points([]);
     points = [];
     layer.batchDraw();
@@ -105,9 +116,104 @@ function deleteWalls() {
 
 function loadWalls(uploadedPoints) {
     deleteWalls();
-    for (let i=0; i < uploadedPoints.length; i+=2) {
-        createPoint(uploadedPoints[i], uploadedPoints[i+1]);
+    isDrawingWalls = true;
+    for (let i = 0; i < uploadedPoints.length; i += 2) {
+        createPoint(uploadedPoints[i], uploadedPoints[i + 1]);
+        walls.points(points);
+        addWallLengthLabel();
     }
-    walls.points(points);
+    isDrawingWalls = false;
+    walls.closed(true);
+    addWallLengthLabel();
     layer.batchDraw();
+}
+
+function addWallLengthLabel() {
+    if (points.length >= 4) {
+        let indexoffset = 0;
+        if (!isDrawingWalls) {
+            indexoffset = 2;
+        }
+        const startIndex = points.length - 4 + indexoffset;
+        const x1 = points[startIndex % points.length];
+        const y1 = points[(startIndex + 1) % points.length];
+        const x2 = points[(startIndex + 2) % points.length];
+        const y2 = points[(startIndex + 3) % points.length];
+
+        const midX = (x1 + x2) / 2;
+        const midY = (y1 + y2) / 2;
+
+        const lengthInMeters = (
+            Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) / 100
+        ).toFixed(2);
+
+        const lengthLabel = new Konva.Label({
+            x: midX,
+            y: midY,
+            opacity: 0.7,
+        });
+        lengthLabel.add(
+            new Konva.Tag({
+                fill: "#ddd",
+                cornerRadius: 8,
+            })
+        );
+        lengthLabel.add(
+            new Konva.Text({
+                text: `${lengthInMeters} m`,
+                fontSize: 14,
+                fill: "#000",
+                fontStyle: "bold",
+                padding: 4,
+            })
+        );
+
+        lengthLabel.offsetX(lengthLabel.width() / 2);
+        lengthLabel.offsetY(lengthLabel.height() / 2);
+
+        layer.add(lengthLabel);
+        lengthDisplays.push(lengthLabel);
+    }
+}
+
+function updateWallLengthLabel(handleIndex) {
+    const firstLabelIndex = handleIndex;
+    const secondLabelIndex =
+        // Adding lengthDisplays.length to handle negative numbers modulo
+        (handleIndex - 1 + lengthDisplays.length) % lengthDisplays.length;
+
+    const labelsToUpdate = [firstLabelIndex, secondLabelIndex];
+
+    labelsToUpdate.forEach((index) => {
+        let secondHandleIndex;
+        if (handleIndex == index) {
+            secondHandleIndex =
+                (handleIndex + 1 + lengthDisplays.length) %
+                lengthDisplays.length;
+        } else {
+            secondHandleIndex =
+                (handleIndex - 1 + lengthDisplays.length) %
+                lengthDisplays.length;
+        }
+        const x1 = points[handleIndex * 2];
+        const y1 = points[handleIndex * 2 + 1];
+        const x2 = points[secondHandleIndex * 2];
+        const y2 = points[secondHandleIndex * 2 + 1];
+
+        const midX = (x1 + x2) / 2;
+        const midY = (y1 + y2) / 2;
+
+        const lengthInMeters = (
+            Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) / 100
+        ).toFixed(2);
+
+        const lengthLabel = lengthDisplays[index];
+        if (lengthLabel) {
+            lengthLabel.position({ x: midX, y: midY });
+            const textNode = lengthLabel.findOne("Text");
+            textNode.text(`${lengthInMeters} m`);
+            lengthLabel.offsetX(lengthLabel.width() / 2);
+            lengthLabel.offsetY(lengthLabel.height() / 2);
+        }
+    });
 }

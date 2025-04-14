@@ -128,6 +128,9 @@ layer.on("click", () => {
     elementsLayer.batchDraw();
 
     elementEditor.style.top = "-100px";
+
+    sizeDisplay.style.transition = "top 0.2s ease-in-out";
+    sizeDisplay.style.top = "-100px";
 });
 
 document.addEventListener("keydown", (e) => {
@@ -164,6 +167,9 @@ function deleteSelection() {
     transformer.nodes([]);
     elementsLayer.batchDraw();
     elementEditor.style.top = "-100px";
+
+    sizeDisplay.style.transition = "top 0.2s ease-in-out";
+    sizeDisplay.style.top = "-100px";
 }
 
 let clipboard = [];
@@ -227,6 +233,10 @@ transformer.on("click", (e) => {
             found_parents.push(parent);
         }
     });
+});
+
+transformer.on("transform", () => {
+    syncSizeDisplay();
 });
 
 elementsLayer.add(transformer);

@@ -1,4 +1,5 @@
 const elementEditor = document.getElementById("element-editor");
+const sizeDisplay = document.getElementById("size-display");
 
 const notResizeableTypes = [
     "table",
@@ -193,7 +194,6 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     updateTransformerResizeState();
 
     displayEditor(id);
-    elementEditor.style.top = "8px";
 }
 
 function getSize(group) {
@@ -298,9 +298,45 @@ function displayEditor() {
 
         syncEditorValues(element.type, config);
 
+        if (!notResizeableTypes.includes(element.type)) {
+            console.log(elementEditor.style.top);
+            if (elementEditor.style.top == "8px") {
+                sizeDisplay.style.transition = "none";
+            } else {
+                sizeDisplay.style.transition = "top 0.2s ease-in-out";
+            }
+            sizeDisplay.style.top = "96px";
+            syncSizeDisplay();
+        } else {
+            if (elementEditor.style.top == "8px") {
+                sizeDisplay.style.transition = "none";
+            } else {
+                sizeDisplay.style.transition = "top 0.2s ease-in-out";
+            }
+            sizeDisplay.style.top = "-100px";
+        }
         elementEditor.style.top = "8px";
     } else {
         elementEditor.style.top = "-100px";
+        if (elementEditor.style.top == "8px") {
+            sizeDisplay.style.transition = "none";
+        } else {
+            sizeDisplay.style.transition = "top 0.2s ease-in-out";
+        }
+        sizeDisplay.style.top = "-100px";
+    }
+}
+
+function syncSizeDisplay() {
+    const node = transformer.nodes()[0];
+    const elementData = projectData.elements.find((el) => el.id === node.id());
+    const box = node.getClientRect({ skipTransform: true });
+    if (horizontalResizeableTypes.includes(elementData.type)) {
+        sizeDisplay.innerText = `Taille : ${Math.round(box.width)} cm`;
+    } else {
+        sizeDisplay.innerText = `Taille : ${Math.round(
+            box.width
+        )} x ${Math.round(box.height)} cm`;
     }
 }
 

@@ -8,6 +8,9 @@ downloadBtn.addEventListener("click", () => {
     gridLines.forEach(function (line) {
         line.visible(false);
     });
+    lengthDisplays.forEach(function (label) {
+        label.visible(false);
+    });
     transformer.visible(false);
 
     const dataURL = stage.toDataURL({
@@ -25,6 +28,9 @@ downloadBtn.addEventListener("click", () => {
     });
     gridLines.forEach(function (line) {
         line.visible(true);
+    });
+    lengthDisplays.forEach(function (label) {
+        label.visible(true);
     });
     transformer.visible(true);
 });
