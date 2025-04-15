@@ -54,6 +54,7 @@ addStorageBtn.addEventListener("click", () => {
             height: 50,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR

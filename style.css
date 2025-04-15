@@ -16,7 +16,6 @@ body {
 #menu {
     background-color: white;
     width: 350px;
-    height: 100vh;
     padding: 15px;
     box-shadow: 5px 5px 15px #cfcfcf;
     z-index: 10;
@@ -158,9 +157,6 @@ input[type="file"] {
     margin-bottom: 20px;
 }
 
-
-
-
 .elements-container {
     display: flex;
     gap: 16px;
@@ -203,13 +199,17 @@ input[type="file"] {
 .attribute {
     display: flex;
     flex-direction: column;
-    width: 100%;
+}
+
+.attribute-textinput {
+    flex: 1;
 }
 
 .color-label {
     height: 30px;
     width: 100%;
-    background-color: #415A77;
+    max-width: 60px;
+    background-color: #415a77;
     border-radius: 4px;
 }
 

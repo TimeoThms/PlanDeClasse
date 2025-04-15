@@ -1,10 +1,12 @@
 // Stage init
 const container = document.getElementById("container");
 
+const defaultSize = {width: 1050, height: 800}
+
 const stage = new Konva.Stage({
     container: "container",
-    width: 1485,
-    height: 1050,
+    width: defaultSize.width,
+    height: defaultSize.height,
 });
 
 // Fill size inputs, in meters, 1px = 1cm
@@ -24,7 +26,6 @@ const canvas = new Konva.Rect({
 layer.add(canvas);
 canvas.moveToBottom();
 
-
 let elements = [];
 
 const elementsLayer = new Konva.Layer();
@@ -42,3 +43,15 @@ function generateId() {
     last_id = id;
     return id;
 }
+
+document.querySelectorAll("input").forEach((el) => {
+    el.addEventListener("change", () => {
+        pushStateSnapshot();
+    });
+});
+
+// Navigation functions
+// WARNING: Commented for development purposes. Uncomment for production
+// window.addEventListener("beforeunload", function (e) {
+//     e.preventDefault();
+// });

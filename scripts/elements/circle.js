@@ -9,13 +9,18 @@ circleColorInput.addEventListener("input", (event) => {
 });
 
 // Returns the list of shapes used to make the circle
-function createCircle({ color = "#000", label = "empty", width = 100, height = 100}) {
+function createCircle({
+    color = "#000",
+    label = "empty",
+    width = 100,
+    height = 100,
+}) {
     let ellipse = new Konva.Ellipse({
-        x: width/2,
-        y: height/2,
+        x: width / 2,
+        y: height / 2,
         width: width,
         height: height,
-        fill: color
+        fill: color,
     });
 
     let text = new Konva.Text({
@@ -46,6 +51,7 @@ addCircleBtn.addEventListener("click", () => {
             label: circleLabelInput.value,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR
@@ -56,7 +62,6 @@ const editorCircleColorLabel = document.getElementById(
 const editorCircleLabelInput = document.getElementById(
     "editor-circle-label-input"
 );
-
 
 editorCircleColorInput.addEventListener("input", (event) => {
     const selectedColor = event.target.value;
@@ -82,7 +87,7 @@ function updateCircle() {
     });
 }
 
-function syncCircleEditor({ color = "#000", label = ""}) {
+function syncCircleEditor({ color = "#000", label = "" }) {
     editorCircleColorInput.value = color;
     editorCircleColorLabel.style.backgroundColor = color;
     editorCircleLabelInput.value = label;

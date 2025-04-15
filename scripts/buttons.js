@@ -35,6 +35,43 @@ downloadBtn.addEventListener("click", () => {
     transformer.visible(true);
 });
 
+// Reset
+const resetBtn = document.getElementById("resetBtn");
+resetBtn.addEventListener("click", () => {
+    deleteWalls();
+    elements.forEach((e) => {
+        if (e && e.destroy) {
+            e.destroy();
+        }
+    });
+    transformer.nodes([]);
+
+    filenameInput.value = "";
+    widthInput.value = defaultSize.width / 100; // Values in meters, 1px = 1cm
+    heightInput.value = defaultSize.height / 100;
+
+    stage.width(defaultSize.width);
+    stage.height(defaultSize.height);
+
+    projectData = {
+        filename: "",
+        width: stage.width(),
+        height: stage.height(),
+        walls: [],
+        elements: [],
+    };
+
+    stage.width(projectData.width);
+    canvas.width(projectData.width);
+    stage.height(projectData.height);
+    canvas.height(projectData.height);
+
+    resetZoom();
+    displayEditor();
+
+    layer.batchDraw();
+});
+
 // Grid
 const toggleGridBtn = document.getElementById("btn-toggle-grid");
 toggleGridBtn.addEventListener("click", () => {

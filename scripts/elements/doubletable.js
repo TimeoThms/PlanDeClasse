@@ -86,6 +86,7 @@ addDoubletableBtn.addEventListener("click", () => {
             label2: doubletableLabel2Input.value,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR

@@ -110,6 +110,6 @@ function loadProject() {
 
     layer.batchDraw();
     elementsLayer.batchDraw();
-}
 
-function exportProject() {}
+    // pushStateSnapshot();
+}

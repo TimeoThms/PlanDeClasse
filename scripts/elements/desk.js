@@ -53,6 +53,7 @@ addDeskBtn.addEventListener("click", () => {
             label: deskLabelInput.value,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR

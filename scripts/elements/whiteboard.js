@@ -43,6 +43,7 @@ addWhiteboardBtn.addEventListener("click", () => {
             width: 220,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR

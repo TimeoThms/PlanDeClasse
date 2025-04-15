@@ -110,6 +110,17 @@ transformer.on("dragmove", (e) => {
     elementsLayer.batchDraw();
 });
 
+transformer.on("dragend", (e) => {
+    setTimeout(() => {
+        pushStateSnapshot();
+    }, 0);
+});
+transformer.on("transformend", (e) => {
+    setTimeout(() => {
+        pushStateSnapshot();
+    }, 0);
+});
+
 // Unselect all elements if layer is clicked (aka background rect and grid lines)
 layer.on("click", () => {
     transformer.nodes().forEach((node) => {
@@ -218,6 +229,8 @@ function pasteSelection() {
     displayEditor();
 
     layer.batchDraw();
+
+    pushStateSnapshot();
 }
 
 transformer.on("click", (e) => {

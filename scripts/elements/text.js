@@ -42,6 +42,7 @@ addTextBtn.addEventListener("click", () => {
             height: 100,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR

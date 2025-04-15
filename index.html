@@ -31,7 +31,10 @@
                 <button class="btn" id="btn-export">Exporter</button>
             </div>
             <div class="basic-flex">
-                <button class="btn" id="downloadBtn">Télécharger Image</button>
+                <button class="btn" id="downloadBtn">
+                    Télécharger l'image
+                </button>
+                <button class="btn caution" id="resetBtn">Réinitialiser</button>
             </div>
 
             <div class="separator"></div>
@@ -133,7 +136,7 @@
                                     id="table-color-label"
                                 ></label>
                             </div>
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -171,7 +174,7 @@
                                     id="doubletable-color-label"
                                 ></label>
                             </div>
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte 1</h4>
                                 <input
                                     type="text"
@@ -181,7 +184,7 @@
                                     placeholder="Aucun"
                                 />
                             </div>
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte 2</h4>
                                 <input
                                     type="text"
@@ -224,7 +227,7 @@
                                     <label for="safety-door">Secours</label>
                                 </div>
                             </div>
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -247,7 +250,7 @@
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -285,7 +288,7 @@
                                     id="text-color-label"
                                 ></label>
                             </div>
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Contenu</h4>
                                 <input
                                     type="text"
@@ -308,7 +311,7 @@
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -331,7 +334,7 @@
                         </div>
                         <div class="separator"></div>
                         <div class="element-bottom">
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -369,7 +372,7 @@
                                     id="rectangle-color-label"
                                 ></label>
                             </div>
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -407,7 +410,7 @@
                                     id="circle-color-label"
                                 ></label>
                             </div>
-                            <div class="attribute">
+                            <div class="attribute attribute-textinput">
                                 <h4>Texte</h4>
                                 <input
                                     type="text"
@@ -572,7 +575,7 @@
                     type="text"
                     name=""
                     id="editor-rectangle-label-input"
-                    class="editor-label-input"
+                    class="label-input"
                     placeholder="Aucun"
                 />
             </div>
@@ -599,7 +602,7 @@
                     type="text"
                     name=""
                     id="editor-circle-label-input"
-                    class="editor-label-input"
+                    class="label-input"
                     placeholder="Aucun"
                 />
             </div>
@@ -626,9 +629,7 @@
             </div>
         </div>
 
-        <p class="size-display" id="size-display">
-            Taille : 60 x 120 cm
-        </p>
+        <p class="size-display" id="size-display">Taille : 60 x 120 cm</p>
 
         <script src="scripts/grid.js"></script>
 
@@ -643,6 +644,8 @@
         <script src="scripts/walls.js"></script>
 
         <script src="scripts/filemanager.js"></script>
+
+        <script src="scripts/history.js"></script>
 
         <script src="scripts/elements/element.js"></script>
 
@@ -666,6 +669,8 @@
 
         <script>
             resetZoom();
+
+            pushStateSnapshot();
         </script>
     </body>
 </html>

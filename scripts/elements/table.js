@@ -61,6 +61,7 @@ addTableBtn.addEventListener("click", () => {
             label: tableLabelInput.value,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR

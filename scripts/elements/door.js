@@ -58,6 +58,7 @@ addDoorBtn.addEventListener("click", () => {
             width: 100,
         },
     });
+    pushStateSnapshot();
 });
 
 // EDITOR

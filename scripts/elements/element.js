@@ -299,7 +299,6 @@ function displayEditor() {
         syncEditorValues(element.type, config);
 
         if (!notResizeableTypes.includes(element.type)) {
-            console.log(elementEditor.style.top);
             if (elementEditor.style.top == "8px") {
                 sizeDisplay.style.transition = "none";
             } else {
