@@ -1,9 +1,12 @@
-const history = {
-    snapshots: [],
+const dataHistory = {
+    snapshots: [structuredClone(projectData)],
     currentIndex: 0,
 };
 
 document.addEventListener("keydown", function (event) {
+    // Prevents undoing/redoing while inputing text somewhere
+    if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+
     if (event.ctrlKey) {
         if (event.key === "z" || event.key === "Z") {
             event.preventDefault();
@@ -16,31 +19,45 @@ document.addEventListener("keydown", function (event) {
 });
 
 function pushStateSnapshot() {
-    const snapshot = JSON.parse(JSON.stringify(projectData));
-    history.snapshots = history.snapshots.slice(0, history.currentIndex + 1);
-    history.snapshots.push(snapshot);
-    history.currentIndex++;
+    const snapshot = structuredClone(projectData);
+
+    // Prevents pushing a snapshot twice (should never happen but just in case)
+    const currentSnapshot = dataHistory.snapshots[dataHistory.currentIndex];
+    const hasChanged =
+        JSON.stringify(currentSnapshot) !== JSON.stringify(snapshot);
+
+    if (!hasChanged) return;
+
+    dataHistory.snapshots = dataHistory.snapshots.slice(
+        0,
+        dataHistory.currentIndex + 1
+    );
+    console.log("Saved");
+    dataHistory.snapshots.push(snapshot);
+    dataHistory.currentIndex++;
 }
 
 function undo() {
-    if (history.currentIndex > 0) {
-        history.currentIndex--;
-        applySnapshot(history.snapshots[history.currentIndex]);
+    if (dataHistory.currentIndex > 0) {
+        dataHistory.currentIndex--;
+        applySnapshot(dataHistory.snapshots[dataHistory.currentIndex]);
     }
 }
 
 function redo() {
-    if (history.currentIndex < history.snapshots.length - 1) {
-        history.currentIndex++;
-        applySnapshot(history.snapshots[history.currentIndex]);
+    if (dataHistory.currentIndex < dataHistory.snapshots.length - 1) {
+        dataHistory.currentIndex++;
+        applySnapshot(dataHistory.snapshots[dataHistory.currentIndex]);
     }
 }
 
 function applySnapshot(snapshot) {
-
     if (snapshot === projectData) return;
 
-    projectData = snapshot;
+    projectData = structuredClone(snapshot);
+
+    // Creates an array with the ids of selected elements
+    const selectedElements = transformer.nodes().map((e) => e.id());
 
     elements.forEach((e) => {
         if (e && e.destroy) {
@@ -48,32 +65,41 @@ function applySnapshot(snapshot) {
         }
     });
 
+    elements = [];
+
     elementsLayer.batchDraw();
 
     // Clear transformer nodes of all previous elements
     transformer.nodes([]);
 
     // Fill size inputs with their values
-    filenameInput.value = projectData.filename;
-    widthInput.value = projectData.width / 100; // Values in meters, 1px = 1cm
-    heightInput.value = projectData.height / 100;
+    filenameInput.value = snapshot.filename;
+    widthInput.value = snapshot.width / 100; // Values in meters, 1px = 1cm
+    heightInput.value = snapshot.height / 100;
 
     // Match size to the size of the loaded project
-    stage.width(projectData.width);
-    canvas.width(projectData.width);
-    stage.height(projectData.height);
-    canvas.height(projectData.height);
+    stage.width(snapshot.width);
+    canvas.width(snapshot.width);
+    stage.height(snapshot.height);
+    canvas.height(snapshot.height);
 
-    loadWalls(projectData.walls);
+    loadWalls(snapshot.walls, isDrawingWalls);
 
     // Load elements
-    projectData.elements.forEach((e) => {
+    snapshot.elements.forEach((e) => {
         // Get attributes of the element. ...config corresponds to the remaining arguments (aka type-related args)
         const { type, id, x, y, rotation, ...config } = e;
         addElement({ type, id, x, y, rotation, config });
     });
 
-    // resetZoom();
+    elements.forEach((node) => {
+        if (selectedElements.includes(node.id())) {
+            transformer.nodes([...transformer.nodes(), node]);
+        }
+    });
+
+    updateTransformerResizeState();
+
     updateGrid();
     displayEditor();
 

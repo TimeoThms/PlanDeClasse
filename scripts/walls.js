@@ -87,6 +87,8 @@ stage.on("click", (e) => {
     addWallLengthLabel();
 
     layer.batchDraw();
+
+    pushStateSnapshot();
 });
 
 function createWalls() {
@@ -95,6 +97,7 @@ function createWalls() {
         return;
     }
     isDrawingWalls = true;
+    walls.closed(false);
 }
 
 function deleteWalls() {
@@ -114,7 +117,7 @@ function deleteWalls() {
     layer.batchDraw();
 }
 
-function loadWalls(uploadedPoints) {
+function loadWalls(uploadedPoints, shouldEndWithDrawingTrue = false) {
     deleteWalls();
     isDrawingWalls = true;
     for (let i = 0; i < uploadedPoints.length; i += 2) {
@@ -122,8 +125,8 @@ function loadWalls(uploadedPoints) {
         walls.points(points);
         addWallLengthLabel();
     }
-    isDrawingWalls = false;
-    walls.closed(true);
+    isDrawingWalls = shouldEndWithDrawingTrue;
+    walls.closed(!shouldEndWithDrawingTrue);
     addWallLengthLabel();
     layer.batchDraw();
 }

@@ -79,6 +79,8 @@ function loadProject() {
         }
     });
 
+    elements = [];
+
     elementsLayer.batchDraw();
 
     // Clear transformer nodes of all previous elements
@@ -111,5 +113,5 @@ function loadProject() {
     layer.batchDraw();
     elementsLayer.batchDraw();
 
-    // pushStateSnapshot();
+    pushStateSnapshot();
 }

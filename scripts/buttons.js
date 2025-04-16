@@ -70,6 +70,8 @@ resetBtn.addEventListener("click", () => {
     displayEditor();
 
     layer.batchDraw();
+
+    pushStateSnapshot();
 });
 
 // Grid
