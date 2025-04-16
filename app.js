@@ -1,7 +1,7 @@
 // Stage init
 const container = document.getElementById("container");
 
-const defaultSize = {width: 1050, height: 800}
+const defaultSize = { width: 1050, height: 800 };
 
 const stage = new Konva.Stage({
     container: "container",
@@ -45,9 +45,11 @@ function generateId() {
 }
 
 document.querySelectorAll("input").forEach((el) => {
-    el.addEventListener("change", () => {
-        pushStateSnapshot();
-    });
+    if (!el.classList.contains("no-log")) {
+        el.addEventListener("change", () => {
+            pushStateSnapshot();
+        });
+    }
 });
 
 // Navigation functions

@@ -68,6 +68,7 @@ editorStorageLabelInput.addEventListener("input", () => {
 
 function updateStorage() {
     const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
+    if (!group) return;
     const box = group.getClientRect({ skipTransform: true });
     updateElement({
         type: "storage",

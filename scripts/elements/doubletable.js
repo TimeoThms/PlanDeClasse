@@ -1,8 +1,14 @@
 const addDoubletableBtn = document.getElementById("add-doubletable-btn");
 const doubletableColorInput = document.getElementById("doubletable-color");
-const doubletableColorLabel = document.getElementById("doubletable-color-label");
-const doubletableLabel1Input = document.getElementById("doubletable-label1-input");
-const doubletableLabel2Input = document.getElementById("doubletable-label2-input");
+const doubletableColorLabel = document.getElementById(
+    "doubletable-color-label"
+);
+const doubletableLabel1Input = document.getElementById(
+    "doubletable-label1-input"
+);
+const doubletableLabel2Input = document.getElementById(
+    "doubletable-label2-input"
+);
 
 doubletableColorInput.addEventListener("input", (event) => {
     const selectedColor = event.target.value;
@@ -91,7 +97,9 @@ addDoubletableBtn.addEventListener("click", () => {
 
 // EDITOR
 
-const editorDoubletableColorInput = document.getElementById("editor-doubletable-color");
+const editorDoubletableColorInput = document.getElementById(
+    "editor-doubletable-color"
+);
 const editorDoubletableColorLabel = document.getElementById(
     "editor-doubletable-color-label"
 );
@@ -116,9 +124,11 @@ editorDoubletableLabel2Input.addEventListener("input", () => {
 });
 
 function updateDoubletable() {
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+    if (!group) return;
     updateElement({
         type: "doubletable",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(),
         config: {
             color: editorDoubletableColorInput.value,
             label1: editorDoubletableLabel1Input.value,

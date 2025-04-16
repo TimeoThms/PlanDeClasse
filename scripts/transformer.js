@@ -123,6 +123,10 @@ transformer.on("transformend", (e) => {
 
 // Unselect all elements if layer is clicked (aka background rect and grid lines)
 layer.on("click", () => {
+    unselectAll();
+});
+
+function unselectAll() {
     transformer.nodes().forEach((node) => {
         node.draggable(false);
         let elementData = projectData.elements.find(
@@ -142,7 +146,7 @@ layer.on("click", () => {
 
     sizeDisplay.style.transition = "top 0.2s ease-in-out";
     sizeDisplay.style.top = "-100px";
-});
+}
 
 document.addEventListener("keydown", (e) => {
     const focusedElement = document.activeElement;

@@ -5,6 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://unpkg.com/konva@9.3.18/konva.min.js"></script>
         <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
         <title>PlanDeClasse</title>
     </head>
     <body>
@@ -37,393 +43,476 @@
                 <button class="btn caution" id="resetBtn">Réinitialiser</button>
             </div>
 
+            <div class="mode-toggle">
+                <button id="arrangement-mode-btn" class="btn mode-btn active">
+                    Agencement
+                </button>
+                <button id="placement-mode-btn" class="btn mode-btn">
+                    Placement
+                </button>
+            </div>
+
             <div class="separator"></div>
 
-            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
-                Taille
-            </h2>
-            <div class="menu-tab">
-                <h3>Dimensions (mètres)</h3>
-                <div class="basic-flex">
+            <section id="arrangement-menu">
+                <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                    Taille
+                </h2>
+                <div class="menu-tab">
+                    <h3>Dimensions (mètres)</h3>
                     <div class="basic-flex">
-                        <input
-                            type="number"
-                            min="0"
-                            step="0.01"
-                            placeholder="Largeur"
-                            id="width-input"
-                            class="size-input"
-                        />
-                        x
-                        <input
-                            type="number"
-                            min="0"
-                            step="0.01"
-                            placeholder="Hauteur"
-                            id="height-input"
-                            class="size-input"
-                        />
+                        <div class="basic-flex">
+                            <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="Largeur"
+                                id="width-input"
+                                class="size-input"
+                            />
+                            x
+                            <input
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                placeholder="Hauteur"
+                                id="height-input"
+                                class="size-input"
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="separator"></div>
+                <div class="separator"></div>
 
-            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
-                Grille
-            </h2>
-            <div class="menu-tab">
-                <button class="btn" id="btn-toggle-grid">Cacher</button>
-                <h3>Résolution</h3>
-                <input
-                    type="range"
-                    class="range"
-                    id="resolution-input"
-                    min="0"
-                    max="3"
-                    step="1"
-                />
-            </div>
-
-            <div class="separator"></div>
-
-            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
-                Murs
-            </h2>
-            <div class="menu-tab">
-                <p>
-                    Créer des murs point par point. Cliquer sur le point de
-                    départ pour terminer.
-                </p>
-                <div class="basic-flex">
-                    <button class="btn" id="btn-create-walls">Créer</button>
-                    <button class="btn caution" id="btn-delete-walls">
-                        Supprimer
-                    </button>
+                <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                    Grille
+                </h2>
+                <div class="menu-tab">
+                    <button class="btn" id="btn-toggle-grid">Cacher</button>
+                    <h3>Résolution</h3>
+                    <input
+                        type="range"
+                        class="range"
+                        id="resolution-input"
+                        min="0"
+                        max="3"
+                        step="1"
+                    />
                 </div>
-            </div>
 
-            <div class="separator"></div>
+                <div class="separator"></div>
 
-            <h2 onclick="this.nextElementSibling.classList.toggle('open')">
-                Éléments
-            </h2>
-            <div class="menu-tab">
-                <p>Glisser déposer des éléments pour les ajouter au plan.</p>
-                <div class="elements-container">
-                    <!-- TABLE -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Table</h3>
-                            <button class="btn" id="add-table-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute">
-                                <h4>Couleur</h4>
-                                <input
-                                    type="color"
-                                    name=""
-                                    id="table-color"
-                                    value="#415A77"
-                                    hidden
-                                />
-                                <label
-                                    for="table-color"
-                                    class="color-label"
-                                    id="table-color-label"
-                                ></label>
-                            </div>
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="table-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
-                            </div>
-                        </div>
+                <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                    Murs
+                </h2>
+                <div class="menu-tab">
+                    <p>
+                        Créer des murs point par point. Cliquer sur le point de
+                        départ pour terminer.
+                    </p>
+                    <div class="basic-flex">
+                        <button class="btn" id="btn-create-walls">Créer</button>
+                        <button class="btn caution" id="btn-delete-walls">
+                            Supprimer
+                        </button>
                     </div>
+                </div>
 
-                    <!-- DOUBLE TABLE -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Table double</h3>
-                            <button class="btn" id="add-doubletable-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute">
-                                <h4>Couleur</h4>
-                                <input
-                                    type="color"
-                                    name=""
-                                    id="doubletable-color"
-                                    value="#415A77"
-                                    hidden
-                                />
-                                <label
-                                    for="doubletable-color"
-                                    class="color-label"
-                                    id="doubletable-color-label"
-                                ></label>
-                            </div>
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte 1</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="doubletable-label1-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
-                            </div>
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte 2</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="doubletable-label2-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                <div class="separator"></div>
 
-                    <!-- DOOR -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Porte</h3>
-                            <button class="btn" id="add-door-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute">
-                                <h4>Type</h4>
-                                <div class="radio-list">
+                <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                    Éléments
+                </h2>
+                <div class="menu-tab">
+                    <p>
+                        Glisser déposer des éléments pour les ajouter au plan.
+                    </p>
+                    <div class="elements-container">
+                        <!-- TABLE -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Table</h3>
+                                <button class="btn" id="add-table-btn">
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute">
+                                    <h4>Couleur</h4>
                                     <input
-                                        type="radio"
-                                        class="radio-input"
-                                        name="door-type"
-                                        id="normal-door"
-                                        checked
+                                        type="color"
+                                        name=""
+                                        id="table-color"
+                                        value="#415A77"
+                                        hidden
                                     />
-                                    <label for="normal-door">Normal</label>
+                                    <label
+                                        for="table-color"
+                                        class="color-label"
+                                        id="table-color-label"
+                                    ></label>
+                                </div>
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte</h4>
                                     <input
-                                        type="radio"
-                                        class="radio-input"
-                                        name="door-type"
-                                        id="safety-door"
+                                        type="text"
+                                        name=""
+                                        id="table-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
                                     />
-                                    <label for="safety-door">Secours</label>
                                 </div>
                             </div>
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="door-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
-                            </div>
                         </div>
-                    </div>
 
-                    <!-- DESK -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Bureau professeur</h3>
-                            <button class="btn" id="add-desk-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="desk-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
+                        <!-- DOUBLE TABLE -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Table double</h3>
+                                <button class="btn" id="add-doubletable-btn">
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute">
+                                    <h4>Couleur</h4>
+                                    <input
+                                        type="color"
+                                        name=""
+                                        id="doubletable-color"
+                                        value="#415A77"
+                                        hidden
+                                    />
+                                    <label
+                                        for="doubletable-color"
+                                        class="color-label"
+                                        id="doubletable-color-label"
+                                    ></label>
+                                </div>
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte 1</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="doubletable-label1-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte 2</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="doubletable-label2-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- TEXT -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Texte</h3>
-                            <button class="btn" id="add-text-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute">
-                                <h4>Couleur</h4>
-                                <input
-                                    type="color"
-                                    name=""
-                                    id="text-color"
-                                    value="#415A77"
-                                    hidden
-                                />
-                                <label
-                                    for="text-color"
-                                    class="color-label"
-                                    id="text-color-label"
-                                ></label>
+                        <!-- DOOR -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Porte</h3>
+                                <button class="btn" id="add-door-btn">
+                                    Ajouter
+                                </button>
                             </div>
-                            <div class="attribute attribute-textinput">
-                                <h4>Contenu</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="text-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute">
+                                    <h4>Type</h4>
+                                    <div class="radio-list">
+                                        <input
+                                            type="radio"
+                                            class="radio-input"
+                                            name="door-type"
+                                            id="normal-door"
+                                            checked
+                                        />
+                                        <label for="normal-door">Normal</label>
+                                        <input
+                                            type="radio"
+                                            class="radio-input"
+                                            name="door-type"
+                                            id="safety-door"
+                                        />
+                                        <label for="safety-door">Secours</label>
+                                    </div>
+                                </div>
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="door-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- STORAGE -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Stockage</h3>
-                            <button class="btn" id="add-storage-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="storage-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
+                        <!-- DESK -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Bureau professeur</h3>
+                                <button class="btn" id="add-desk-btn">
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="desk-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- WHITEBOARD -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Tableau</h3>
-                            <button class="btn" id="add-whiteboard-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="whiteboard-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
+                        <!-- TEXT -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Texte</h3>
+                                <button class="btn" id="add-text-btn">
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute">
+                                    <h4>Couleur</h4>
+                                    <input
+                                        type="color"
+                                        name=""
+                                        id="text-color"
+                                        value="#415A77"
+                                        hidden
+                                    />
+                                    <label
+                                        for="text-color"
+                                        class="color-label"
+                                        id="text-color-label"
+                                    ></label>
+                                </div>
+                                <div class="attribute attribute-textinput">
+                                    <h4>Contenu</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="text-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- RECTANGLE -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Rectangle</h3>
-                            <button class="btn" id="add-rectangle-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute">
-                                <h4>Couleur</h4>
-                                <input
-                                    type="color"
-                                    name=""
-                                    id="rectangle-color"
-                                    value="#415A77"
-                                    hidden
-                                />
-                                <label
-                                    for="rectangle-color"
-                                    class="color-label"
-                                    id="rectangle-color-label"
-                                ></label>
+                        <!-- STORAGE -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Stockage</h3>
+                                <button class="btn" id="add-storage-btn">
+                                    Ajouter
+                                </button>
                             </div>
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="rectangle-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="storage-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- CIRCLE -->
-                    <div class="element">
-                        <div class="element-top">
-                            <h3>Cercle</h3>
-                            <button class="btn" id="add-circle-btn">
-                                Ajouter
-                            </button>
-                        </div>
-                        <div class="separator"></div>
-                        <div class="element-bottom">
-                            <div class="attribute">
-                                <h4>Couleur</h4>
-                                <input
-                                    type="color"
-                                    name=""
-                                    id="circle-color"
-                                    value="#415A77"
-                                    hidden
-                                />
-                                <label
-                                    for="circle-color"
-                                    class="color-label"
-                                    id="circle-color-label"
-                                ></label>
+                        <!-- WHITEBOARD -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Tableau</h3>
+                                <button class="btn" id="add-whiteboard-btn">
+                                    Ajouter
+                                </button>
                             </div>
-                            <div class="attribute attribute-textinput">
-                                <h4>Texte</h4>
-                                <input
-                                    type="text"
-                                    name=""
-                                    id="circle-label-input"
-                                    class="label-input"
-                                    placeholder="Aucun"
-                                />
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="whiteboard-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RECTANGLE -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Rectangle</h3>
+                                <button class="btn" id="add-rectangle-btn">
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute">
+                                    <h4>Couleur</h4>
+                                    <input
+                                        type="color"
+                                        name=""
+                                        id="rectangle-color"
+                                        value="#415A77"
+                                        hidden
+                                    />
+                                    <label
+                                        for="rectangle-color"
+                                        class="color-label"
+                                        id="rectangle-color-label"
+                                    ></label>
+                                </div>
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="rectangle-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CIRCLE -->
+                        <div class="element">
+                            <div class="element-top">
+                                <h3>Cercle</h3>
+                                <button class="btn" id="add-circle-btn">
+                                    Ajouter
+                                </button>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="element-bottom">
+                                <div class="attribute">
+                                    <h4>Couleur</h4>
+                                    <input
+                                        type="color"
+                                        name=""
+                                        id="circle-color"
+                                        value="#415A77"
+                                        hidden
+                                    />
+                                    <label
+                                        for="circle-color"
+                                        class="color-label"
+                                        id="circle-color-label"
+                                    ></label>
+                                </div>
+                                <div class="attribute attribute-textinput">
+                                    <h4>Texte</h4>
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id="circle-label-input"
+                                        class="label-input"
+                                        placeholder="Aucun"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            <section id="placement-menu" hidden>
+                <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                    Ajouter des élèves
+                </h2>
+                <div class="menu-tab">
+                    <p>
+                        Télécharger la liste de classe sur ÉcoleDirecte puis
+                        l'importer
+                    </p>
+                    <button class="btn" style="margin-bottom: 20px">
+                        Importer
+                    </button>
+                    <h3>Ajouter manuellement</h3>
+                    <div class="basic-flex">
+                        <input
+                            type="text"
+                            class="label-input"
+                            placeholder="Nom"
+                            style="height: 40px"
+                            id="student-manual-name-input"
+                        />
+                        <input
+                            type="text"
+                            class="label-input"
+                            placeholder="Prénom"
+                            style="height: 40px"
+                            id="student-manual-surname-input"
+                        />
+                    </div>
+                    <div class="basic-flex">
+                        <input
+                            type="text"
+                            class="label-input"
+                            placeholder="Classe"
+                            style="height: 40px"
+                            id="student-manual-group-input"
+                        />
+
+                        <button
+                            class="btn"
+                            style="width: 100%"
+                            id="add-student-manual-btn"
+                        >
+                            Ajouter
+                        </button>
+                    </div>
+                </div>
+                <div class="separator"></div>
+
+                <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                    Liste des élèves
+                </h2>
+                <div class="menu-tab">
+                    <p>
+                        Cliquer sur un élève pour le sélectionner puis cliquer
+                        sur une table pour l'y placer
+                    </p>
+                    <div class="students-list-header">
+                        <p>Nom</p>
+                        <p>Prénom</p>
+                        <p>Classe</p>
+                    </div>
+
+                    <div class="separator" style="margin-bottom: 8px"></div>
+                    <div class="students-list" id="students-list">
+                    <p class="no-student" id="no-student">Aucun élève</p>                     
+                    </div>
+                </div>
+            </section>
         </div>
         <div class="plan-view">
             <div id="container"></div>
@@ -623,13 +712,42 @@
                     type="text"
                     name=""
                     id="editor-text-label-input"
-                    class="editor-label-input"
+                    class="label-input"
                     placeholder="Aucun"
                 />
             </div>
         </div>
 
         <p class="size-display" id="size-display">Taille : 60 x 120 cm</p>
+
+        <div class="student-editor" id="student-editor" hidden>
+            <div class="student-editor-background"></div>
+            <div class="student-editor-container">
+                <h3>Modifier l'élève</h3>
+                <div class="center">
+                    <div class="student-attribute">
+                        <h4>Nom</h4>
+                        <input type="text" id="student-editor-name-input" />
+                    </div>
+                    <div class="student-attribute">
+                        <h4>Prénom</h4>
+                        <input type="text" id="student-editor-surname-input" />
+                    </div>
+                    <div class="student-attribute">
+                        <h4>Classe</h4>
+                        <input type="text" id="student-editor-group-input" />
+                    </div>
+                </div>
+                <div class="bottom">
+                    <button class="btn neutral" id="student-editor-cancel-btn">
+                        Annuler
+                    </button>
+                    <button class="btn" id="student-editor-save-btn">
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <script src="scripts/grid.js"></script>
 
@@ -666,6 +784,8 @@
         <script src="scripts/elements/text.js"></script>
 
         <script src="scripts/elements/storage.js"></script>
+
+        <script src="scripts/placement.js"></script>
 
         <script>
             resetZoom();

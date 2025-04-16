@@ -38,6 +38,12 @@ downloadBtn.addEventListener("click", () => {
 // Reset
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click", () => {
+    if (
+        confirm("Attention, des modifications pourraient être perdues !") ==
+        false
+    )
+        return;
+
     deleteWalls();
     elements.forEach((e) => {
         if (e && e.destroy) {
@@ -73,6 +79,55 @@ resetBtn.addEventListener("click", () => {
 
     pushStateSnapshot();
 });
+
+// Mode switch
+const arrangementBtn = document.getElementById("arrangement-mode-btn");
+const placementBtn = document.getElementById("placement-mode-btn");
+const arrangementSection = document.getElementById("arrangement-menu");
+const placementSection = document.getElementById("placement-menu");
+
+arrangementBtn.addEventListener("click", () => {
+    switchMode(true);
+});
+placementBtn.addEventListener("click", () => {
+    switchMode(false);
+});
+
+var isArrangementMode = true;
+function switchMode(arrangementMode) {
+    if (arrangementMode === isArrangementMode) return;
+
+    isArrangementMode = arrangementMode;
+
+    arrangementBtn.classList.toggle("active");
+    placementBtn.classList.toggle("active");
+
+    arrangementSection.hidden = !arrangementSection.hidden;
+    placementSection.hidden = !placementSection.hidden;
+
+    if (!isArrangementMode) {
+        unselectAll();
+        if (gridToggled) {
+            toggleGrid();
+        }
+        pointsHandles.forEach(function (circle) {
+            circle.visible(false);
+            circle.draggable(false);
+        });
+        lengthDisplays.forEach(function (label) {
+            label.visible(false);
+        });
+    } else {
+        toggleGrid();
+        pointsHandles.forEach(function (circle) {
+            circle.visible(true);
+            circle.draggable(true);
+        });
+        lengthDisplays.forEach(function (label) {
+            label.visible(true);
+        });
+    }
+}
 
 // Grid
 const toggleGridBtn = document.getElementById("btn-toggle-grid");

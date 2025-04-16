@@ -38,6 +38,9 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
 
     // Selection managment
     group.on("click", (e) => {
+
+        if (!isArrangementMode) return;
+
         let nodes = transformer.nodes();
         if (nodes.includes(group)) {
             if (!e.evt.ctrlKey) {

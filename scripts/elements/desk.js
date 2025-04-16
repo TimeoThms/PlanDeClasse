@@ -67,9 +67,11 @@ editorDeskLabelInput.addEventListener("input", () => {
 });
 
 function updateDesk() {
+    const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+    if (!group) return;
     updateElement({
         type: "desk",
-        id: transformer.nodes()[0].id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
+        id: group.id(),
         config: {
             label: editorDeskLabelInput.value,
         },
