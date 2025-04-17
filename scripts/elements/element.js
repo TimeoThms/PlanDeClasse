@@ -38,42 +38,84 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
 
     // Selection managment
     group.on("click", (e) => {
-
-        if (!isArrangementMode) return;
-
-        let nodes = transformer.nodes();
-        if (nodes.includes(group)) {
-            if (!e.evt.ctrlKey) {
-                // If simple click on the element and element is already selected, select only this element
-                nodes.forEach((el) => el.draggable(false));
-                transformer.nodes([group]);
-                group.draggable(true);
-            } else {
-                // If ctrl+click on a selected element, unselect it
-                transformer.nodes(nodes.filter((node) => node !== group));
-                group.draggable(false);
+        // Handle placement mode
+        if (!isArrangementMode) {
+            if (!selectedStudent) return;
+            const elementData = projectData.elements.find((el) => el.id === id);
+            const selectedStudentData = getStudentData(selectedStudent);
+            let labelStr = "";
+            // Only set the label if the click is a leftclick. Therefore right click of middle click will delete the current label.
+            if (e.evt.button === 0) {
+                labelStr = `${selectedStudentData.lastName} ${selectedStudentData.firstName}`;
             }
-        } else {
-            if (e.evt.ctrlKey) {
-                // If ctrl+click on new element, append it to the transformer nodes
-                transformer.nodes([...nodes, group]);
-            } else {
-                // Else, select only the element
-                nodes.forEach((el) => el.draggable(false));
-                transformer.nodes([group]);
-                if (!isZPressed) {
-                    transformer.nodes()[0].moveToTop();
-                    transformer.moveToTop();
+            if (type == "table") {
+                updateElement({
+                    type: "table",
+                    id: id,
+                    config: {
+                        color: elementData.color,
+                        label: labelStr,
+                    },
+                });
+            }
+            if (type == "doubletable") {
+                const pointerPosition = stage.getPointerPosition();
+                const isLeftSide = pointerPosition.x - 65 < group.x();
+                let label1, label2;
+                if (isLeftSide) {
+                    label1 = labelStr;
+                    label2 = elementData.label2;
+                } else {
+                    label1 = elementData.label1;
+                    label2 = labelStr;
                 }
+                updateElement({
+                    type: "doubletable",
+                    id: id,
+                    config: {
+                        color: elementData.color,
+                        label1: label1,
+                        label2: label2,
+                    },
+                });
+            }
+            pushStateSnapshot();
+        } else {
+            // Handle arrangement mode
+            let nodes = transformer.nodes();
+            if (nodes.includes(group)) {
+                if (!e.evt.ctrlKey) {
+                    // If simple click on the element and element is already selected, select only this element
+                    nodes.forEach((el) => el.draggable(false));
+                    transformer.nodes([group]);
+                    group.draggable(true);
+                } else {
+                    // If ctrl+click on a selected element, unselect it
+                    transformer.nodes(nodes.filter((node) => node !== group));
+                    group.draggable(false);
+                }
+            } else {
+                if (e.evt.ctrlKey) {
+                    // If ctrl+click on new element, append it to the transformer nodes
+                    transformer.nodes([...nodes, group]);
+                } else {
+                    // Else, select only the element
+                    nodes.forEach((el) => el.draggable(false));
+                    transformer.nodes([group]);
+                    if (!isZPressed) {
+                        transformer.nodes()[0].moveToTop();
+                        transformer.moveToTop();
+                    }
+                }
+
+                group.draggable(true);
             }
 
-            group.draggable(true);
+            updateTransformerResizeState();
+            displayEditor();
+
+            elementsLayer.batchDraw();
         }
-
-        updateTransformerResizeState();
-        displayEditor();
-
-        elementsLayer.batchDraw();
     });
 
     // Save coordinates after the element is dragged

@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://unpkg.com/konva@9.3.18/konva.min.js"></script>
+        <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
         <link rel="stylesheet" href="style.css" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -451,11 +452,21 @@
                 <div class="menu-tab">
                     <p>
                         Télécharger la liste de classe sur ÉcoleDirecte puis
-                        l'importer
+                        l'importer, ou importer la liste téléchargée depuis le
+                        menu "Liste des élèves" ci-dessous.
                     </p>
-                    <button class="btn" style="margin-bottom: 20px">
-                        Importer
-                    </button>
+                    <input
+                        id="students-list-input"
+                        type="file"
+                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                        hidden
+                    />
+                    <label
+                        for="students-list-input"
+                        class="btn"
+                        style="margin-bottom: 20px"
+                        >Importer</label
+                    >
                     <h3>Ajouter manuellement</h3>
                     <div class="basic-flex">
                         <input
@@ -463,14 +474,14 @@
                             class="label-input"
                             placeholder="Nom"
                             style="height: 40px"
-                            id="student-manual-name-input"
+                            id="student-manual-last-name-input"
                         />
                         <input
                             type="text"
                             class="label-input"
                             placeholder="Prénom"
                             style="height: 40px"
-                            id="student-manual-surname-input"
+                            id="student-manual-first-name-input"
                         />
                     </div>
                     <div class="basic-flex">
@@ -501,6 +512,11 @@
                         Cliquer sur un élève pour le sélectionner puis cliquer
                         sur une table pour l'y placer
                     </p>
+
+                    <button class="btn" id="save-students-list-btn">
+                        Sauvegarder la liste
+                    </button>
+
                     <div class="students-list-header">
                         <p>Nom</p>
                         <p>Prénom</p>
@@ -509,7 +525,7 @@
 
                     <div class="separator" style="margin-bottom: 8px"></div>
                     <div class="students-list" id="students-list">
-                    <p class="no-student" id="no-student">Aucun élève</p>                     
+                        <p class="no-student" id="no-student">Aucun élève</p>
                     </div>
                 </div>
             </section>
@@ -727,11 +743,11 @@
                 <div class="center">
                     <div class="student-attribute">
                         <h4>Nom</h4>
-                        <input type="text" id="student-editor-name-input" />
+                        <input type="text" id="student-editor-last-name-input" />
                     </div>
                     <div class="student-attribute">
                         <h4>Prénom</h4>
-                        <input type="text" id="student-editor-surname-input" />
+                        <input type="text" id="student-editor-first-name-input" />
                     </div>
                     <div class="student-attribute">
                         <h4>Classe</h4>

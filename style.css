@@ -345,6 +345,8 @@ input[type="file"] {
     font-size: 15px;
     color: #525252;
     font-weight: 500;
+    white-space: nowrap;
+    mask-image: linear-gradient(to right, rgba(255, 255, 255, 1) 85%, rgba(255, 255, 255, 0));
 }
 
 .student.selected {

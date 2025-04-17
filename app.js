@@ -52,6 +52,11 @@ document.querySelectorAll("input").forEach((el) => {
     }
 });
 
+// Prevents right click menu to open on the stage
+stage.on("contextmenu", (e) => {
+    e.evt.preventDefault();
+});
+
 // Navigation functions
 // WARNING: Commented for development purposes. Uncomment for production
 // window.addEventListener("beforeunload", function (e) {
