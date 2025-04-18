@@ -21,6 +21,7 @@
     - [Affichage de la classe sur le plan](#affichage-de-la-classe-sur-le-plan)
     - [Sauvegarde et vidage de la liste](#sauvegarde-et-vidage-de-la-liste)
 - [⌨️ V. Raccouris clavier utiles](#️-v-raccouris-clavier-utiles)
+  - [Déplacement sur le plan](#déplacement-sur-le-plan)
   - [Sélection d'éléments](#sélection-déléments)
   - [Copie et collage](#copie-et-collage)
   - [Annuler une modification](#annuler-une-modification)
@@ -43,7 +44,7 @@
   </a>
 
 Ce projet web a pour objectif de fournir un outil permettant l'édition de **salles de classes**, au travers de l'ajout de divers éléments (tables, murs, tableau...). Ce projet permet également aux professeurs d'importer une liste d'élèves à partir d'EcoleDirecte (ou via ajout manuel) permettant d'assigner des places aux différents élèves. <br>
-Un exemple de salle de classe peut être téléchargé <a href="https://raw.githubusercontent.com/TimeoThms/PlanDeClasse/refs/heads/main/ressources/Exemple_DATA.json" download="fichier.txt">
+Un exemple de salle de classe peut être téléchargé <a href="https://raw.githubusercontent.com/TimeoThms/PlanDeClasse/refs/heads/main/ressources/Exemple_DATA.json" download="fichier.txt">ICI</a>
 <details>
     <summary><strong>🖼️ Image du fichier d'exemple</strong></summary>
     <img src="https://i.postimg.cc/5yDjNmxQ/Exemple-IMG.png" alt="Image du fichier d'exemple" width="600px" />
@@ -181,6 +182,9 @@ Les boutons `Sauvegarder` et `Vider` permettent respectivement d'exporter la lis
 <br>
 
 # ⌨️ V. Raccouris clavier utiles
+## Déplacement sur le plan
+Pour zoomer ou dézoomer dans le plan, utilisez la molette. <br>
+Pour vous déplacer dans le plan, maintenez la touche `CTRL` et faites glisser le plan.
 ## Sélection d'éléments
 Pour sélectionner plusieurs éléments à la fois, maintenez la touche `CTRL` enfoncée en cliquant sur les éléments à sélectionner.
 ## Copie et collage

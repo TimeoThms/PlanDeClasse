@@ -123,7 +123,9 @@ transformer.on("transformend", (e) => {
 
 // Unselect all elements if layer is clicked (aka background rect and grid lines)
 layer.on("click", () => {
-    unselectAll();
+    if (!isCtrlPressed) {
+        unselectAll();
+    }
 });
 
 function unselectAll() {
