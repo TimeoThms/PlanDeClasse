@@ -24,6 +24,15 @@ document.addEventListener("keydown", function (event) {
 });
 
 function pushStateSnapshot() {
+    // Sort projectData elements by zIndex
+    projectData.elements = projectData.elements.sort((a, b) => {
+        const groupA = elements.find((g) => g.id() === a.id);
+        const groupB = elements.find((g) => g.id() === b.id);
+        return groupA.zIndex() - groupB.zIndex();
+    });
+
+    console.log(projectData.elements)
+
     const snapshot = {
         projectData: structuredClone(projectData),
         studentsData: getStudentsListData(),

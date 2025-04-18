@@ -57,6 +57,13 @@ filenameInput.addEventListener("input", function () {
 });
 
 exportBtn.addEventListener("click", () => {
+    // Sort projectData elements by zIndex
+    projectData.elements = projectData.elements.sort((a, b) => {
+        const groupA = elements.find((g) => g.id() === a.id);
+        const groupB = elements.find((g) => g.id() === b.id);
+        return groupA.zIndex() - groupB.zIndex();
+    });
+
     jsonStr = JSON.stringify(projectData);
 
     let a = document.createElement("a");

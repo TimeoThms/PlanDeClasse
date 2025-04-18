@@ -24,6 +24,7 @@
   - [Sélection d'éléments](#sélection-déléments)
   - [Copie et collage](#copie-et-collage)
   - [Annuler une modification](#annuler-une-modification)
+  - [Superposition d'éléments](#superposition-déléments)
 - [⚙️ VI - Spécifications techniques du projet](#️-vi---spécifications-techniques-du-projet)
   - [A. Langages utilisés](#a-langages-utilisés)
   - [B. Librairies utilisées](#b-librairies-utilisées)
@@ -127,7 +128,7 @@ Vous pouvez modifier un élément inséré grâce à l'**Éditeur**. En sélecti
 
 # 🎯 IV. Mode placement
 Le mode placement permet à partir d'une liste d'élèves, de les placer sur les différentes tables présentes dans le plan.
-> [!WARNING]Sauvegarde  
+> [!WARNING]
 > Pour sauvegarder les changements sur le placement des élèves, il faut sauvegarder de la même manière qu'en mode Agencement, en exportant le fichier projet avec le bouton `Exporter`.
 
 ## A. Ajout d'élèves
@@ -162,14 +163,14 @@ Un `Clic Droit` sur une table permet de supprimer le nom présent à cette place
 
 ### Affichage de la classe sur le plan
 Vous pouvez choisir d'afficher ou non la classe d'un élève sur la table ou il se trouve. Pour cela, cocher simplement le bouton `Afficher la classe sur le plan`
-> [!WARNING]Attention  
+> [!WARNING]
 > Cocher ou décocher le bouton ne modifiera rien pour les élèves déjà placé sur le plan, les changement seront effectifs uniquement pour les élèves ajoutés après le changement.
 
 ### Sauvegarde et vidage de la liste
 Les boutons `Sauvegarder` et `Vider` permettent respectivement d'exporter la liste au format CSV et de vider la liste actuelle.
 
 <details>
-    <summary><strong>🖼️ Ongle Liste d'élèves</strong></summary>
+    <summary><strong>🖼️ Onglet Liste d'élèves</strong></summary>
     <img src="https://i.postimg.cc/qB6n7M6V/image.png" alt="Onglet liste d'élèves" width="300"/> <br>
 </details>
 
@@ -182,6 +183,8 @@ Pour sélectionner plusieurs éléments à la fois, maintenez la touche `CTRL` e
 Pour dupliquer une sélection d'éléments, copier cette sélection avec le raccourci clavier `CTRL+C` et collez la avec le raccourci clavier `CTRL+V`.
 ## Annuler une modification
 Pour annuler une modification, utilisez le raccourci clavier `CTRL+Z`. Pour rétablir une modification annulée, utilisez `CTRL+Y`.
+## Superposition d'éléments
+Si plusieurs éléments sont superposés, par défaut, lorsqu'un élément est sélectionné, il se place au dessus de tout les autres éléments. Si vous souhaitez sélectionner un élément sans qu'il passe par dessus les autres éléments, maintenez la touche `Q` pendant la sélection.
 
 <br><br>
 

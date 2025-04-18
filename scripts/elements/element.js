@@ -106,7 +106,7 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
                     // Else, select only the element
                     nodes.forEach((el) => el.draggable(false));
                     transformer.nodes([group]);
-                    if (!isZPressed) {
+                    if (!isQPressed) {
                         transformer.nodes()[0].moveToTop();
                         transformer.moveToTop();
                     }
@@ -410,15 +410,15 @@ function updateElement({ type, id, config = {} }) {
     Object.assign(elementData, config);
 }
 
-let isZPressed = false;
+let isQPressed = false;
 document.addEventListener("keydown", (e) => {
-    if (e.key === "z" || e.key === "Z") {
-        isZPressed = true;
+    if (e.key === "q" || e.key === "Q") {
+        isQPressed = true;
     }
 });
 
 document.addEventListener("keyup", (e) => {
-    if (e.key === "z" || e.key === "Z") {
-        isZPressed = false;
+    if (e.key === "q" || e.key === "Q") {
+        isQPressed = false;
     }
 });
