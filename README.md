@@ -128,7 +128,11 @@ Vous pouvez modifier un élément inséré grâce à l'**Éditeur**. En sélecti
 
 # 🎯 IV. Mode placement
 Le mode placement permet à partir d'une liste d'élèves, de les placer sur les différentes tables présentes dans le plan.
+<<<<<<< HEAD
 > [!WARNING]
+=======
+> [!WARNING]  
+>>>>>>> d4bfb4f2aa8cb72d54c34b52d9a8be343665631d
 > Pour sauvegarder les changements sur le placement des élèves, il faut sauvegarder de la même manière qu'en mode Agencement, en exportant le fichier projet avec le bouton `Exporter`.
 
 ## A. Ajout d'élèves
@@ -163,7 +167,11 @@ Un `Clic Droit` sur une table permet de supprimer le nom présent à cette place
 
 ### Affichage de la classe sur le plan
 Vous pouvez choisir d'afficher ou non la classe d'un élève sur la table ou il se trouve. Pour cela, cocher simplement le bouton `Afficher la classe sur le plan`
+<<<<<<< HEAD
 > [!WARNING]
+=======
+> [!WARNING]  
+>>>>>>> d4bfb4f2aa8cb72d54c34b52d9a8be343665631d
 > Cocher ou décocher le bouton ne modifiera rien pour les élèves déjà placé sur le plan, les changement seront effectifs uniquement pour les élèves ajoutés après le changement.
 
 ### Sauvegarde et vidage de la liste
