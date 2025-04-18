@@ -1,6 +1,8 @@
 // Download stage to PNG
 const downloadBtn = document.getElementById("downloadBtn");
 
+var unsavedChanges = false;
+
 downloadBtn.addEventListener("click", () => {
     pointsHandles.forEach(function (circle) {
         circle.visible(false);
@@ -93,19 +95,18 @@ placementBtn.addEventListener("click", () => {
     switchMode(false);
 });
 
-var isArrangementMode = true;
+var isArrangementMode;
 function switchMode(arrangementMode) {
     if (arrangementMode === isArrangementMode) return;
 
     isArrangementMode = arrangementMode;
 
-    arrangementBtn.classList.toggle("active");
-    placementBtn.classList.toggle("active");
-
-    arrangementSection.hidden = !arrangementSection.hidden;
-    placementSection.hidden = !placementSection.hidden;
-
     if (!isArrangementMode) {
+        arrangementSection.hidden = true;
+        placementSection.hidden = false;
+        arrangementBtn.classList.remove("active");
+        placementBtn.classList.add("active");
+
         unselectAll();
         if (gridToggled) {
             toggleGrid();
@@ -118,6 +119,11 @@ function switchMode(arrangementMode) {
             label.visible(false);
         });
     } else {
+        arrangementSection.hidden = false;
+        placementSection.hidden = true;
+        arrangementBtn.classList.add("active");
+        placementBtn.classList.remove("active");
+
         toggleGrid();
         pointsHandles.forEach(function (circle) {
             circle.visible(true);
@@ -127,6 +133,17 @@ function switchMode(arrangementMode) {
             label.visible(true);
         });
     }
+
+    // Max height setup for tabs opened by default
+    const openedTabs = document.querySelectorAll(".menu-tab.open");
+    openedTabs.forEach((tab) => {
+        tab.style.transition = "none";
+        tab.style.maxHeight = tab.scrollHeight + "px";
+        setTimeout(() => {
+            // 1ms delay to bypass a weird bug of the browser not saving the new state of the transition
+            tab.style.transition = "max-height 0.3s ease-in-out";
+        }, 1);
+    });
 }
 
 // Grid

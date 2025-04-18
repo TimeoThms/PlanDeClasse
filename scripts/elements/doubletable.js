@@ -57,7 +57,6 @@ function createDoubletable({ color = "#000", label1 = "", label2 = "" }) {
         fill: "#000",
         width: 65,
         height: 45,
-        padding: 4,
         align: "center",
         verticalAlign: "middle",
     });
@@ -71,7 +70,6 @@ function createDoubletable({ color = "#000", label1 = "", label2 = "" }) {
         fill: "#000",
         width: 65,
         height: 45,
-        padding: 4,
         align: "center",
         verticalAlign: "middle",
     });

@@ -128,6 +128,21 @@ function loadWalls(uploadedPoints, shouldEndWithDrawingTrue = false) {
     isDrawingWalls = shouldEndWithDrawingTrue;
     walls.closed(!shouldEndWithDrawingTrue);
     addWallLengthLabel();
+    
+    if (!isArrangementMode) {
+        unselectAll();
+        if (gridToggled) {
+            toggleGrid();
+        }
+        pointsHandles.forEach(function (circle) {
+            circle.visible(false);
+            circle.draggable(false);
+        });
+        lengthDisplays.forEach(function (label) {
+            label.visible(false);
+        });
+    }
+    
     layer.batchDraw();
 }
 

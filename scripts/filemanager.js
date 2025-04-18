@@ -53,12 +53,7 @@ fileInput.addEventListener("input", function (event) {
 
 filenameInput.addEventListener("input", function () {
     const value = filenameInput.value;
-
-    if (value) {
-        projectData.filename = value;
-    } else {
-        alert("Veuillez entrer un nom de fichier");
-    }
+    projectData.filename = value;
 });
 
 exportBtn.addEventListener("click", () => {
@@ -69,6 +64,7 @@ exportBtn.addEventListener("click", () => {
     a.download = projectData.filename + "_DATA.json";
 
     a.click();
+    unsavedChanges = false;
 });
 
 function loadProject() {

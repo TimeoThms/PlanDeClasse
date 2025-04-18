@@ -1,9 +1,33 @@
 const studentsList = document.getElementById("students-list");
 const noStudent = document.getElementById("no-student");
+const studentsListMenuTab = document.getElementById("students-list-menu-tab");
 
 let studentsIds = [];
 
+let displayGroup = false;
+const toggle = document.getElementById("display-group-input");
+toggle.addEventListener("change", () => {
+    if (toggle.checked) {
+        displayGroup = true;
+    } else {
+        displayGroup = false;
+    }
+});
+
 function addStudent(lastName, firstName, group) {
+    // Check if the student already exists
+    for (const id of studentsIds) {
+        const data = getStudentData(id);
+        if (
+            data &&
+            data.lastName === lastName &&
+            data.firstName === firstName &&
+            data.group === group
+        ) {
+            return;
+        }
+    }
+
     const id = generateId().slice(3);
     studentsIds.push(id);
     const student = document.createElement("div");
@@ -38,6 +62,7 @@ function addStudent(lastName, firstName, group) {
     deleteIcon.addEventListener("click", (event) => {
         event.stopPropagation();
         deleteStudent(id);
+        pushStateSnapshot();
     });
 
     student.addEventListener("click", () => {
@@ -52,6 +77,9 @@ function addStudent(lastName, firstName, group) {
     if (!selectedStudent) {
         setSelectedStudent(id);
     }
+
+    noStudent.hidden = true;
+    studentsListMenuTab.style.maxHeight = studentsListMenuTab.scrollHeight + "px";
 
     return id;
 }
@@ -79,6 +107,7 @@ function setStudentData(id, lastName, firstName, group) {
     infos[0].textContent = lastName;
     infos[1].textContent = firstName;
     infos[2].textContent = group;
+    pushStateSnapshot();
 }
 
 function deleteStudent(id) {
@@ -126,6 +155,7 @@ addStudentManualBtn.addEventListener("click", () => {
         studentManualGroupInput.value
     );
     noStudent.hidden = true;
+    pushStateSnapshot();
 });
 
 // Students list files management
@@ -137,7 +167,7 @@ saveStudentsListBtn.addEventListener("click", () => {
     saveStudentsListToCSV();
 });
 
-studentsListInput.addEventListener("change", function (e) {
+studentsListInput.addEventListener("input", function (e) {
     const file = e.target.files[0];
     const reader = new FileReader();
     const extension = file.name.split(".").pop().toLowerCase();
@@ -231,7 +261,16 @@ studentsListInput.addEventListener("change", function (e) {
             }
         }
 
+        // Sort by group, last name and then first name
+        jsonData.sort(
+            (a, b) =>
+                a.group.localeCompare(b.group) ||
+                a.lastName.localeCompare(b.lastName) ||
+                a.firstName.localeCompare(b.firstName)
+        );
+
         loadStudentsList(jsonData);
+        studentsListInput.value = "";
     };
 
     if (extension === "csv") {
@@ -240,6 +279,14 @@ studentsListInput.addEventListener("change", function (e) {
         reader.readAsArrayBuffer(file);
     }
 });
+
+function getStudentsListData() {
+    let data = [];
+    studentsIds.forEach((id) => {
+        data.push(getStudentData(id));
+    });
+    return data;
+}
 
 function saveStudentsListToCSV() {
     let data = [];
@@ -268,13 +315,25 @@ function saveStudentsListToCSV() {
 }
 
 function loadStudentsList(data) {
-    // Delete current list
-    studentsIds.forEach((id) => deleteStudent(id));
     // Load new list
     data.forEach((student) => {
         addStudent(student.lastName, student.firstName, student.group);
     });
+    pushStateSnapshot();
 }
+
+const emptyStudentsListBtn = document.getElementById("empty-students-list-btn");
+
+emptyStudentsListBtn.addEventListener("click", () => {
+    if (
+        confirm("Attention, des modifications pourraient être perdues !") ==
+        false
+    )
+        return;
+    studentsIds.forEach((id) => deleteStudent(id));
+    studentsListMenuTab.style.maxHeight = studentsListMenuTab.scrollHeight + "px";
+
+});
 
 // Student editor
 const studentEditor = document.getElementById("student-editor");
@@ -305,8 +364,27 @@ function editStudent(id) {
     studentEditor.hidden = false;
 }
 
+document.addEventListener("keydown", function (event) {
+    if (!editStudent) return;
+
+    if (event.key === "Enter") {
+        setStudentData(
+            editedStudentId,
+            studentEditorLastNameInput.value,
+            studentEditorFirstNameInput.value,
+            studentEditorGroupInput.value
+        );
+        studentEditor.hidden = true;
+        editedStudentId = null;
+    } else if (event.key === "Escape") {
+        studentEditor.hidden = true;
+        editedStudentId = null;
+    }
+});
+
 studentEditorCancelBtn.addEventListener("click", () => {
     studentEditor.hidden = true;
+    editedStudentId = null;
 });
 
 studentEditorSaveBtn.addEventListener("click", () => {
@@ -317,4 +395,5 @@ studentEditorSaveBtn.addEventListener("click", () => {
         studentEditorGroupInput.value
     );
     studentEditor.hidden = true;
+    editedStudentId = null;
 });

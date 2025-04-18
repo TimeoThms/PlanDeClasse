@@ -57,8 +57,66 @@ stage.on("contextmenu", (e) => {
     e.evt.preventDefault();
 });
 
-// Navigation functions
-// WARNING: Commented for development purposes. Uncomment for production
-// window.addEventListener("beforeunload", function (e) {
-//     e.preventDefault();
-// });
+window.addEventListener("beforeunload", (e) => {
+    // if (unsavedChanges) {
+    //     e.preventDefault();
+    // }
+
+    localStorage.setItem("projectData", JSON.stringify(projectData));
+    localStorage.setItem(
+        "studentsListData",
+        JSON.stringify(getStudentsListData())
+    );
+    localStorage.setItem(
+        "isArrangementMode",
+        JSON.stringify(isArrangementMode)
+    );
+});
+
+window.addEventListener("load", () => {
+    try {
+        const savedProject = localStorage.getItem("projectData");
+        if (savedProject) {
+            projectData = JSON.parse(savedProject);
+            loadProject();
+        }
+    } catch (error) {
+        console.error("Error parsing projectData:", error);
+    }
+
+    try {
+        const savedStudents = localStorage.getItem("studentsListData");
+        if (savedStudents) {
+            loadStudentsList(JSON.parse(savedStudents));
+        }
+    } catch (error) {
+        console.error("Error parsing studentsListData:", error);
+    }
+
+    try {
+        const retrievedIsArrangementMode =
+            localStorage.getItem("isArrangementMode");
+        if (retrievedIsArrangementMode !== null) {
+            switchMode(JSON.parse(retrievedIsArrangementMode));
+        } else {
+            isArrangementMode = true;
+        }
+    } catch (error) {
+        console.error("Error parsing isArrangementMode:", error);
+    }
+});
+
+const headers = document.querySelectorAll("h2");
+headers.forEach((header) => {
+    header.addEventListener("click", () => {
+        const content = header.nextElementSibling;
+
+        if (!content) return;
+
+        if (content.classList.contains("open")) {
+            content.style.maxHeight = content.scrollHeight + "px";
+        } else {
+            content.style.maxHeight = "0";
+        }
+    });
+});

@@ -21,7 +21,7 @@
             <div class="basic-flex">
                 <input
                     type="text"
-                    placeholder="Nom du fichier"
+                    placeholder="Nom du projet"
                     class="filename"
                     id="input-filename"
                     value=""
@@ -449,11 +449,12 @@
                 <h2 onclick="this.nextElementSibling.classList.toggle('open')">
                     Ajouter des élèves
                 </h2>
-                <div class="menu-tab">
+                <div class="menu-tab open">
                     <p>
-                        Télécharger la liste de classe sur ÉcoleDirecte puis
-                        l'importer, ou importer la liste téléchargée depuis le
-                        menu "Liste des élèves" ci-dessous.
+                        Télécharger la liste de classe sur ÉcoleDirecte (format
+                        Excel) puis l'importer, ou importer une liste
+                        sauvegarder depuis le menu "Liste des élèves"
+                        ci-dessous.
                     </p>
                     <input
                         id="students-list-input"
@@ -507,15 +508,35 @@
                 <h2 onclick="this.nextElementSibling.classList.toggle('open')">
                     Liste des élèves
                 </h2>
-                <div class="menu-tab">
+                <div class="menu-tab open" id="students-list-menu-tab">
                     <p>
                         Cliquer sur un élève pour le sélectionner puis cliquer
                         sur une table pour l'y placer
                     </p>
+                    <div class="setting">
+                        <label class="switch">
+                            <input
+                                type="checkbox"
+                                id="display-group-input"
+                                hidden
+                            />
+                            <span class="slider"></span>
+                        </label>
 
-                    <button class="btn" id="save-students-list-btn">
-                        Sauvegarder la liste
-                    </button>
+                        <h5>Afficher la classe sur le plan</h5>
+                    </div>
+
+                    <div class="basic-flex">
+                        <button class="btn" id="save-students-list-btn">
+                            Sauvegarder
+                        </button>
+                        <button
+                            class="btn caution"
+                            id="empty-students-list-btn"
+                        >
+                            Vider
+                        </button>
+                    </div>
 
                     <div class="students-list-header">
                         <p>Nom</p>
@@ -743,11 +764,17 @@
                 <div class="center">
                     <div class="student-attribute">
                         <h4>Nom</h4>
-                        <input type="text" id="student-editor-last-name-input" />
+                        <input
+                            type="text"
+                            id="student-editor-last-name-input"
+                        />
                     </div>
                     <div class="student-attribute">
                         <h4>Prénom</h4>
-                        <input type="text" id="student-editor-first-name-input" />
+                        <input
+                            type="text"
+                            id="student-editor-first-name-input"
+                        />
                     </div>
                     <div class="student-attribute">
                         <h4>Classe</h4>
@@ -778,6 +805,8 @@
         <script src="scripts/walls.js"></script>
 
         <script src="scripts/filemanager.js"></script>
+        
+        <script src="scripts/placement.js"></script>
 
         <script src="scripts/history.js"></script>
 
@@ -800,8 +829,6 @@
         <script src="scripts/elements/text.js"></script>
 
         <script src="scripts/elements/storage.js"></script>
-
-        <script src="scripts/placement.js"></script>
 
         <script>
             resetZoom();

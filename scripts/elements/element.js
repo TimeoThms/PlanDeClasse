@@ -46,7 +46,11 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
             let labelStr = "";
             // Only set the label if the click is a leftclick. Therefore right click of middle click will delete the current label.
             if (e.evt.button === 0) {
-                labelStr = `${selectedStudentData.lastName} ${selectedStudentData.firstName}`;
+                if (displayGroup) {
+                    labelStr = `${selectedStudentData.lastName}\n${selectedStudentData.firstName}\n${selectedStudentData.group}`;
+                } else {
+                    labelStr = `${selectedStudentData.lastName}\n${selectedStudentData.firstName}`;
+                }
             }
             if (type == "table") {
                 updateElement({
