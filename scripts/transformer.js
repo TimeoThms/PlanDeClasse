@@ -240,14 +240,23 @@ function pasteSelection() {
 transformer.on("click", (e) => {
     const pointer = stage.getPointerPosition();
     const hits = stage.getAllIntersections(pointer);
+
     let found_parents = [];
+
+    const elementIds = elements.map((el) => el.id());
+
     hits.forEach((shape) => {
         const parent = shape.getParent();
-        if (transformer.nodes().includes(parent)) {
+        if (
+            parent &&
+            typeof parent.id === "function" &&
+            elementIds.includes(parent.id())
+        ) {
             if (!found_parents.includes(parent)) {
                 parent.fire("click", { evt: e.evt }, true);
             }
             found_parents.push(parent);
+            clicked_something = true;
         }
     });
 });

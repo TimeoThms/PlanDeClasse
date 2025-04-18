@@ -25,16 +25,18 @@ downloadBtn.addEventListener("click", () => {
     a.download = projectData.filename + "_IMG.png"; // Filename
     a.click();
 
-    pointsHandles.forEach(function (circle) {
-        circle.visible(true);
-    });
-    gridLines.forEach(function (line) {
-        line.visible(true);
-    });
-    lengthDisplays.forEach(function (label) {
-        label.visible(true);
-    });
-    transformer.visible(true);
+    if (arrangementMode) {
+        pointsHandles.forEach(function (circle) {
+            circle.visible(true);
+        });
+        gridLines.forEach(function (line) {
+            line.visible(true);
+        });
+        lengthDisplays.forEach(function (label) {
+            label.visible(true);
+        });
+        transformer.visible(true);
+    }
 });
 
 // Reset

@@ -42,8 +42,12 @@
     <img src="https://img.shields.io/badge/Visiter%20le%20site-415A77?style=for-the-badge" alt="Visiter le site">
   </a>
 
-Ce projet web a pour objectif de fournir un outil permettant l'édition de **salles de classes**, au travers de l'ajout de divers éléments (tables, murs, tableau...). Ce projet permet également aux professeurs d'importer une liste d'élèves à partir d'EcoleDirecte (ou via ajout manuel) permettant d'assigner des places aux différents élèves.
-
+Ce projet web a pour objectif de fournir un outil permettant l'édition de **salles de classes**, au travers de l'ajout de divers éléments (tables, murs, tableau...). Ce projet permet également aux professeurs d'importer une liste d'élèves à partir d'EcoleDirecte (ou via ajout manuel) permettant d'assigner des places aux différents élèves. <br>
+Un exemple de salle de classe peut être téléchargé <a href="https://raw.githubusercontent.com/TimeoThms/PlanDeClasse/refs/heads/main/ressources/Exemple_DATA.json" download="Exemple_DATA.json">ICI</a>.
+<details>
+    <summary><strong>🖼️ Image du fichier d'exemple</strong></summary>
+    <img src="https://i.postimg.cc/5yDjNmxQ/Exemple-IMG.png" alt="Image du fichier d'exemple" width="600px" />
+</details>
 <br>
 
 # 🏠 II. Menu principal

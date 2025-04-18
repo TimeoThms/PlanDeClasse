@@ -31,8 +31,6 @@ function pushStateSnapshot() {
         return groupA.zIndex() - groupB.zIndex();
     });
 
-    console.log(projectData.elements)
-
     const snapshot = {
         projectData: structuredClone(projectData),
         studentsData: getStudentsListData(),
