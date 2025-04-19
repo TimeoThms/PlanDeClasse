@@ -205,6 +205,7 @@ function deleteSelection() {
 
     sizeDisplay.style.transition = "top 0.2s ease-in-out";
     sizeDisplay.style.top = "-100px";
+    pushStateSnapshot();
 }
 
 let clipboard = [];

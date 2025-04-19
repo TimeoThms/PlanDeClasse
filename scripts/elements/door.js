@@ -58,15 +58,7 @@ addDoorBtn.addEventListener("click", () => {
             width: 100,
         },
     });
-
-    if (doortype === "normal") {
-        normalDoorInput.checked = true;
-        safetyDoorInput.checked = false;
-    } else if (doortype === "safety") {
-        normalDoorInput.checked = false;
-        safetyDoorInput.checked = true;
-    }
-
+    
     pushStateSnapshot();
 });
 
