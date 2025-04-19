@@ -58,9 +58,9 @@ stage.on("contextmenu", (e) => {
 });
 
 window.addEventListener("beforeunload", (e) => {
-    // if (unsavedChanges) {
-    //     e.preventDefault();
-    // }
+    if (unsavedChanges) {
+        e.preventDefault();
+    }
 
     localStorage.setItem("projectData", JSON.stringify(projectData));
     localStorage.setItem(
@@ -104,6 +104,7 @@ window.addEventListener("load", () => {
     } catch (error) {
         console.error("Error parsing isArrangementMode:", error);
     }
+    unsavedChanges = false;
 });
 
 const headers = document.querySelectorAll("h2");

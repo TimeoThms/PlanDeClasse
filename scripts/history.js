@@ -48,7 +48,6 @@ function pushStateSnapshot() {
     );
     dataHistory.snapshots.push(snapshot);
     dataHistory.currentIndex++;
-
     unsavedChanges = true;
 }
 
