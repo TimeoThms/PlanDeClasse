@@ -83,6 +83,7 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
                     },
                 });
             }
+            updateStudentsList();
             pushStateSnapshot();
         } else {
             // Handle arrangement mode

@@ -99,6 +99,24 @@ transformer.on("dragmove", (e) => {
         [newX, newY] = getNearestGridPoint(newX, newY);
     }
 
+    // Door offset
+    if (transformer.nodes().length == 1 && gridToggled && gridResolution > 5) {
+        const element = transformer.nodes()[0];
+        const elementData = projectData.elements.find(
+            (el) => el.id === element.id()
+        );
+
+        if (elementData.type == "door") {
+            const rot = element.rotation();
+
+            if (Math.round(Math.abs(rot)) == 90) {
+                newX -= 5;
+            } else if (Math.round(Math.abs(rot)) % 180 == 0) {
+                newY -= 5;
+            }
+        }
+    }
+
     // Elements potions relatively to their position with the selection
     const deltaX = newX - selectionBox.x;
     const deltaY = newY - selectionBox.y;

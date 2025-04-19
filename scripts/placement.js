@@ -79,8 +79,11 @@ function addStudent(lastName, firstName, group) {
     }
 
     noStudent.hidden = true;
-    studentsListMenuTab.style.maxHeight = studentsListMenuTab.scrollHeight + "px";
+    studentsListMenuTab.style.maxHeight =
+        studentsListMenuTab.scrollHeight + "px";
 
+    setSelectedStudent(id);
+    updateStudentsList();
     return id;
 }
 
@@ -149,6 +152,16 @@ const studentManualGroupInput = document.getElementById(
 const addStudentManualBtn = document.getElementById("add-student-manual-btn");
 
 addStudentManualBtn.addEventListener("click", () => {
+    studentsIds.forEach((id) => {
+        const studentData = getStudentData(id);
+        if (
+            studentManualLastNameInput.value == studentData.lastName &&
+            studentManualFirstNameInput.value == studentData.firstName &&
+            studentManualGroupInput.value == studentData.group
+        ) {
+            alert("Cet élève existe déjà !")
+        }
+    });
     addStudent(
         studentManualLastNameInput.value,
         studentManualFirstNameInput.value,
@@ -157,6 +170,114 @@ addStudentManualBtn.addEventListener("click", () => {
     noStudent.hidden = true;
     pushStateSnapshot();
 });
+
+function getAddedStudents() {
+    let addedLabels = [];
+    elements.forEach((group) => {
+        const elementData = projectData.elements.find(
+            (el) => el.id === group.id()
+        );
+        if (elementData.type == "table" || elementData.type == "doubletable") {
+            group.find("Text").forEach((textNode) => {
+                if (textNode.text()) {
+                    addedLabels.push(textNode.text());
+                }
+            });
+        }
+    });
+    // Match students with his name
+    let addedStudents = [];
+    for (const id of studentsIds) {
+        const studentData = getStudentData(id);
+
+        for (const label of addedLabels) {
+            if (
+                label.startsWith(
+                    `${studentData.lastName}\n${studentData.firstName}`
+                )
+            ) {
+                addedStudents.push(id);
+                break;
+            }
+        }
+    }
+
+    return addedStudents;
+}
+
+function updateStudentsList() {
+    studentsIds.forEach((id) => {
+        const studentElement = getStudentElement(id);
+        if (getAddedStudents().includes(id)) {
+            studentElement.classList.add("added");
+        } else {
+            studentElement.classList.remove("added");
+        }
+    });
+    reorderStudentsInList();
+}
+
+function reorderStudentsInList() {
+    const notAdded = [];
+    const added = [];
+
+    studentsIds.forEach((id) => {
+        const element = getStudentElement(id);
+        if (element.classList.contains("added")) {
+            added.push(element);
+        } else {
+            notAdded.push(element);
+        }
+    });
+
+    studentsList.innerHTML = "";
+
+    notAdded.sort((a, b) => {
+        const infosA = a.querySelectorAll("p");
+        const infosB = b.querySelectorAll("p");
+        const dataA = {
+            lastName: infosA[0].textContent,
+            firstName: infosA[1].textContent,
+            group: infosA[2].textContent,
+        };
+        const dataB = {
+            lastName: infosB[0].textContent,
+            firstName: infosB[1].textContent,
+            group: infosB[2].textContent,
+        };
+
+        return (
+            dataA.group.localeCompare(dataB.group) ||
+            dataA.lastName.localeCompare(dataB.lastName) ||
+            dataA.firstName.localeCompare(dataB.firstName)
+        );
+    });
+
+    added.sort((a, b) => {
+        const infosA = a.querySelectorAll("p");
+        const infosB = b.querySelectorAll("p");
+        const dataA = {
+            lastName: infosA[0].textContent,
+            firstName: infosA[1].textContent,
+            group: infosA[2].textContent,
+        };
+        const dataB = {
+            lastName: infosB[0].textContent,
+            firstName: infosB[1].textContent,
+            group: infosB[2].textContent,
+        };
+
+        return (
+            dataA.group.localeCompare(dataB.group) ||
+            dataA.lastName.localeCompare(dataB.lastName) ||
+            dataA.firstName.localeCompare(dataB.firstName)
+        );
+    });
+
+    notAdded.concat(added).forEach((element) => {
+        studentsList.appendChild(element);
+    });
+}
 
 // Students list files management
 
@@ -331,8 +452,8 @@ emptyStudentsListBtn.addEventListener("click", () => {
     )
         return;
     studentsIds.forEach((id) => deleteStudent(id));
-    studentsListMenuTab.style.maxHeight = studentsListMenuTab.scrollHeight + "px";
-
+    studentsListMenuTab.style.maxHeight =
+        studentsListMenuTab.scrollHeight + "px";
 });
 
 // Student editor
