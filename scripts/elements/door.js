@@ -1,5 +1,5 @@
-const normalDoorInput = document.getElementById('normal-door');
-const safetyDoorInput = document.getElementById('safety-door');
+const normalDoorInput = document.getElementById("normal-door");
+const safetyDoorInput = document.getElementById("safety-door");
 
 const addDoorBtn = document.getElementById("add-door-btn");
 const doorLabelInput = document.getElementById("door-label-input");
@@ -12,7 +12,7 @@ function createDoor({ doortype = "normal", label = "", width = 100 }) {
     } else if (doortype == "safety") {
         color = "#29912e";
     }
-    
+
     let door = new Konva.Rect({
         x: 0,
         y: 0,
@@ -58,26 +58,32 @@ addDoorBtn.addEventListener("click", () => {
             width: 100,
         },
     });
+
+    if (doortype === "normal") {
+        normalDoorInput.checked = true;
+        safetyDoorInput.checked = false;
+    } else if (doortype === "safety") {
+        normalDoorInput.checked = false;
+        safetyDoorInput.checked = true;
+    }
+
     pushStateSnapshot();
 });
 
 // EDITOR
 
+const editorDoorLabelInput = document.getElementById("editor-door-label-input");
 
-const editorDoorLabelInput = document.getElementById(
-    "editor-door-label-input"
-);
-
-const editorNormalDoorInput = document.getElementById('editor-normal-door');
-const editorSafetyDoorInput = document.getElementById('editor-safety-door');
+const editorNormalDoorInput = document.getElementById("editor-normal-door");
+const editorSafetyDoorInput = document.getElementById("editor-safety-door");
 
 editorNormalDoorInput.addEventListener("change", (event) => {
     updateDoor();
-})
+});
 
 editorSafetyDoorInput.addEventListener("change", (event) => {
     updateDoor();
-})
+});
 
 editorDoorLabelInput.addEventListener("input", () => {
     updateDoor();
@@ -93,6 +99,7 @@ function updateDoor() {
     const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
     if (!group) return;
     const box = group.getClientRect({ skipTransform: true });
+
     updateElement({
         type: "door",
         id: group.id(),
