@@ -50,7 +50,7 @@ addDeskBtn.addEventListener("click", () => {
         y: 100,
         rotation: 0,
         config: {
-            label: deskLabelInput.value,
+            label: deskLabelInput.value.replace(/%/g, "\n"),
         },
     });
     pushStateSnapshot();
@@ -58,9 +58,7 @@ addDeskBtn.addEventListener("click", () => {
 
 // EDITOR
 
-const editorDeskLabelInput = document.getElementById(
-    "editor-desk-label-input"
-);
+const editorDeskLabelInput = document.getElementById("editor-desk-label-input");
 
 editorDeskLabelInput.addEventListener("input", () => {
     updateDesk();
@@ -73,11 +71,11 @@ function updateDesk() {
         type: "desk",
         id: group.id(),
         config: {
-            label: editorDeskLabelInput.value,
+            label: editorDeskLabelInput.value.replace(/%/g, "\n"),
         },
     });
 }
 
 function syncDeskEditor({ label = "" }) {
-    editorDeskLabelInput.value = label;
+    editorDeskLabelInput.value = label.replace(/\n/g, "%");
 }

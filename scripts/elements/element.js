@@ -62,6 +62,15 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
                     },
                 });
             }
+            if (type == "desk") {
+                updateElement({
+                    type: "desk",
+                    id: id,
+                    config: {
+                        label: labelStr,
+                    },
+                });
+            }
             if (type == "doubletable") {
                 const pointerPosition = stage.getPointerPosition();
                 const isLeftSide = pointerPosition.x - 65 < group.x();

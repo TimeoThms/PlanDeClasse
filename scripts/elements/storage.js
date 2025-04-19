@@ -49,7 +49,7 @@ addStorageBtn.addEventListener("click", () => {
         y: 100,
         rotation: 0,
         config: {
-            label: storageLabelInput.value,
+            label: storageLabelInput.value.replace(/%/g, "\n"),
             width: 120,
             height: 50,
         },
@@ -74,7 +74,7 @@ function updateStorage() {
         type: "storage",
         id: group.id(),
         config: {
-            label: editorStorageLabelInput.value,
+            label: editorStorageLabelInput.value.replace(/%/g, "\n"),
             width: box.width,
             height: box.height,
         },
@@ -82,5 +82,5 @@ function updateStorage() {
 }
 
 function syncStorageEditor({ label = "" }) {
-    editorStorageLabelInput.value = label;
+    editorStorageLabelInput.value = label.replace(/\n/g, "%");
 }

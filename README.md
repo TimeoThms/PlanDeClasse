@@ -23,14 +23,16 @@
 - [⌨️ V. Raccouris clavier utiles](#️-v-raccouris-clavier-utiles)
   - [Déplacement sur le plan](#déplacement-sur-le-plan)
   - [Sélection d'éléments](#sélection-déléments)
+  - [Redimensionner en gardant les proportions](#redimensionner-en-gardant-les-proportions)
   - [Copie et collage](#copie-et-collage)
   - [Annuler une modification](#annuler-une-modification)
   - [Superposition d'éléments](#superposition-déléments)
+  - [Saut de ligne dans les Textes](#saut-de-ligne-dans-les-textes)
 - [⚙️ VI - Spécifications techniques du projet](#️-vi---spécifications-techniques-du-projet)
   - [A. Langages utilisés](#a-langages-utilisés)
   - [B. Librairies utilisées](#b-librairies-utilisées)
     - [KonvaJS](#konvajs)
-    - [XSLX](#xslx)
+    - [XLSX](#xlsx)
   - [C. Sécurité](#c-sécurité)
   - [D. Limitations](#d-limitations)
 
@@ -40,7 +42,7 @@
 # 📖 I. Préambule
 
   <a href="https://timeothms.github.io/PlanDeClasse/">
-    <img src="https://img.shields.io/badge/Visiter%20le%20site-415A77?style=for-the-badge" alt="Visiter le site">
+    <img src="https://img.shields.io/badge/Visiter%20le%20site-415A77?style=for-the-badge" alt="Visiter le site" />
   </a>
 
 Ce projet web a pour objectif de fournir un outil permettant l'édition de **salles de classes**, au travers de l'ajout de divers éléments (tables, murs, tableau...). Ce projet permet également aux professeurs d'importer une liste d'élèves à partir d'EcoleDirecte (ou via ajout manuel) permettant d'assigner des places aux différents élèves. <br>
@@ -187,12 +189,20 @@ Pour zoomer ou dézoomer dans le plan, utilisez la molette. <br>
 Pour vous déplacer dans le plan, maintenez la touche `CTRL` et faites glisser le plan.
 ## Sélection d'éléments
 Pour sélectionner plusieurs éléments à la fois, maintenez la touche `CTRL` enfoncée en cliquant sur les éléments à sélectionner.
+## Redimensionner en gardant les proportions
+Pour redimensionner un élément en conservant ses proportions, il suffit de maintenir la touche `SHIFT` (`⇧`) enfoncée tout en redimensionnant dans un coin de la forme.
 ## Copie et collage
 Pour dupliquer une sélection d'éléments, copier cette sélection avec le raccourci clavier `CTRL+C` et collez la avec le raccourci clavier `CTRL+V`.
 ## Annuler une modification
 Pour annuler une modification, utilisez le raccourci clavier `CTRL+Z`. Pour rétablir une modification annulée, utilisez `CTRL+Y`.
 ## Superposition d'éléments
 Si plusieurs éléments sont superposés, par défaut, lorsqu'un élément est sélectionné, il se place au dessus de tout les autres éléments. Si vous souhaitez sélectionner un élément sans qu'il passe par dessus les autres éléments, maintenez la touche `Q` pendant la sélection.
+## Saut de ligne dans les Textes
+Pour sauter des lignes dans les textes présents sur les différents éléments, vous pouvez utiliser le caractère `%`. Ainsi, le texte `Plan%De%Classe` sera affiché comme ceci :
+>&nbsp;&nbsp;Plan  
+>&nbsp;&nbsp;&nbsp;De  
+>&nbsp;Classe  
+
 
 <br><br>
 
@@ -203,7 +213,7 @@ Les langages utilisés sont donc **HTML**, **CSS**, et **JavaScript**
 ## B. Librairies utilisées
 ### KonvaJS
 - Pour l'affichage, l'édition, la transformation des éléments, la bibliothèque JavaScript Konva a été utilisée
-### XSLX
+### XLSX
 - Pour les fichier Excel XLSX et les fichier CSV, la librairie XLSX a été utilisée afin de faciliter le développement.
 ## C. Sécurité
 Toutes les données restent localement dans le navigateur du client. Aucune donnée n'est transmise à un serveur externe.

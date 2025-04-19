@@ -115,6 +115,7 @@ function loadProject() {
 
     layer.batchDraw();
     elementsLayer.batchDraw();
+    topLayer.batchDraw();
 
     updateStudentsList();
 

@@ -39,7 +39,7 @@ addWhiteboardBtn.addEventListener("click", () => {
         y: 100,
         rotation: 0,
         config: {
-            label: whiteboardLabelInput.value,
+            label: whiteboardLabelInput.value.replace(/%/g, "\n"),
             width: 220,
         },
     });
@@ -68,12 +68,12 @@ function updateWhiteboard() {
         type: "whiteboard",
         id: group.id(), // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer nodes
         config: {
-            label: editorWhiteboardLabelInput.value,
+            label: editorWhiteboardLabelInput.value.replace(/%/g, "\n"),
             width: box.width,
         },
     });
 }
 
 function syncWhiteboardEditor({ label = "" }) {
-    editorWhiteboardLabelInput.value = label;
+    editorWhiteboardLabelInput.value = label.replace(/\n/g, "%");
 }

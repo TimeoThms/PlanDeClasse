@@ -54,6 +54,9 @@ resetBtn.addEventListener("click", () => {
             e.destroy();
         }
     });
+
+    elements = [];
+
     transformer.nodes([]);
 
     filenameInput.value = "";

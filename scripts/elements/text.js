@@ -38,7 +38,7 @@ addTextBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: textColorInput.value,
-            label: textLabelInput.value,
+            label: textLabelInput.value.replace(/%/g, "\n"),
             height: 100,
         },
     });
@@ -73,7 +73,7 @@ function updateText() {
         id: group.id(),
         config: {
             color: editorTextColorInput.value,
-            label: editorTextLabelInput.value,
+            label: editorTextLabelInput.value.replace(/%/g, "\n"),
             height: box.height,
         },
     });
@@ -82,5 +82,5 @@ function updateText() {
 function syncTextEditor({ color = "#000", label = ""}) {
     editorTextColorInput.value = color;
     editorTextColorLabel.style.backgroundColor = color;
-    editorTextLabelInput.value = label;
+    editorTextLabelInput.value = label.replace(/\n/g, "%");
 }

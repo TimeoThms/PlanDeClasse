@@ -48,7 +48,7 @@ addRectangleBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: rectangleColorInput.value,
-            label: rectangleLabelInput.value,
+            label: rectangleLabelInput.value.replace(/%/g, "\n"),
             width: 100,
             height: 100,
         },
@@ -86,7 +86,7 @@ function updateRectangle() {
         id: group.id(),
         config: {
             color: editorRectangleColorInput.value,
-            label: editorRectangleLabelInput.value,
+            label: editorRectangleLabelInput.value.replace(/%/g, "\n"),
             width: box.width,
             height: box.height,
         },
@@ -96,5 +96,5 @@ function updateRectangle() {
 function syncRectangleEditor({ color = "#000", label = "" }) {
     editorRectangleColorInput.value = color;
     editorRectangleColorLabel.style.backgroundColor = color;
-    editorRectangleLabelInput.value = label;
+    editorRectangleLabelInput.value = label.replace(/\n/g, "%");
 }

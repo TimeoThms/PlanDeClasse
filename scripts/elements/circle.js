@@ -48,7 +48,7 @@ addCircleBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: circleColorInput.value,
-            label: circleLabelInput.value,
+            label: circleLabelInput.value.replace(/%/g, "\n"),
         },
     });
     pushStateSnapshot();
@@ -81,7 +81,7 @@ function updateCircle() {
         id: group.id(),
         config: {
             color: editorCircleColorInput.value,
-            label: editorCircleLabelInput.value,
+            label: editorCircleLabelInput.value.replace(/%/g, "\n"),
             width: box.width,
             height: box.height,
         },
@@ -91,5 +91,5 @@ function updateCircle() {
 function syncCircleEditor({ color = "#000", label = "" }) {
     editorCircleColorInput.value = color;
     editorCircleColorLabel.style.backgroundColor = color;
-    editorCircleLabelInput.value = label;
+    editorCircleLabelInput.value = label.replace(/\n/g, "%");
 }

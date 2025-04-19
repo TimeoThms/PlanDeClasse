@@ -159,7 +159,7 @@ addStudentManualBtn.addEventListener("click", () => {
             studentManualFirstNameInput.value == studentData.firstName &&
             studentManualGroupInput.value == studentData.group
         ) {
-            alert("Cet élève existe déjà !")
+            alert("Cet élève existe déjà !");
         }
     });
     addStudent(
@@ -177,7 +177,12 @@ function getAddedStudents() {
         const elementData = projectData.elements.find(
             (el) => el.id === group.id()
         );
-        if (elementData.type == "table" || elementData.type == "doubletable") {
+        if (!elementData) return;
+        if (
+            elementData.type == "table" ||
+            elementData.type == "doubletable" ||
+            elementData.type == "desk"
+        ) {
             group.find("Text").forEach((textNode) => {
                 if (textNode.text()) {
                     addedLabels.push(textNode.text());
@@ -517,4 +522,5 @@ studentEditorSaveBtn.addEventListener("click", () => {
     );
     studentEditor.hidden = true;
     editedStudentId = null;
+    updateStudentsList();
 });

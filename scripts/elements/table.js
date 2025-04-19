@@ -57,7 +57,7 @@ addTableBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: tableColorInput.value,
-            label: tableLabelInput.value,
+            label: tableLabelInput.value.replace(/%/g, "\n"),
         },
     });
     pushStateSnapshot();
@@ -91,13 +91,14 @@ function updateTable() {
         id: group.id(),
         config: {
             color: editorTableColorInput.value,
-            label: editorTableLabelInput.value,
+            label: editorTableLabelInput.value.replace(/%/g, "\n"),
         },
     });
+    updateStudentsList();
 }
 
 function syncTableEditor({ color = "#000", label = "" }) {
     editorTableColorInput.value = color;
     editorTableColorLabel.style.backgroundColor = color;
-    editorTableLabelInput.value = label;
+    editorTableLabelInput.value = label.replace(/\n/g, "%");
 }

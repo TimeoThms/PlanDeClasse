@@ -10,6 +10,9 @@ let walls = new Konva.Line({
 });
 layer.add(walls);
 
+const topLayer = new Konva.Layer();
+stage.add(topLayer);
+
 let pointsHandles = [];
 let lengthDisplays = [];
 
@@ -26,7 +29,7 @@ function createPoint(x, y) {
         draggable: true,
     });
 
-    layer.add(circle);
+    topLayer.add(circle);
     pointsHandles.push(circle);
 
     // When a circle is moved, update the walls point
@@ -56,6 +59,7 @@ function createPoint(x, y) {
 
         updateWallLengthLabel(index);
         layer.batchDraw();
+        topLayer.batchDraw();
     });
 }
 
@@ -87,6 +91,7 @@ stage.on("click", (e) => {
     addWallLengthLabel();
 
     layer.batchDraw();
+    topLayer.batchDraw();
 
     pushStateSnapshot();
 });
@@ -115,6 +120,7 @@ function deleteWalls() {
     walls.points([]);
     points = [];
     layer.batchDraw();
+    topLayer.batchDraw();
 }
 
 function loadWalls(uploadedPoints, shouldEndWithDrawingTrue = false) {
@@ -128,7 +134,7 @@ function loadWalls(uploadedPoints, shouldEndWithDrawingTrue = false) {
     isDrawingWalls = shouldEndWithDrawingTrue;
     walls.closed(!shouldEndWithDrawingTrue);
     addWallLengthLabel();
-    
+
     if (!isArrangementMode) {
         unselectAll();
         if (gridToggled) {
@@ -142,8 +148,9 @@ function loadWalls(uploadedPoints, shouldEndWithDrawingTrue = false) {
             label.visible(false);
         });
     }
-    
+
     layer.batchDraw();
+    topLayer.batchDraw();
 }
 
 function addWallLengthLabel() {
@@ -189,7 +196,7 @@ function addWallLengthLabel() {
         lengthLabel.offsetX(lengthLabel.width() / 2);
         lengthLabel.offsetY(lengthLabel.height() / 2);
 
-        layer.add(lengthLabel);
+        topLayer.add(lengthLabel);
         lengthDisplays.push(lengthLabel);
     }
 }

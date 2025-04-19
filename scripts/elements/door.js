@@ -54,7 +54,7 @@ addDoorBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             doortype: doortype,
-            label: doorLabelInput.value,
+            label: doorLabelInput.value.replace(/%/g, "\n"),
             width: 100,
         },
     });
@@ -98,7 +98,7 @@ function updateDoor() {
         id: group.id(),
         config: {
             doortype: doortype,
-            label: editorDoorLabelInput.value,
+            label: editorDoorLabelInput.value.replace(/%/g, "\n"),
             width: box.width,
         },
     });
@@ -112,5 +112,5 @@ function syncDoorEditor({ doortype = "normal", label = "" }) {
         editorNormalDoorInput.checked = false;
         editorSafetyDoorInput.checked = true;
     }
-    editorDoorLabelInput.value = label;
+    editorDoorLabelInput.value = label.replace(/\n/g, "%");
 }

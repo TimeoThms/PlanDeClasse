@@ -86,8 +86,8 @@ addDoubletableBtn.addEventListener("click", () => {
         rotation: 0,
         config: {
             color: doubletableColorInput.value,
-            label1: doubletableLabel1Input.value,
-            label2: doubletableLabel2Input.value,
+            label1: doubletableLabel1Input.value.replace(/%/g, "\n"),
+            label2: doubletableLabel2Input.value.replace(/%/g, "\n"),
         },
     });
     pushStateSnapshot();
@@ -129,15 +129,16 @@ function updateDoubletable() {
         id: group.id(),
         config: {
             color: editorDoubletableColorInput.value,
-            label1: editorDoubletableLabel1Input.value,
-            label2: editorDoubletableLabel2Input.value,
+            label1: editorDoubletableLabel1Input.value.replace(/%/g, "\n"),
+            label2: editorDoubletableLabel2Input.value.replace(/%/g, "\n"),
         },
     });
+    updateStudentsList();
 }
 
 function syncDoubletableEditor({ color = "#000", label1 = "", label2 = "" }) {
     editorDoubletableColorInput.value = color;
     editorDoubletableColorLabel.style.backgroundColor = color;
-    editorDoubletableLabel1Input.value = label1;
-    editorDoubletableLabel2Input.value = label2;
+    editorDoubletableLabel1Input.value = label1.replace(/\n/g, "%");
+    editorDoubletableLabel2Input.value = label2.replace(/\n/g, "%");
 }
