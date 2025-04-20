@@ -106,7 +106,7 @@ Le bouton `Supprimer` permet de supprimer les murs créés.
 ---
 
 ### Éléments
-Ce menu est probablement le plus important. Il permet l'ajout d'éléments dans la salle auxquels vous pouvez modifier différents attributs. La modification des attributs dans ce menu modifieront les attributs pour tout les éléments de ce type ajoutés avec le bouton `Ajouter`. Une fois les éléments ajoutés, vous pourrez toujours modifier leurs attributs individuellement (voir plus bas).<br>
+Ce menu est probablement le plus important. Il permet l'ajout d'éléments dans la salle auxquels vous pouvez modifier différents attributs. La modification des attributs dans ce menu modifieront les attributs pour tous les éléments de ce type ajoutés avec le bouton `Ajouter`. Une fois les éléments ajoutés, vous pourrez toujours modifier leurs attributs individuellement (voir plus bas).<br>
 Il y a 9 éléments différents :
 - Table
 - Table double
@@ -158,7 +158,7 @@ Dans ce menu, vous avez accès à la liste des élèves ajoutés.
 
 ### Ajout d'un élève sur le plan
 Pour ajouter un élève au plan de classe, sélectionnez le en cliquant dessus. Cliquez ensuite sur une table pour y placer son nom.
-Un `Clic Droit` sur une table permet de supprimer le nom présent à cette place
+Un `Clic Droit` sur une table permet de supprimer le nom présent à cette place.
 
 ---
 
@@ -169,9 +169,9 @@ Un `Clic Droit` sur une table permet de supprimer le nom présent à cette place
 ---
 
 ### Affichage de la classe sur le plan
-Vous pouvez choisir d'afficher ou non la classe d'un élève sur la table ou il se trouve. Pour cela, cocher simplement le bouton `Afficher la classe sur le plan`
+Vous pouvez choisir d'afficher ou non la classe d'un élève sur la table où il se trouve. Pour cela, cocher simplement le bouton `Afficher la classe sur le plan`
 > [!WARNING]
-> Cocher ou décocher le bouton ne modifiera rien pour les élèves déjà placé sur le plan, les changement seront effectifs uniquement pour les élèves ajoutés après le changement.
+> Cocher ou décocher le bouton ne modifiera rien pour les élèves déjà placé sur le plan, les changements seront effectifs uniquement pour les élèves ajoutés après le changement.
 
 ### Sauvegarde et vidage de la liste
 Les boutons `Sauvegarder` et `Vider` permettent respectivement d'exporter la liste au format CSV et de vider la liste actuelle.
@@ -196,7 +196,7 @@ Pour dupliquer une sélection d'éléments, copier cette sélection avec le racc
 ## Annuler une modification
 Pour annuler une modification, utilisez le raccourci clavier `CTRL+Z`. Pour rétablir une modification annulée, utilisez `CTRL+Y`.
 ## Superposition d'éléments
-Si plusieurs éléments sont superposés, par défaut, lorsqu'un élément est sélectionné, il se place au dessus de tout les autres éléments. Si vous souhaitez sélectionner un élément sans qu'il passe par dessus les autres éléments, maintenez la touche `Q` pendant la sélection.
+Si plusieurs éléments sont superposés, par défaut, lorsqu'un élément est sélectionné, il se place au dessus de tous les autres éléments. Si vous souhaitez sélectionner un élément sans qu'il passe par dessus les autres éléments, maintenez la touche `Q` pendant la sélection.
 ## Saut de ligne dans les Textes
 Pour sauter des lignes dans les textes présents sur les différents éléments, vous pouvez utiliser le caractère `%`. Ainsi, le texte `Plan%De%Classe` sera affiché comme ceci :
 >&nbsp;&nbsp;Plan  
