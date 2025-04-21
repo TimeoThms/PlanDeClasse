@@ -123,11 +123,15 @@ function deleteStudent(id) {
     if (id == selectedStudent) {
         selectedStudent = null;
     }
+    setSelectedStudent(getFirstNotAddedStudent());
 }
 
 var selectedStudent;
 
 function setSelectedStudent(id) {
+     if (id === null || !getStudentElement(id)) {
+         return;
+     }
     // Unselect previously selected student
     if (selectedStudent) {
         let previousSelectedElement = getStudentElement(selectedStudent);
@@ -219,7 +223,14 @@ function updateStudentsList() {
             studentElement.classList.remove("added");
         }
     });
+
     reorderStudentsInList();
+
+    const addedStudents = getAddedStudents();
+
+    if (addedStudents.includes(selectedStudent)) {
+        setSelectedStudent(getFirstNotAddedStudent());
+    }
 }
 
 function reorderStudentsInList() {
@@ -282,6 +293,17 @@ function reorderStudentsInList() {
     notAdded.concat(added).forEach((element) => {
         studentsList.appendChild(element);
     });
+}
+
+function getFirstNotAddedStudent() {
+    const students = studentsList.querySelectorAll(".student");
+    for (const student of students) {
+        if (!student.classList.contains("added")) {
+            const id = student.id.replace("student-", "");
+            return id;
+        }
+    }
+    return null;
 }
 
 // Students list files management

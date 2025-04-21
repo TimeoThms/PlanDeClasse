@@ -81,6 +81,7 @@ resetBtn.addEventListener("click", () => {
 
     resetZoom();
     displayEditor();
+    updateGrid();
 
     layer.batchDraw();
 
