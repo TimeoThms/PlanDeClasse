@@ -197,15 +197,57 @@ document.addEventListener("keydown", (e) => {
         // Delete elements selected by the transformer
         if (e.key === "Delete" || e.key === "Backspace") {
             deleteSelection();
+            return;
         }
 
         // COPY PASTE
 
         if (e.ctrlKey && e.key === "c") {
             copySelection();
+            return;
         }
         if (e.ctrlKey && e.key === "v") {
             pasteSelection();
+            return;
+        }
+
+        // Arrows to move transformer
+        let step = gridToggled ? gridResolution : 1;
+        let dx = 0;
+        let dy = 0;
+        let moved = false;
+        switch (e.key) {
+            case "ArrowUp":
+                dy = -step;
+                moved = true;
+                break;
+            case "ArrowDown":
+                dy = step;
+                moved = true;
+                break;
+            case "ArrowLeft":
+                dx = -step;
+                moved = true;
+                break;
+            case "ArrowRight":
+                // Déplacer vers la droite
+                dx = step;
+                moved = true;
+                break;
+            default:
+                return; // Ignorer les autres touches
+        }
+        if (moved && transformer.nodes().length > 0) {
+            e.preventDefault();
+            transformer.nodes().forEach((group) => {
+                group.setPosition({ x: group.x() + dx, y: group.y() + dy });
+            });
+            transformer.fire("dragmove");
+            transformer.nodes().forEach((group) => {
+                group.fire("dragend");
+            });
+            transformer.fire("dragend");
+            elementsLayer.batchDraw();
         }
     }
 });
@@ -278,8 +320,7 @@ function pasteSelection() {
 }
 
 transformer.on("transform", (e) => {
-    transformer.nodes().forEach((node) => {
-    });
+    transformer.nodes().forEach((node) => {});
 });
 
 transformer.on("click", (e) => {
