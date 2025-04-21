@@ -9,22 +9,18 @@ textColorInput.addEventListener("input", (event) => {
 });
 
 // Returns the list of shapes used to make the text
-function createText({ color = "#000", label = "", height = 16}) {
-
-
+function createText({ color = "#000", label = "", fontSize = 16 }) {
     let text = new Konva.Text({
         x: 0,
         y: 0,
-        height: height,
         text: label,
-        fontSize: height,
+        fontSize: fontSize,
         fontFamily: "Arial",
         fill: color,
-        align: "center",
         verticalAlign: "middle",
     });
 
-    text.width(text.width() + 20)
+    text.width(text.width() + 20);
 
     return [text];
 }
@@ -39,7 +35,7 @@ addTextBtn.addEventListener("click", () => {
         config: {
             color: textColorInput.value,
             label: textLabelInput.value.replace(/%/g, "\n"),
-            height: 100,
+            fontSize: 64,
         },
     });
     pushStateSnapshot();
@@ -47,12 +43,8 @@ addTextBtn.addEventListener("click", () => {
 
 // EDITOR
 const editorTextColorInput = document.getElementById("editor-text-color");
-const editorTextColorLabel = document.getElementById(
-    "editor-text-color-label"
-);
-const editorTextLabelInput = document.getElementById(
-    "editor-text-label-input"
-);
+const editorTextColorLabel = document.getElementById("editor-text-color-label");
+const editorTextLabelInput = document.getElementById("editor-text-label-input");
 
 editorTextColorInput.addEventListener("input", (event) => {
     const selectedColor = event.target.value;
@@ -68,18 +60,19 @@ function updateText() {
     const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
     if (!group) return;
     const box = group.getClientRect({ skipTransform: true });
+    const lines = group.getChildren()[0].text().split("\n").length;
     updateElement({
         type: "text",
         id: group.id(),
         config: {
             color: editorTextColorInput.value,
             label: editorTextLabelInput.value.replace(/%/g, "\n"),
-            height: box.height,
+            fontSize: group.getChildren()[0].fontSize(),
         },
     });
 }
 
-function syncTextEditor({ color = "#000", label = ""}) {
+function syncTextEditor({ color = "#000", label = "" }) {
     editorTextColorInput.value = color;
     editorTextColorLabel.style.backgroundColor = color;
     editorTextLabelInput.value = label.replace(/\n/g, "%");

@@ -204,16 +204,19 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
             const textShape = group.getChildren()[0];
             const anchor = transformer.getActiveAnchor();
 
+            // Counts number of lines
+            const lines = textShape.text().split("\n").length;
+
             const oldBox = group.getClientRect({ skipTransform: false });
 
             const scale = group.scaleY();
             const width = textShape.width();
-            const height = textShape.height();
-            const newHeight = height * scale;
+            const fontSize = textShape.fontSize();
+            const newFontSize = fontSize * scale;
 
-            textShape.fontSize(newHeight);
+            textShape.fontSize(newFontSize);
             textShape.width((width - 20) * scale + 20);
-            textShape.height(newHeight);
+            textShape.height(newFontSize * lines);
 
             group.scaleX(1);
             group.scaleY(1);
