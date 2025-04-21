@@ -10,20 +10,20 @@ tableColorInput.addEventListener("input", (event) => {
 
 // Returns the list of shapes used to make the table
 function createTable({ color = "#000", label = "" }) {
+    const strokeWidth = 2;
+
     let chair = new Konva.Rect({
         x: 12,
-        y: 40,
+        y: -strokeWidth / 2,
         width: 41,
         height: 10,
         fill: color,
         cornerRadius: 100,
     });
 
-    const strokeWidth = 2;
-
     let plank = new Konva.Rect({
         x: 0,
-        y: 0,
+        y: 5,
         width: 65 - strokeWidth,
         height: 45 - strokeWidth,
         fill: "#b6c4d6",
@@ -33,14 +33,14 @@ function createTable({ color = "#000", label = "" }) {
     });
 
     let text = new Konva.Text({
-        x: 0,
-        y: 0,
+        x: -strokeWidth / 2,
+        y: 5,
         text: label,
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#000",
         width: 65,
-        height: 45,
+        height: 45 - strokeWidth / 2,
         align: "center",
         verticalAlign: "middle",
     });

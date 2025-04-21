@@ -95,8 +95,27 @@ transformer.on("dragmove", (e) => {
         newY = stageH - selectionBox.height;
 
     if (gridToggled) {
-        // Snap to the grid
-        [newX, newY] = getNearestGridPoint(newX, newY);
+        const corners = [
+            [newX, newY], // top left
+            [newX + selectionBox.width, newY], // top right
+            [newX, newY + selectionBox.height], // bottom left
+            [newX + selectionBox.width, newY + selectionBox.height], // bottom right
+        ];
+
+        let bestSnap = null;
+        let minDistance = Infinity;
+        for (let i = 0; i < corners.length; i++) {
+            const [x, y] = corners[i];
+            const [snapX, snapY] = getNearestGridPoint(x, y);
+            const distance = Math.sqrt((snapX - x) ** 2 + (snapY - y) ** 2);
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                bestSnap = { originX: x, originY: y, snapX, snapY };
+            }
+        }
+        newX += bestSnap.snapX - bestSnap.originX;
+        newY += bestSnap.snapY - bestSnap.originY;
     }
 
     // Door offset
@@ -257,6 +276,11 @@ function pasteSelection() {
 
     pushStateSnapshot();
 }
+
+transformer.on("transform", (e) => {
+    transformer.nodes().forEach((node) => {
+    });
+});
 
 transformer.on("click", (e) => {
     const pointer = stage.getPointerPosition();

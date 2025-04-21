@@ -17,9 +17,11 @@ doubletableColorInput.addEventListener("input", (event) => {
 
 // Returns the list of shapes used to make the doubletable
 function createDoubletable({ color = "#000", label1 = "", label2 = "" }) {
+    const strokeWidth = 2;
+
     let chair1 = new Konva.Rect({
         x: 12,
-        y: 40,
+        y: -strokeWidth / 2,
         width: 41,
         height: 10,
         fill: color,
@@ -28,18 +30,16 @@ function createDoubletable({ color = "#000", label1 = "", label2 = "" }) {
 
     let chair2 = new Konva.Rect({
         x: 77,
-        y: 40,
+        y: -strokeWidth / 2,
         width: 41,
         height: 10,
         fill: color,
         cornerRadius: 100,
     });
 
-    const strokeWidth = 2;
-
     let plank = new Konva.Rect({
         x: 0,
-        y: 0,
+        y: 5,
         width: 130 - strokeWidth,
         height: 45 - strokeWidth,
         fill: "#b6c4d6",
@@ -49,27 +49,27 @@ function createDoubletable({ color = "#000", label1 = "", label2 = "" }) {
     });
 
     let text1 = new Konva.Text({
-        x: 0,
-        y: 0,
+        x: -strokeWidth / 2,
+        y: 5,
         text: label1,
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#000",
         width: 65,
-        height: 45,
+        height: 45 - strokeWidth / 2,
         align: "center",
         verticalAlign: "middle",
     });
 
     let text2 = new Konva.Text({
-        x: 65,
-        y: 0,
+        x: 65 - strokeWidth / 2,
+        y: 5,
         text: label2,
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#000",
         width: 65,
-        height: 45,
+        height: 45 - strokeWidth / 2,
         align: "center",
         verticalAlign: "middle",
     });

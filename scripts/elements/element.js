@@ -73,7 +73,31 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
             }
             if (type == "doubletable") {
                 const pointerPosition = stage.getPointerPosition();
-                const isLeftSide = pointerPosition.x - 65 < group.x();
+
+                const box = group.getClientRect();
+
+                const centerX = box.x + box.width / 2;
+                const centerY = box.y + box.height / 2;
+
+                // (dx, dy) is the vector from center to pointer position
+                const dx = pointerPosition.x - centerX;
+                const dy = pointerPosition.y - centerY;
+
+                // Rotation to apply in radians
+                // We want to get back to a non-rotated state, so we apply the opposite rotation
+                const rotRad = (-group.rotation() * Math.PI) / 180;
+
+                // Rotation transformation matrix is (cos(teta), -sin(teta) | sin(teta), cos(teta)) so
+                // { x' = x cos(teta) - y sin(teta)
+                // { y' = x sin(teta) + y sin(teta)
+                // Then add box.width/2 since (dx, dy) origin's is the center of the table and we want to top left corner
+                const localX =
+                    dx * Math.cos(rotRad) -
+                    dy * Math.sin(rotRad) +
+                    box.width / 2;
+
+                const isLeftSide = localX < box.width / 2;
+
                 let label1, label2;
                 if (isLeftSide) {
                     label1 = labelStr;

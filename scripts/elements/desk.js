@@ -3,20 +3,20 @@ const deskLabelInput = document.getElementById("desk-label-input");
 
 // Returns the list of shapes used to make the desk
 function createDesk({ label = "" }) {
+    const strokeWidth = 2;
+
     let chair = new Konva.Rect({
         x: 45,
-        y: 0,
+        y: 65 - strokeWidth/2,
         width: 40,
         height: 10,
         fill: "#5e3b24",
         cornerRadius: 100,
     });
 
-    const strokeWidth = 2;
-
     let plank = new Konva.Rect({
         x: 0,
-        y: 5,
+        y: 0,
         width: 130 - strokeWidth,
         height: 70 - strokeWidth,
         fill: "#b6c4d6",
@@ -26,14 +26,14 @@ function createDesk({ label = "" }) {
     });
 
     let text = new Konva.Text({
-        x: 0,
-        y: 5,
+        x: -strokeWidth / 2,
+        y: -strokeWidth / 2,
         text: label,
         fontSize: 10,
         fontFamily: "Arial",
         fill: "#000",
         width: 130,
-        height: 70,
+        height: 70 - strokeWidth / 2,
         padding: 4,
         align: "center",
         verticalAlign: "middle",

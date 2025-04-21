@@ -49,7 +49,7 @@ Ce projet web a pour objectif de fournir un outil permettant l'édition de **sal
 Un exemple de salle de classe peut être téléchargé <a href="https://raw.githubusercontent.com/TimeoThms/PlanDeClasse/refs/heads/main/ressources/Exemple_DATA.json" download="fichier.txt" target="_blank">ICI</a>
 <details>
     <summary><strong>🖼️ Image du fichier d'exemple</strong></summary>
-    <img src="https://i.postimg.cc/5yDjNmxQ/Exemple-IMG.png" alt="Image du fichier d'exemple" width="600px" />
+    <img src="https://i.postimg.cc/6p2fgyZJ/Exemple-IMG-1.png" alt="Image du fichier d'exemple" width="600px" />
 </details>
 <br>
 
