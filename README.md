@@ -188,7 +188,8 @@ Les boutons `Sauvegarder` et `Vider` permettent respectivement d'exporter la lis
 Pour zoomer ou dézoomer dans le plan, utilisez la molette. <br>
 Pour vous déplacer dans le plan, maintenez la touche `CTRL` et faites glisser le plan.
 ## Sélection d'éléments
-Pour sélectionner plusieurs éléments à la fois, maintenez la touche `CTRL` enfoncée en cliquant sur les éléments à sélectionner.
+Pour sélectionner plusieurs éléments à la fois, maintenez la touche `CTRL` enfoncée en cliquant sur les éléments à sélectionner, ou alors utilisez la sélection en glissant la souris.
+Pour désélectionner un élément d'une sélection de groupe, il suffit de cliquer dessus en maintenant la touche `CTRL`.
 ## Redimensionner en gardant les proportions
 Pour redimensionner un élément en conservant ses proportions, il suffit de maintenir la touche `SHIFT` (`⇧`) enfoncée tout en redimensionnant dans un coin de la forme.
 ## Copie et collage
