@@ -4,6 +4,7 @@ const downloadBtn = document.getElementById("downloadBtn");
 var unsavedChanges = false;
 
 downloadBtn.addEventListener("click", () => {
+    selectionRectangle.visible(false);
     pointsHandles.forEach(function (circle) {
         circle.visible(false);
     });
@@ -117,6 +118,9 @@ function switchMode(arrangementMode) {
         if (gridToggled) {
             toggleGrid();
         }
+
+        selectionRectangle.visible(false);
+
         pointsHandles.forEach(function (circle) {
             circle.visible(false);
             circle.draggable(false);

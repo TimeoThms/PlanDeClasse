@@ -9,7 +9,8 @@ topLayer.add(selectionRectangle);
 let x1, y1, x2, y2;
 
 stage.on("mousedown", (e) => {
-    if (isCtrlPressed || e.target.getLayer()._id == 4) return; // Layer 4 is elementsLayer
+    if (isCtrlPressed || e.target.getLayer()._id == 4 || !isArrangementMode)
+        return; // Layer 4 is elementsLayer
 
     const containerRect = stage.container().getBoundingClientRect();
     const scale = parseFloat(
