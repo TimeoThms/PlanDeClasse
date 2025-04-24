@@ -1,11 +1,7 @@
 const elementEditor = document.getElementById("element-editor");
 const sizeDisplay = document.getElementById("size-display");
 
-const notResizeableTypes = [
-    "table",
-    "doubletable",
-    "desk",
-];
+const notResizeableTypes = ["table", "doubletable", "desk"];
 
 const horizontalResizeableTypes = ["door", "whiteboard"];
 
@@ -53,6 +49,20 @@ function addElement({ type, id, x, y, rotation = 0, config = {} }) {
     }
 
     // Selection managment
+    let dragPendingGroup = null;
+    group.on("mousemove", (e) => {
+        if (dragPendingGroup == group) {
+            handleSelection(group);
+            group.startDrag();
+        }
+
+        dragPendingGroup = null;
+    });
+
+    group.on("mousedown", (e) => {
+        shouldStartDrag = true;
+        dragPendingGroup = group;
+    });
 
     group.on("click", (e) => {
         // Handle placement mode

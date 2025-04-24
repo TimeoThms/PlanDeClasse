@@ -50,6 +50,9 @@ function updateTransformerResizeState() {
         if (notResizeableTypes.includes(elementData.type)) {
             transformer.resizeEnabled(false);
         }
+        if (transformer.nodes().length > 1) {
+            transformer.resizeEnabled(false);
+        }
     });
     transformer.moveToTop();
 }
