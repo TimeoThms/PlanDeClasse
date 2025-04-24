@@ -29,8 +29,6 @@ addTextBtn.addEventListener("click", () => {
     addElement({
         type: "text",
         id: generateId(),
-        x: 100,
-        y: 100,
         rotation: 0,
         config: {
             color: textColorInput.value,

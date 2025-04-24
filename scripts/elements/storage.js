@@ -45,8 +45,6 @@ addStorageBtn.addEventListener("click", () => {
     addElement({
         type: "storage",
         id: generateId(),
-        x: 100,
-        y: 100,
         rotation: 0,
         config: {
             label: storageLabelInput.value.replace(/%/g, "\n"),

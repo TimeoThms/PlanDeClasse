@@ -35,8 +35,6 @@ addWhiteboardBtn.addEventListener("click", () => {
     addElement({
         type: "whiteboard",
         id: generateId(),
-        x: 100,
-        y: 100,
         rotation: 0,
         config: {
             label: whiteboardLabelInput.value.replace(/%/g, "\n"),

@@ -43,8 +43,6 @@ addCircleBtn.addEventListener("click", () => {
     addElement({
         type: "circle",
         id: generateId(),
-        x: 100,
-        y: 100,
         rotation: 0,
         config: {
             color: circleColorInput.value,

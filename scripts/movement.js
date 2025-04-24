@@ -76,3 +76,18 @@ planView.addEventListener("wheel", (e) => {
     }
     container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
 });
+
+function getViewCenter() {
+    const containerRect = stage.container().getBoundingClientRect();
+    const scale = parseFloat(
+        container.style.transform.match(/scale\(([^)]+)\)/)[1]
+    );
+
+    topY = -containerRect.top / scale;
+    bottomY = (containerRect.bottom - 2 * offsetY) / scale;
+
+    leftX = (-containerRect.left + 380) / scale; // menu width (350) + 2 * padding (16)
+    rightX = (containerRect.right - 380 - 2 * offsetX) / scale;
+
+    return { x: (rightX + leftX) / 2, y: (bottomY + topY) / 2 };
+}

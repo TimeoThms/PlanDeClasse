@@ -4,14 +4,12 @@ const sizeDisplay = document.getElementById("size-display");
 const notResizeableTypes = [
     "table",
     "doubletable",
-    // "door",
     "desk",
-    // "whiteboard",
 ];
 
 const horizontalResizeableTypes = ["door", "whiteboard"];
 
-function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
+function addElement({ type, id, x, y, rotation = 0, config = {} }) {
     let group = new Konva.Group({
         id: id,
         x: x,
@@ -36,7 +34,26 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
     group.width(size.w);
     group.height(size.h);
 
+    if (!x || !y) {
+        const viewCenter = getViewCenter();
+        if (
+            viewCenter.x > 0 &&
+            viewCenter.x < stage.width() &&
+            viewCenter.y > 0 &&
+            viewCenter.y < stage.height()
+        ) {
+            x = viewCenter.x - size.w / 2;
+            y = viewCenter.y - size.h / 2;
+        } else {
+            x = stage.width() / 2 - size.w / 2;
+            y = stage.height() / 2 - size.h / 2;
+        }
+        group.x(x);
+        group.y(y);
+    }
+
     // Selection managment
+
     group.on("click", (e) => {
         // Handle placement mode
         if (!isArrangementMode) {
@@ -119,40 +136,7 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
             updateStudentsList();
             pushStateSnapshot();
         } else {
-            // Handle arrangement mode
-            let nodes = transformer.nodes();
-            if (nodes.includes(group)) {
-                if (!e.evt.ctrlKey) {
-                    // If simple click on the element and element is already selected, select only this element
-                    nodes.forEach((el) => el.draggable(false));
-                    transformer.nodes([group]);
-                    group.draggable(true);
-                } else {
-                    // If ctrl+click on a selected element, unselect it
-                    transformer.nodes(nodes.filter((node) => node !== group));
-                    group.draggable(false);
-                }
-            } else {
-                if (e.evt.ctrlKey) {
-                    // If ctrl+click on new element, append it to the transformer nodes
-                    transformer.nodes([...nodes, group]);
-                } else {
-                    // Else, select only the element
-                    nodes.forEach((el) => el.draggable(false));
-                    transformer.nodes([group]);
-                    if (!isQPressed) {
-                        transformer.nodes()[0].moveToTop();
-                        transformer.moveToTop();
-                    }
-                }
-
-                group.draggable(true);
-            }
-
-            updateTransformerResizeState();
-            displayEditor();
-
-            elementsLayer.batchDraw();
+            handleSelection(group);
         }
     });
 
@@ -195,6 +179,7 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
         const element = projectData.elements.find((el) => el.id === id);
 
         if (transformer.getActiveAnchor() == "rotater") {
+            updateTextRotation(group);
             return;
         }
         const rotation = group.rotation();
@@ -277,6 +262,8 @@ function addElement({ type, id, x = 100, y = 100, rotation = 0, config = {} }) {
 
     elements.push(group);
 
+    updateTextRotation(group);
+
     updateTransformerResizeState();
 
     displayEditor(id);
@@ -301,6 +288,67 @@ function getSize(group) {
     const h = maxY - minY;
 
     return { w, h };
+}
+
+function updateTextRotation(group) {
+    const element = projectData.elements.find((el) => el.id === group.id());
+    if (element.type == "text") return;
+    if (
+        Math.round(group.rotation()) < -90 ||
+        Math.round(group.rotation()) >= 90
+    ) {
+        group.find("Text").forEach((textNode) => {
+            if (textNode.rotation() == 180) return;
+            textNode.offsetX(textNode.width());
+            textNode.offsetY(textNode.height());
+            textNode.rotation(180);
+        });
+    } else {
+        group.find("Text").forEach((textNode) => {
+            if (textNode.rotation() == 0) return;
+            textNode.offsetX(0);
+            textNode.offsetY(0);
+            textNode.rotation(0);
+        });
+    }
+    return;
+}
+
+function handleSelection(group) {
+    // Handle arrangement mode
+    let nodes = transformer.nodes();
+    if (nodes.includes(group)) {
+        if (!isCtrlPressed) {
+            // If simple click on the element and element is already selected, select only this element
+            nodes.forEach((el) => el.draggable(false));
+            transformer.nodes([group]);
+            group.draggable(true);
+        } else {
+            // If ctrl+click on a selected element, unselect it
+            transformer.nodes(nodes.filter((node) => node !== group));
+            group.draggable(false);
+        }
+    } else {
+        if (isCtrlPressed) {
+            // If ctrl+click on new element, append it to the transformer nodes
+            transformer.nodes([...nodes, group]);
+        } else {
+            // Else, select only the element
+            nodes.forEach((el) => el.draggable(false));
+            transformer.nodes([group]);
+            if (!isQPressed) {
+                transformer.nodes()[0].moveToTop();
+                transformer.moveToTop();
+            }
+        }
+
+        group.draggable(true);
+    }
+
+    updateTransformerResizeState();
+    displayEditor();
+
+    elementsLayer.batchDraw();
 }
 
 function createShape(type, config) {

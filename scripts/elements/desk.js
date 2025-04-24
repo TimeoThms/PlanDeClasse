@@ -46,8 +46,6 @@ addDeskBtn.addEventListener("click", () => {
     addElement({
         type: "desk",
         id: generateId(),
-        x: 100,
-        y: 100,
         rotation: 0,
         config: {
             label: deskLabelInput.value.replace(/%/g, "\n"),

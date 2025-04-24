@@ -43,8 +43,6 @@ addRectangleBtn.addEventListener("click", () => {
     addElement({
         type: "rectangle",
         id: generateId(),
-        x: 100,
-        y: 100,
         rotation: 0,
         config: {
             color: rectangleColorInput.value,
