@@ -128,13 +128,15 @@ transformer.on("dragmove", (e) => {
             (el) => el.id === element.id()
         );
 
-        if (elementData.type == "door") {
+        if (elementData.type == "door" || elementData.type == "windows") {
             const rot = element.rotation();
 
+            let offset = elementData.type == "door" ? 5 : 3;
+
             if (Math.round(Math.abs(rot)) == 90) {
-                newX -= 5;
+                newX -= offset;
             } else if (Math.round(Math.abs(rot)) % 180 == 0) {
-                newY -= 5;
+                newY -= offset;
             }
         }
     }
@@ -321,10 +323,6 @@ function pasteSelection() {
 
     pushStateSnapshot();
 }
-
-transformer.on("transform", (e) => {
-    transformer.nodes().forEach((node) => {});
-});
 
 transformer.on("click", (e) => {
     const pointer = stage.getPointerPosition();

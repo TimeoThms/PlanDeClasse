@@ -26,7 +26,7 @@ downloadBtn.addEventListener("click", () => {
     a.download = projectData.filename + "_IMG.png"; // Filename
     a.click();
 
-    if (arrangementMode) {
+    if (isArrangementMode) {
         pointsHandles.forEach(function (circle) {
             circle.visible(true);
         });
