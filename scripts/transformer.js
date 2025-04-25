@@ -197,7 +197,8 @@ document.addEventListener("keydown", (e) => {
     // Bypass any behaviour if the user is typing in an input
     if (
         focusedElement.tagName != "INPUT" &&
-        focusedElement.tagName != "TEXTAREA"
+        focusedElement.tagName != "TEXTAREA" &&
+        !isCtrlPressed
     ) {
         // Delete elements selected by the transformer
         if (e.key === "Delete" || e.key === "Backspace") {

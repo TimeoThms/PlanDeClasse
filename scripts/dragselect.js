@@ -18,9 +18,6 @@ stage.on("mousedown", (e) => {
         return; // Layer 4 is elementsLayer and 2 is top layer
 
     const containerRect = stage.container().getBoundingClientRect();
-    const scale = parseFloat(
-        container.style.transform.match(/scale\(([^)]+)\)/)[1]
-    );
 
     x1 = (e.evt.clientX - containerRect.left) / scale;
     y1 = (e.evt.clientY - containerRect.top) / scale;
@@ -36,9 +33,6 @@ stage.on("mousedown", (e) => {
 
 window.addEventListener("mousemove", (e) => {
     const containerRect = stage.container().getBoundingClientRect();
-    const scale = parseFloat(
-        container.style.transform.match(/scale\(([^)]+)\)/)[1]
-    );
 
     if (!selectionRectangle.visible()) {
         return;

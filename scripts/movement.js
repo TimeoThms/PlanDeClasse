@@ -79,9 +79,6 @@ planView.addEventListener("wheel", (e) => {
 
 function getViewCenter() {
     const containerRect = stage.container().getBoundingClientRect();
-    const scale = parseFloat(
-        container.style.transform.match(/scale\(([^)]+)\)/)[1]
-    );
 
     topY = -containerRect.top / scale;
     bottomY = (containerRect.bottom - 2 * offsetY) / scale;
@@ -91,3 +88,56 @@ function getViewCenter() {
 
     return { x: (rightX + leftX) / 2, y: (bottomY + topY) / 2 };
 }
+
+document.addEventListener("keydown", (e) => {
+    if (!isCtrlPressed) return;
+    let step = 10;
+    let dx = 0;
+    let dy = 0;
+    let moved = false;
+    switch (e.key) {
+        case "ArrowUp":
+            dy = -step;
+            moved = true;
+            break;
+        case "ArrowDown":
+            dy = step;
+            moved = true;
+            break;
+        case "ArrowLeft":
+            dx = -step;
+            moved = true;
+            break;
+        case "ArrowRight":
+            // Déplacer vers la droite
+            dx = step;
+            moved = true;
+            break;
+        default:
+            return; // Ignorer les autres touches
+    }
+    offsetX += dx;
+    offsetY += dy;
+    container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+});
+
+// Move arrows buttons
+const arrowsButtons = [
+    { btn: document.getElementById("arrow-up-btn"), dx: 0, dy: 1 },
+    { btn: document.getElementById("arrow-down-btn"), dx: 0, dy: -1 },
+    { btn: document.getElementById("arrow-left-btn"), dx: 1, dy: 0 },
+    { btn: document.getElementById("arrow-right-btn"), dx: -1, dy: 0 },
+];
+
+arrowsButtons.forEach((btnData) => {
+    let holdInterval;
+    btnData.btn.addEventListener("mousedown", (e) => {
+        holdInterval = setInterval(() => {
+            offsetX += btnData.dx * 6;
+            offsetY += btnData.dy * 6;
+
+            container.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+        }, 10);
+    });
+    document.addEventListener("mouseup", () => clearInterval(holdInterval));
+});

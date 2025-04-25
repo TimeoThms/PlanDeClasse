@@ -58,9 +58,9 @@ stage.on("contextmenu", (e) => {
 });
 
 window.addEventListener("beforeunload", (e) => {
-    if (unsavedChanges) {
-        e.preventDefault();
-    }
+    // if (unsavedChanges) {
+    //     e.preventDefault();
+    // }
 
     localStorage.setItem("projectData", JSON.stringify(projectData));
     localStorage.setItem(
