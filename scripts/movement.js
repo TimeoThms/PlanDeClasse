@@ -101,11 +101,11 @@ document.addEventListener("keydown", (e) => {
             moved = true;
             break;
         case "ArrowDown":
-            dy = +step;
+            dy = -step;
             moved = true;
             break;
         case "ArrowLeft":
-            dx = +step;
+            dx = step;
             moved = true;
             break;
         case "ArrowRight":
