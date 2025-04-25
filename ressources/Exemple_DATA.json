@@ -273,7 +273,7 @@
             "x": 34.99999999999997,
             "y": 499.9999999999999,
             "rotation": -89.99999999999999,
-            "doortype": "normal",
+            "color": "#415A77",
             "label": "Entrée",
             "width": 99.99999999999986
         },
@@ -331,7 +331,7 @@
             "x": 550.0000000000001,
             "y": 35,
             "rotation": 0,
-            "doortype": "safety",
+            "color": "#29912e",
             "label": "Issue de secours",
             "width": 99.99999999999986
         },

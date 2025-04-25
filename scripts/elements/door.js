@@ -1,18 +1,16 @@
-const normalDoorInput = document.getElementById("normal-door");
-const safetyDoorInput = document.getElementById("safety-door");
+const doorColorInput = document.getElementById("door-color");
+const doorColorLabel = document.getElementById("door-color-label");
 
 const addDoorBtn = document.getElementById("add-door-btn");
 const doorLabelInput = document.getElementById("door-label-input");
 
-// Returns the list of shapes used to make the door
-function createDoor({ doortype = "normal", label = "", width = 100 }) {
-    let color;
-    if (doortype == "normal") {
-        color = "#1B263B";
-    } else if (doortype == "safety") {
-        color = "#29912e";
-    }
+doorColorInput.addEventListener("input", (event) => {
+    const selectedColor = event.target.value;
+    doorColorLabel.style.backgroundColor = selectedColor;
+});
 
+// Returns the list of shapes used to make the door
+function createDoor({ color = "#415A77", label = "", width = 100 }) {
     let door = new Konva.Rect({
         x: 0,
         y: 0,
@@ -40,23 +38,17 @@ function createDoor({ doortype = "normal", label = "", width = 100 }) {
 }
 
 addDoorBtn.addEventListener("click", () => {
-    let doortype;
-    if (normalDoorInput.checked) {
-        doortype = "normal";
-    } else if (safetyDoorInput.checked) {
-        doortype = "safety";
-    }
     addElement({
         type: "door",
         id: generateId(),
         rotation: 0,
         config: {
-            doortype: doortype,
+            color: doorColorInput.value,
             label: doorLabelInput.value.replace(/%/g, "\n"),
             width: 100,
         },
     });
-    
+
     pushStateSnapshot();
 });
 
@@ -64,28 +56,20 @@ addDoorBtn.addEventListener("click", () => {
 
 const editorDoorLabelInput = document.getElementById("editor-door-label-input");
 
-const editorNormalDoorInput = document.getElementById("editor-normal-door");
-const editorSafetyDoorInput = document.getElementById("editor-safety-door");
-
-editorNormalDoorInput.addEventListener("change", (event) => {
-    updateDoor();
-});
-
-editorSafetyDoorInput.addEventListener("change", (event) => {
-    updateDoor();
-});
+const editorDoorColorInput = document.getElementById("editor-door-color");
+const editorDoorColorLabel = document.getElementById("editor-door-color-label");
 
 editorDoorLabelInput.addEventListener("input", () => {
     updateDoor();
 });
 
+editorDoorColorInput.addEventListener("input", (event) => {
+    const selectedColor = event.target.value;
+    editorDoorColorLabel.style.backgroundColor = selectedColor;
+    updateDoor();
+});
+
 function updateDoor() {
-    let doortype;
-    if (editorNormalDoorInput.checked) {
-        doortype = "normal";
-    } else if (editorSafetyDoorInput.checked) {
-        doortype = "safety";
-    }
     const group = transformer.nodes()[0]; // Considering that since editor is displayed only when one element is selected, it is necessary the first one of the transformer
     if (!group) return;
     const box = group.getClientRect({ skipTransform: true });
@@ -94,20 +78,15 @@ function updateDoor() {
         type: "door",
         id: group.id(),
         config: {
-            doortype: doortype,
+            color: editorDoorColorInput.value,
             label: editorDoorLabelInput.value.replace(/%/g, "\n"),
             width: box.width,
         },
     });
 }
 
-function syncDoorEditor({ doortype = "normal", label = "" }) {
-    if (doortype == "normal") {
-        editorNormalDoorInput.checked = true;
-        editorSafetyDoorInput.checked = false;
-    } else if (doortype == "safety") {
-        editorNormalDoorInput.checked = false;
-        editorSafetyDoorInput.checked = true;
-    }
+function syncDoorEditor({ color = "#415A77", label = "" }) {
+    editorDoorColorInput.value = color;
+    editorDoorColorLabel.style.backgroundColor = color;
     editorDoorLabelInput.value = label.replace(/\n/g, "%");
 }

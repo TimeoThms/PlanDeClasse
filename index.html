@@ -263,24 +263,19 @@
                             <div class="separator"></div>
                             <div class="element-bottom">
                                 <div class="attribute">
-                                    <h4>Type</h4>
-                                    <div class="radio-list">
-                                        <input
-                                            type="radio"
-                                            class="radio-input"
-                                            name="door-type-editor"
-                                            id="normal-door"
-                                            checked
-                                        />
-                                        <label for="normal-door">Normal</label>
-                                        <input
-                                            type="radio"
-                                            class="radio-input"
-                                            name="door-type-editor"
-                                            id="safety-door"
-                                        />
-                                        <label for="safety-door">Secours</label>
-                                    </div>
+                                    <h4>Couleur</h4>
+                                    <input
+                                        type="color"
+                                        name=""
+                                        id="door-color"
+                                        value="#415A77"
+                                        hidden
+                                    />
+                                    <label
+                                        for="door-color"
+                                        class="color-label"
+                                        id="door-color-label"
+                                    ></label>
                                 </div>
                                 <div class="attribute attribute-textinput">
                                     <h4>Texte</h4>
@@ -674,23 +669,18 @@
 
             <!-- DOORS ATTRIBUTES -->
             <div class="attribute door-attribute">
-                <h4>Type</h4>
-                <div class="radio-list">
-                    <input
-                        type="radio"
-                        class="radio-input"
-                        name="door-type"
-                        id="editor-normal-door"
-                    />
-                    <label for="editor-normal-door">Normal</label>
-                    <input
-                        type="radio"
-                        class="radio-input"
-                        name="door-type"
-                        id="editor-safety-door"
-                    />
-                    <label for="editor-safety-door">Secours</label>
-                </div>
+                <h4>Couleur</h4>
+                <input
+                    type="color"
+                    name=""
+                    id="editor-door-color"
+                    hidden
+                />
+                <label
+                    for="editor-door-color"
+                    class="color-label"
+                    id="editor-door-color-label"
+                ></label>
             </div>
             <div class="attribute door-attribute">
                 <h4>Texte</h4>
