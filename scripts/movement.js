@@ -97,20 +97,20 @@ document.addEventListener("keydown", (e) => {
     let moved = false;
     switch (e.key) {
         case "ArrowUp":
-            dy = -step;
-            moved = true;
-            break;
-        case "ArrowDown":
             dy = step;
             moved = true;
             break;
+        case "ArrowDown":
+            dy = +step;
+            moved = true;
+            break;
         case "ArrowLeft":
-            dx = -step;
+            dx = +step;
             moved = true;
             break;
         case "ArrowRight":
             // Déplacer vers la droite
-            dx = step;
+            dx = -step;
             moved = true;
             break;
         default:
