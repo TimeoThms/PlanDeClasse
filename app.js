@@ -52,15 +52,10 @@ document.querySelectorAll("input").forEach((el) => {
     }
 });
 
-// Prevents right click menu to open on the stage
-stage.on("contextmenu", (e) => {
-    e.evt.preventDefault();
-});
-
 window.addEventListener("beforeunload", (e) => {
-    // if (unsavedChanges) {
-    //     e.preventDefault();
-    // }
+    if (unsavedChanges) {
+        e.preventDefault();
+    }
 
     localStorage.setItem("projectData", JSON.stringify(projectData));
     localStorage.setItem(

@@ -132,6 +132,7 @@ const arrowsButtons = [
 arrowsButtons.forEach((btnData) => {
     let holdInterval;
     btnData.btn.addEventListener("mousedown", (e) => {
+        if (e.button != 0) return;
         holdInterval = setInterval(() => {
             offsetX += btnData.dx * 6;
             offsetY += btnData.dy * 6;

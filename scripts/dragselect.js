@@ -12,8 +12,9 @@ stage.on("mousedown", (e) => {
     if (
         isCtrlPressed ||
         e.target.getLayer()._id == 4 ||
-        pointsHandles.includes(e.target)  ||
-        !isArrangementMode
+        pointsHandles.includes(e.target) ||
+        !isArrangementMode ||
+        e.evt.button != 0
     )
         return; // Layer 4 is elementsLayer and 2 is top layer
 

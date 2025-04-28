@@ -197,8 +197,7 @@ document.addEventListener("keydown", (e) => {
     // Bypass any behaviour if the user is typing in an input
     if (
         focusedElement.tagName != "INPUT" &&
-        focusedElement.tagName != "TEXTAREA" &&
-        !isCtrlPressed
+        focusedElement.tagName != "TEXTAREA"
     ) {
         // Delete elements selected by the transformer
         if (e.key === "Delete" || e.key === "Backspace") {
@@ -326,6 +325,7 @@ function pasteSelection() {
 }
 
 transformer.on("click", (e) => {
+    if (e.evt.button != 0) return;
     const pointer = stage.getPointerPosition();
     const hits = stage.getAllIntersections(pointer);
 

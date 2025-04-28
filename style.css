@@ -146,14 +146,18 @@ input[type="file"] {
     color: #415a77;
     border-radius: 1.5px;
 }
+.mode-btn:hover {
+    
+    background-color: #eee;
+}
 
 .active {
     background-color: #415a77;
     color: white;
 }
 
-.mode-btn:hover {
-    background-color: #eee;
+.active:hover {
+    background-color: #415a77;
 }
 
 .plan-view {
@@ -538,8 +542,54 @@ input:checked + .slider::before {
     display: flex;
     box-sizing: border-box;
     cursor: pointer;
-
 }
 .arrow:hover {
     background-color: #374969;
+}
+
+#right-menu {
+    position: absolute;
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 4px;
+    box-shadow: 3px 3px 10px #aaa;
+    border-radius: 8px;
+}
+
+.menu-btn {
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    padding-inline: 4px;
+}
+
+.menu-btn:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.menu-text {
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.caution-text {
+    color: #9d4848;
+    font-weight: 600;
+}
+
+.unavailable {
+    opacity: 0.7;
+}
+
+.unavailable:hover {
+    background-color: #eee;
+    cursor: default;
 }
