@@ -242,7 +242,7 @@ document.addEventListener("keydown", (e) => {
             default:
                 return; // Ignorer les autres touches
         }
-        if (moved && transformer.nodes().length > 0) {
+        if (moved && transformer.nodes().length > 0 && !isCtrlPressed) {
             e.preventDefault();
             transformer.nodes().forEach((group) => {
                 group.setPosition({ x: group.x() + dx, y: group.y() + dy });

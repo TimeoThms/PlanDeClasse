@@ -20,11 +20,12 @@
     - [Modification et suppression d'un élève](#modification-et-suppression-dun-élève)
     - [Affichage de la classe sur le plan](#affichage-de-la-classe-sur-le-plan)
     - [Sauvegarde et vidage de la liste](#sauvegarde-et-vidage-de-la-liste)
-- [⌨️ V. Raccouris clavier utiles](#️-v-raccouris-clavier-utiles)
+- [⌨️ V. Contrôles utiles](#️-v-contrôles-utiles)
   - [Déplacement sur le plan](#déplacement-sur-le-plan)
   - [Sélection d'éléments](#sélection-déléments)
   - [Redimensionner en gardant les proportions](#redimensionner-en-gardant-les-proportions)
   - [Copie et collage](#copie-et-collage)
+  - [Supprimer une sélection](#supprimer-une-sélection)
   - [Annuler une modification](#annuler-une-modification)
   - [Superposition d'éléments](#superposition-déléments)
   - [Saut de ligne dans les Textes](#saut-de-ligne-dans-les-textes)
@@ -205,7 +206,7 @@ Les boutons `Sauvegarder` et `Vider` permettent respectivement d'exporter la lis
 
 <br>
 
-# ⌨️ V. Raccouris clavier utiles
+# ⌨️ V. Contrôles utiles
 
 ## Déplacement sur le plan
 
@@ -223,7 +224,11 @@ Pour redimensionner un élément en conservant ses proportions, il suffit de mai
 
 ## Copie et collage
 
-Pour dupliquer une sélection d'éléments, copier cette sélection avec le raccourci clavier `CTRL+C` et collez la avec le raccourci clavier `CTRL+V`.
+Pour dupliquer une sélection d'éléments, copier cette sélection avec le raccourci clavier `CTRL+C` et collez la avec le raccourci clavier `CTRL+V`. Il est également possible de copier coller en utilisant le menu accessible avec un `Clic Droit` sur l'élément.
+
+## Supprimer une sélection
+
+Pour supprimer une sélection, il suffit d'appuyer sur la touche `Suppr` ou la touche `⌫`. Vous pouvez aussi supprimer la sélection en faisant un `Clic Droit` puis en cliquant sur `Supprimer`
 
 ## Annuler une modification
 

@@ -166,30 +166,6 @@ function addElement({ type, id, x, y, rotation = 0, config = {} }) {
         elementsLayer.batchDraw();
     });
 
-    // Save after transformation (rotation)
-    group.on("transformend", (e) => {
-        const elementData = projectData.elements.find((el) => el.id === id);
-
-        if (elementData) {
-            const rotation = group.rotation();
-            group.rotation(0);
-            const box = group.getClientRect();
-            elementData.rotation = rotation;
-            elementData.x = box.x;
-            elementData.y = box.y;
-
-            if (!notResizeableTypes.includes(elementData.type)) {
-                if (!horizontalResizeableTypes.includes(elementData.type)) {
-                    elementData.height = box.height;
-                    group.height(box.height);
-                }
-                elementData.width = box.width;
-                group.width(box.width);
-            }
-            group.rotation(rotation);
-        }
-    });
-
     group.on("transform", (e) => {
         const id = transformer.nodes()[0].id();
         const element = projectData.elements.find((el) => el.id === id);
@@ -255,6 +231,38 @@ function addElement({ type, id, x, y, rotation = 0, config = {} }) {
             group.scaleY(1);
         }
         group.rotation(rotation); // Set rotation back to normal
+        const elementData = projectData.elements.find((el) => el.id === id);
+
+        // Save data live and redraw
+        if (elementData) {
+            let rotation = group.rotation();
+            group.rotation(0);
+            const box = group.getClientRect();
+            elementData.rotation = rotation;
+            elementData.x = box.x;
+            elementData.y = box.y;
+
+            if (!notResizeableTypes.includes(elementData.type)) {
+                if (!horizontalResizeableTypes.includes(elementData.type)) {
+                    elementData.height = box.height;
+                    group.height(box.height);
+                }
+                elementData.width = box.width;
+                group.width(box.width);
+            }
+            group.rotation(rotation);
+        }
+        group.destroyChildren();
+        let shapes = createShape(type, elementData);
+
+        // Update the group
+        if (Array.isArray(shapes)) {
+            shapes.forEach((shape) => group.add(shape));
+        } else {
+            group.add(shapes);
+        }
+
+        elementsLayer.batchDraw();
     });
 
     // Refresh view
@@ -496,7 +504,6 @@ function syncSizeDisplay() {
 function updateElement({ type, id, config = {} }) {
     // Get element in elements list
     const element = elements.find((el) => el.id() === id);
-
     // Get the new shapes
     element.destroyChildren();
     let shapes = createShape(type, config);
@@ -513,6 +520,8 @@ function updateElement({ type, id, config = {} }) {
     // Merge old element data with updated data
     let elementData = projectData.elements.find((el) => el.id === id);
     Object.assign(elementData, config);
+
+    updateTextRotation(element);
 }
 
 let isQPressed = false;
