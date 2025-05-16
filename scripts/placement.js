@@ -1,4 +1,5 @@
 const studentsList = document.getElementById("students-list");
+const groupsList = document.getElementById("groups-list");
 const noStudent = document.getElementById("no-student");
 const studentsListMenuTab = document.getElementById("students-list-menu-tab");
 
@@ -31,7 +32,7 @@ function addStudent(lastName, firstName, group) {
     const id = generateId().slice(3);
     studentsIds.push(id);
     const student = document.createElement("div");
-    student.className = "student";
+    student.className = "list-element student";
     student.id = `student-${id}`;
     student.innerHTML = `
     <p>${lastName}</p>
@@ -231,6 +232,12 @@ function updateStudentsList() {
     if (addedStudents.includes(selectedStudent)) {
         setSelectedStudent(getFirstNotAddedStudent());
     }
+
+    if (studentsIds.length == 0) {
+        noStudent.hidden = false
+    }
+
+    updateGroupsList();
 }
 
 function reorderStudentsInList() {
@@ -246,12 +253,12 @@ function reorderStudentsInList() {
         }
     });
 
-    studentsList.innerHTML = "";
+    studentsList.innerHTML = `<p class="no-student" id="no-student">Aucun élève</p>`;
 
     notAdded.sort((a, b) => {
         const infosA = a.querySelectorAll("p");
         const infosB = b.querySelectorAll("p");
-        const dataA = {
+        const dataA = { 
             lastName: infosA[0].textContent,
             firstName: infosA[1].textContent,
             group: infosA[2].textContent,
@@ -304,6 +311,41 @@ function getFirstNotAddedStudent() {
         }
     }
     return null;
+}
+
+
+function updateGroupsList() {
+    groups = {};
+    getStudentsListData().forEach((studentData) => {
+        if (!groups[studentData.group]) {
+            groups[studentData.group] = 1
+        } else {
+            groups[studentData.group] = groups[studentData.group] + 1
+        }
+    })
+
+    groupsList.innerHTML = "";
+
+    for (const g in groups) {
+        
+        // console.log(group + " " + groups[group])
+
+        const group = document.createElement("div");
+        group.className = "list-element group";
+        group.id = `group-${id}`;
+        group.innerHTML = `
+    <p>${g}</p>
+    <p>${groups[g]}</p>
+    <svg class="student-icon" id="delete-icon-${id}" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4 7H20" stroke="#9d4848" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M6 10L7.7 19.36C7.87 20.31 8.7 21 9.67 21h4.66c.97 0 1.8-.69 1.97-1.64L18 10" stroke="#9d4848" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9 5c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v2H9V5Z" stroke="#9d4848" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    `
+    groupsList.appendChild(group);
+    }
+    studentsListMenuTab.style.maxHeight =
+        studentsListMenuTab.scrollHeight + "px";
 }
 
 // Students list files management

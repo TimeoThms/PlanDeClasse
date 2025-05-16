@@ -207,3 +207,46 @@ heightInput.addEventListener("change", function () {
         alert("Valeur invalide ! Veuillez entrer un nombre positif");
     }
 });
+
+// Placement group/students switch
+const studentsListBtn = document.getElementById("students-list-btn");
+const groupsListBtn = document.getElementById("groups-list-btn");
+const studentsListContainer = document.getElementById("students-list-container");
+const groupsListContainer = document.getElementById("groups-list-container");
+
+studentsListBtn.addEventListener("click", () => {
+    switchListType(true);
+});
+groupsListBtn.addEventListener("click", () => {
+    switchListType(false);
+});
+
+var isStudentsListMode;
+function switchListType(studentsListMode) {
+    if (studentsListMode === isStudentsListMode) return;
+
+    isStudentsListMode = studentsListMode;
+
+    if (!isStudentsListMode) {
+        studentsListContainer.hidden = true;
+        groupsListContainer.hidden = false;
+        studentsListBtn.classList.remove("active");
+        groupsListBtn.classList.add("active");
+    } else {
+        studentsListContainer.hidden = false;
+        groupsListContainer.hidden = true;
+        studentsListBtn.classList.add("active");
+        groupsListBtn.classList.remove("active");
+    }
+
+    // Max height setup for tabs opened by default
+    const openedTabs = document.querySelectorAll(".menu-tab.open");
+    openedTabs.forEach((tab) => {
+        tab.style.transition = "none";
+        tab.style.maxHeight = tab.scrollHeight + "px";
+        setTimeout(() => {
+            // 1ms delay to bypass a weird bug of the browser not saving the new state of the transition
+            tab.style.transition = "max-height 0.3s ease-in-out";
+        }, 1);
+    });
+}

@@ -596,16 +596,51 @@
                         </button>
                     </div>
 
-                    <div class="students-list-header">
-                        <p>Nom</p>
-                        <p>Prénom</p>
-                        <p>Classe</p>
+                    <div class="mode-toggle">
+                        <button id="students-list-btn" class="btn mode-btn active">
+                            Élèves
+                        </button>
+                        <button id="groups-list-btn" class="btn mode-btn">
+                            Classes
+                        </button>
                     </div>
 
-                    <div class="separator" style="margin-bottom: 8px"></div>
-                    <div class="students-list" id="students-list">
-                        <p class="no-student" id="no-student">Aucun élève</p>
+                    <div id="students-list-container">
+                        <div class="list-header">
+                            <p class="students-list-column">Nom</p>
+                            <p class="students-list-column">Prénom</p>
+                            <p class="students-list-column" class="students-list-column">Classe</p>
+                        </div>
+
+                        <div class="separator" style="margin-bottom: 8px"></div>
+                        <div class="students-list" id="students-list">
+                            <p class="no-student" id="no-student">Aucun élève</p>
+                        </div>
                     </div>
+
+                    <div id="groups-list-container" hidden>
+                        <div class="setting">
+                            <label class="switch">
+                                <input
+                                    type="checkbox"
+                                    id="display-group-input"
+                                    hidden
+                                />
+                                <span class="slider"></span>
+                            </label>
+    
+                            <h5 style="font-weight: 400; font-size: 15px">Mode aléatoire</h5>
+                        </div>
+                        <div class="list-header">
+                            <p class="groups-list-column">Classe</p>
+                            <p class="groups-list-column">Effectif</p>
+                        </div>
+                        <div class="separator" style="margin-bottom: 8px"></div>
+                        <div class="students-list" id="groups-list">
+                            <p class="no-student" id="no-student">Aucune classe</p>
+                        </div>
+                    </div>
+
                 </div>
             </section>
         </div>

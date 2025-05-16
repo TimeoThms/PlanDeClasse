@@ -382,7 +382,7 @@ input:checked + .slider::before {
     margin-top: 3px;
 }
 
-.student {
+.list-element {
     display: flex;
     background-color: #eee;
     width: 100%;
@@ -394,12 +394,12 @@ input:checked + .slider::before {
     gap: 4px;
     position: relative;
 }
-.student:hover {
+.list-element:hover {
     cursor: pointer;
     background-color: #e5e5e5;
 }
 
-.student p {
+.list-element p {
     width: 28%;
     overflow: hidden;
     margin: 0;
@@ -414,15 +414,19 @@ input:checked + .slider::before {
     );
 }
 
-.student.selected {
+.list-element.group p {
+    width: 45%;
+}
+
+.list-element.selected {
     background-color: #bbdee5;
 }
 
-.student.added {
+.list-element.added {
     opacity: 0.3;
 }
 
-.students-list-header {
+.list-header {
     display: flex;
     margin-top: 20px;
     padding-inline: 16px;
@@ -430,8 +434,14 @@ input:checked + .slider::before {
     margin-bottom: -2px;
 }
 
-.students-list-header p {
+.students-list-column {
     width: 28%;
+    color: #333;
+    font-weight: 300;
+}
+
+.groups-list-column {
+    width: 45%;
     color: #333;
     font-weight: 300;
 }

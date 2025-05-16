@@ -69,13 +69,13 @@ function addElement({ type, id, x, y, rotation = 0, config = {} }) {
     });
 
     group.on("click", (e) => {
-        if (e.evt.button != 0) return;
         shouldStartDrag = false;
         // Handle placement mode
         if (!isArrangementMode) {
             if (!selectedStudent) return;
             const elementData = projectData.elements.find((el) => el.id === id);
             const selectedStudentData = getStudentData(selectedStudent);
+            console.log("test");
             let labelStr = "";
             // Only set the label if the click is a leftclick. Therefore right click of middle click will delete the current label.
             if (e.evt.button === 0) {
@@ -152,6 +152,7 @@ function addElement({ type, id, x, y, rotation = 0, config = {} }) {
             updateStudentsList();
             pushStateSnapshot();
         } else {
+            if (e.evt.button != 0) return;
             handleSelection(group);
         }
     });
