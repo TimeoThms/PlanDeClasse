@@ -72,84 +72,95 @@ function addElement({ type, id, x, y, rotation = 0, config = {} }) {
         shouldStartDrag = false;
         // Handle placement mode
         if (!isArrangementMode) {
-            if (!selectedStudent) return;
-            const elementData = projectData.elements.find((el) => el.id === id);
-            const selectedStudentData = getStudentData(selectedStudent);
-            console.log("test");
-            let labelStr = "";
-            // Only set the label if the click is a leftclick. Therefore right click of middle click will delete the current label.
-            if (e.evt.button === 0) {
-                if (displayGroup) {
-                    labelStr = `${selectedStudentData.lastName}\n${selectedStudentData.firstName}\n${selectedStudentData.group}`;
+            if (!isStudentsListMode) {
+                // Handle group add
+                if (e.evt.button === 0) {
+                    placeGroup(stage.getPointerPosition());
                 } else {
-                    labelStr = `${selectedStudentData.lastName}\n${selectedStudentData.firstName}`;
+                    placeGroup(stage.getPointerPosition(), true);
                 }
-            }
-            if (type == "table") {
-                updateElement({
-                    type: "table",
-                    id: id,
-                    config: {
-                        color: elementData.color,
-                        label: labelStr,
-                    },
-                });
-            }
-            if (type == "desk") {
-                updateElement({
-                    type: "desk",
-                    id: id,
-                    config: {
-                        label: labelStr,
-                    },
-                });
-            }
-            if (type == "doubletable") {
-                const pointerPosition = stage.getPointerPosition();
-
-                const box = group.getClientRect();
-
-                const centerX = box.x + box.width / 2;
-                const centerY = box.y + box.height / 2;
-
-                // (dx, dy) is the vector from center to pointer position
-                const dx = pointerPosition.x - centerX;
-                const dy = pointerPosition.y - centerY;
-
-                // Rotation to apply in radians
-                // We want to get back to a non-rotated state, so we apply the opposite rotation
-                const rotRad = (-group.rotation() * Math.PI) / 180;
-
-                // Rotation transformation matrix is (cos(teta), -sin(teta) | sin(teta), cos(teta)) so
-                // { x' = x cos(teta) - y sin(teta)
-                // { y' = x sin(teta) + y sin(teta)
-                // Then add box.width/2 since (dx, dy) origin's is the center of the table and we want to top left corner
-                const localX =
-                    dx * Math.cos(rotRad) -
-                    dy * Math.sin(rotRad) +
-                    box.width / 2;
-
-                const isLeftSide = localX < box.width / 2;
-
-                let label1, label2;
-                if (isLeftSide) {
-                    label1 = labelStr;
-                    label2 = elementData.label2;
-                } else {
-                    label1 = elementData.label1;
-                    label2 = labelStr;
+            } else {
+                if (!selectedStudent) return;
+                const elementData = projectData.elements.find(
+                    (el) => el.id === id
+                );
+                const selectedStudentData = getStudentData(selectedStudent);
+                let labelStr = "";
+                // Only set the label if the click is a leftclick. Therefore right click of middle click will delete the current label.
+                if (e.evt.button === 0) {
+                    if (displayGroup) {
+                        labelStr = `${selectedStudentData.lastName}\n${selectedStudentData.firstName}\n${selectedStudentData.group}`;
+                    } else {
+                        labelStr = `${selectedStudentData.lastName}\n${selectedStudentData.firstName}`;
+                    }
                 }
-                updateElement({
-                    type: "doubletable",
-                    id: id,
-                    config: {
-                        color: elementData.color,
-                        label1: label1,
-                        label2: label2,
-                    },
-                });
+                if (type == "table") {
+                    updateElement({
+                        type: "table",
+                        id: id,
+                        config: {
+                            color: elementData.color,
+                            label: labelStr,
+                        },
+                    });
+                }
+                if (type == "desk") {
+                    updateElement({
+                        type: "desk",
+                        id: id,
+                        config: {
+                            label: labelStr,
+                        },
+                    });
+                }
+                if (type == "doubletable") {
+                    const pointerPosition = stage.getPointerPosition();
+
+                    const box = group.getClientRect();
+
+                    const centerX = box.x + box.width / 2;
+                    const centerY = box.y + box.height / 2;
+
+                    // (dx, dy) is the vector from center to pointer position
+                    const dx = pointerPosition.x - centerX;
+                    const dy = pointerPosition.y - centerY;
+
+                    // Rotation to apply in radians
+                    // We want to get back to a non-rotated state, so we apply the opposite rotation
+                    const rotRad = (-group.rotation() * Math.PI) / 180;
+
+                    // Rotation transformation matrix is (cos(teta), -sin(teta) | sin(teta), cos(teta)) so
+                    // { x' = x cos(teta) - y sin(teta)
+                    // { y' = x sin(teta) + y sin(teta)
+                    // Then add box.width/2 since (dx, dy) origin's is the center of the table and we want to top left corner
+                    const localX =
+                        dx * Math.cos(rotRad) -
+                        dy * Math.sin(rotRad) +
+                        box.width / 2;
+
+                    const isLeftSide = localX < box.width / 2;
+
+                    let label1, label2;
+                    if (isLeftSide) {
+                        label1 = labelStr;
+                        label2 = elementData.label2;
+                    } else {
+                        label1 = elementData.label1;
+                        label2 = labelStr;
+                    }
+                    updateElement({
+                        type: "doubletable",
+                        id: id,
+                        config: {
+                            color: elementData.color,
+                            label1: label1,
+                            label2: label2,
+                        },
+                    });
+                }
+                updateStudentsList();
             }
-            updateStudentsList();
+
             pushStateSnapshot();
         } else {
             if (e.evt.button != 0) return;
@@ -165,6 +176,30 @@ function addElement({ type, id, x, y, rotation = 0, config = {} }) {
             elementData.y = e.target.y();
         }
         elementsLayer.batchDraw();
+    });
+
+    // Save after transformation (rotation)
+    group.on("transformend", (e) => {
+        const elementData = projectData.elements.find((el) => el.id === id);
+
+        if (elementData) {
+            const rotation = group.rotation();
+            group.rotation(0);
+            const box = group.getClientRect();
+            elementData.rotation = rotation;
+            elementData.x = box.x;
+            elementData.y = box.y;
+
+            if (!notResizeableTypes.includes(elementData.type)) {
+                if (!horizontalResizeableTypes.includes(elementData.type)) {
+                    elementData.height = box.height;
+                    group.height(box.height);
+                }
+                elementData.width = box.width;
+                group.width(box.width);
+            }
+            group.rotation(rotation);
+        }
     });
 
     group.on("transform", (e) => {

@@ -571,7 +571,7 @@
                         Cliquer sur un élève pour le sélectionner puis cliquer
                         sur une table pour l'y placer
                     </p>
-                    <div class="setting">
+                    <div class="setting" style="margin-top: 20px">
                         <label class="switch">
                             <input
                                 type="checkbox"
@@ -597,7 +597,10 @@
                     </div>
 
                     <div class="mode-toggle">
-                        <button id="students-list-btn" class="btn mode-btn active">
+                        <button
+                            id="students-list-btn"
+                            class="btn mode-btn active"
+                        >
                             Élèves
                         </button>
                         <button id="groups-list-btn" class="btn mode-btn">
@@ -609,13 +612,18 @@
                         <div class="list-header">
                             <p class="students-list-column">Nom</p>
                             <p class="students-list-column">Prénom</p>
-                            <p class="students-list-column" class="students-list-column">Classe</p>
+                            <p
+                                class="students-list-column"
+                                class="students-list-column"
+                            >
+                                Classe
+                            </p>
                         </div>
 
                         <div class="separator" style="margin-bottom: 8px"></div>
-                        <div class="students-list" id="students-list">
-                            <p class="no-student" id="no-student">Aucun élève</p>
-                        </div>
+                        <div class="students-list" id="students-list"></div>
+
+                        <p class="no-element" id="no-student">Aucun élève</p>
                     </div>
 
                     <div id="groups-list-container" hidden>
@@ -623,24 +631,44 @@
                             <label class="switch">
                                 <input
                                     type="checkbox"
-                                    id="display-group-input"
+                                    id="shuffle-students-input"
                                     hidden
                                 />
                                 <span class="slider"></span>
                             </label>
-    
-                            <h5 style="font-weight: 400; font-size: 15px">Mode aléatoire</h5>
+
+                            <h5>Mode aléatoire</h5>
+                        </div>
+                        <div class="setting">
+                            <div class="direction-btn" id="direction-btn">
+                                <svg
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    stroke="#ffffff"
+                                    id="direction-arrow"
+                                >
+                                    <path
+                                        d="M6 12H18M18 12L13 7M18 12L13 17"
+                                        stroke="#ffffff"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                            </div>
+                            <h5>Direction</h5>
                         </div>
                         <div class="list-header">
                             <p class="groups-list-column">Classe</p>
                             <p class="groups-list-column">Effectif</p>
                         </div>
                         <div class="separator" style="margin-bottom: 8px"></div>
-                        <div class="students-list" id="groups-list">
-                            <p class="no-student" id="no-student">Aucune classe</p>
-                        </div>
+                        <div class="students-list" id="groups-list"></div>
+                        <p class="no-element" id="no-group">Aucune classe</p>
                     </div>
-
                 </div>
             </section>
         </div>

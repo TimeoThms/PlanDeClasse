@@ -1,14 +1,15 @@
 const studentsList = document.getElementById("students-list");
 const groupsList = document.getElementById("groups-list");
 const noStudent = document.getElementById("no-student");
+const noGroup = document.getElementById("no-group");
 const studentsListMenuTab = document.getElementById("students-list-menu-tab");
 
 let studentsIds = [];
 
 let displayGroup = false;
-const toggle = document.getElementById("display-group-input");
-toggle.addEventListener("change", () => {
-    if (toggle.checked) {
+const showGroupToggle = document.getElementById("display-group-input");
+showGroupToggle.addEventListener("change", () => {
+    if (showGroupToggle.checked) {
         displayGroup = true;
     } else {
         displayGroup = false;
@@ -53,13 +54,11 @@ function addStudent(lastName, firstName, group) {
     const editIcon = student.querySelector(`#edit-icon-${id}`);
     const deleteIcon = student.querySelector(`#delete-icon-${id}`);
 
-    // Ajouter un événement click pour l'icône edit
     editIcon.addEventListener("click", (event) => {
         event.stopPropagation();
         editStudent(id);
     });
 
-    // Ajouter un événement click pour l'icône delete
     deleteIcon.addEventListener("click", (event) => {
         event.stopPropagation();
         deleteStudent(id);
@@ -80,6 +79,7 @@ function addStudent(lastName, firstName, group) {
     }
 
     noStudent.hidden = true;
+
     studentsListMenuTab.style.maxHeight =
         studentsListMenuTab.scrollHeight + "px";
 
@@ -91,6 +91,18 @@ function addStudent(lastName, firstName, group) {
 function getStudentElement(id) {
     if (studentsIds.includes(id)) {
         return document.getElementById(`student-${id}`);
+    }
+}
+
+function getGroupElement(group) {
+    let found = false;
+    getStudentsListData().forEach((student) => {
+        if (student.group == group) {
+            found = true;
+        }
+    });
+    if (found) {
+        return document.getElementById(`group-${group}`);
     }
 }
 
@@ -127,12 +139,22 @@ function deleteStudent(id) {
     setSelectedStudent(getFirstNotAddedStudent());
 }
 
+function deleteGroup(group) {
+    studentsIds.forEach((id) => {
+        studentData = getStudentData(id);
+        if (studentData.group == group) {
+            deleteStudent(id);
+        }
+    });
+    updateGroupsList();
+}
+
 var selectedStudent;
 
 function setSelectedStudent(id) {
-     if (id === null || !getStudentElement(id)) {
-         return;
-     }
+    if (id === null || !getStudentElement(id)) {
+        return;
+    }
     // Unselect previously selected student
     if (selectedStudent) {
         let previousSelectedElement = getStudentElement(selectedStudent);
@@ -142,6 +164,24 @@ function setSelectedStudent(id) {
     let newSelectedElement = getStudentElement(id);
     newSelectedElement.classList.toggle("selected");
     selectedStudent = id;
+    updateStudentsList();
+}
+
+var selectedGroup;
+
+function setSelectedGroup(group) {
+    if (group === null || !getGroupElement(group)) {
+        return;
+    }
+    // Unselect previously selected group
+    if (selectedGroup) {
+        let previousSelectedElement = getGroupElement(selectedGroup);
+        previousSelectedElement.classList.remove("selected");
+    }
+    // Select the new one
+    let newSelectedElement = getGroupElement(group);
+    newSelectedElement.classList.add("selected");
+    selectedGroup = group;
 }
 
 // Manual student addition
@@ -234,7 +274,7 @@ function updateStudentsList() {
     }
 
     if (studentsIds.length == 0) {
-        noStudent.hidden = false
+        noStudent.hidden = false;
     }
 
     updateGroupsList();
@@ -253,12 +293,12 @@ function reorderStudentsInList() {
         }
     });
 
-    studentsList.innerHTML = `<p class="no-student" id="no-student">Aucun élève</p>`;
+    studentsList.innerHTML = ``;
 
     notAdded.sort((a, b) => {
         const infosA = a.querySelectorAll("p");
         const infosB = b.querySelectorAll("p");
-        const dataA = { 
+        const dataA = {
             lastName: infosA[0].textContent,
             firstName: infosA[1].textContent,
             group: infosA[2].textContent,
@@ -313,37 +353,78 @@ function getFirstNotAddedStudent() {
     return null;
 }
 
-
 function updateGroupsList() {
     groups = {};
-    getStudentsListData().forEach((studentData) => {
+    const addedStudents = getAddedStudents();
+    studentsIds.forEach((id) => {
+        const studentData = getStudentData(id);
         if (!groups[studentData.group]) {
-            groups[studentData.group] = 1
+            if (addedStudents.includes(id)) {
+                groups[studentData.group] = { total: 1, added: 1 };
+            } else {
+                groups[studentData.group] = { total: 1, added: 0 };
+            }
         } else {
-            groups[studentData.group] = groups[studentData.group] + 1
+            if (addedStudents.includes(id)) {
+                groups[studentData.group].added =
+                    groups[studentData.group].added + 1;
+            }
+            groups[studentData.group].total =
+                groups[studentData.group].total + 1;
         }
-    })
+    });
 
     groupsList.innerHTML = "";
 
+    noGroup.hidden = false;
+
     for (const g in groups) {
-        
-        // console.log(group + " " + groups[group])
+        noGroup.hidden = true;
 
         const group = document.createElement("div");
         group.className = "list-element group";
-        group.id = `group-${id}`;
+        group.id = `group-${g}`;
         group.innerHTML = `
     <p>${g}</p>
-    <p>${groups[g]}</p>
-    <svg class="student-icon" id="delete-icon-${id}" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <p>${groups[g].added}/${groups[g].total}</p>
+    <svg class="student-icon" id="delete-icon-${g.replace(
+        /[ .]/g,
+        ""
+    )}" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M4 7H20" stroke="#9d4848" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M6 10L7.7 19.36C7.87 20.31 8.7 21 9.67 21h4.66c.97 0 1.8-.69 1.97-1.64L18 10" stroke="#9d4848" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M9 5c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v2H9V5Z" stroke="#9d4848" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-    `
-    groupsList.appendChild(group);
+    `;
+
+        const deleteIcon = group.querySelector(
+            `#delete-icon-${g.replace(/[ .]/g, "")}`
+        );
+
+        deleteIcon.addEventListener("click", (event) => {
+            event.stopPropagation();
+            deleteGroup(g);
+            pushStateSnapshot();
+        });
+
+        group.addEventListener("click", () => {
+            // Select if not already
+            if (g !== selectedGroup) {
+                setSelectedGroup(g);
+            }
+        });
+
+        groupsList.appendChild(group);
+
+        if (!selectedGroup) {
+            setSelectedGroup(g);
+        }
+
+        if (selectedGroup == g) {
+            group.classList.add("selected");
+        }
     }
+
     studentsListMenuTab.style.maxHeight =
         studentsListMenuTab.scrollHeight + "px";
 }
@@ -588,3 +669,163 @@ studentEditorSaveBtn.addEventListener("click", () => {
     editedStudentId = null;
     updateStudentsList();
 });
+
+// Group placement
+const shuffleStudentsToggle = document.getElementById("shuffle-students-input");
+
+validSeatsTypes = ["table", "doubletable"]; // Might be better to prevent group adding on teacher's desk
+
+function placeGroup(coords, empty = false) {
+    validSeats = [];
+    elements.forEach((e) => {
+        const elementData = projectData.elements.find((el) => el.id === e.id());
+        if (validSeatsTypes.includes(elementData.type)) {
+            textNodes = e.getChildren(function (node) {
+                return node.getClassName() === "Text";
+            });
+            textNodes.forEach((node) => {
+                const rect = node.getClientRect({ relativeTo: stage });
+
+                if (
+                    (direction == 0 &&
+                        coords.x >= rect.x &&
+                        coords.x <= rect.x + rect.width &&
+                        rect.y <= coords.y) ||
+                    (direction == 1 &&
+                        coords.y >= rect.y &&
+                        coords.y <= rect.y + rect.height &&
+                        rect.x + rect.width >= coords.x) ||
+                    (direction == 2 &&
+                        coords.x >= rect.x &&
+                        coords.x <= rect.x + rect.width &&
+                        rect.y + rect.height >= coords.y) ||
+                    (direction == 3 &&
+                        coords.y >= rect.y &&
+                        coords.y <= rect.y + rect.height &&
+                        rect.x <= coords.x)
+                ) {
+                    if (elementData.type == "doubletable" && node.x() > 0) {
+                        // Check is is the left label
+                        validSeats.push({
+                            element: elementData,
+                            x: rect.x,
+                            y: rect.y,
+                            isFirstLabel: false,
+                        });
+                    } else {
+                        validSeats.push({
+                            element: elementData,
+                            x: rect.x,
+                            y: rect.y,
+                            isFirstLabel: true,
+                        });
+                    }
+                }
+            });
+        }
+    });
+
+    // Sort validSeats depending on the direction criteria
+    validSeats.sort((a, b) => {
+        if (direction === 0) {
+            // UP
+            return b.y - a.y;
+        } else if (direction === 2) {
+            // DOWN
+            return a.y - b.y;
+        } else if (direction === 1) {
+            // RIGHT
+            return a.x - b.x;
+        } else if (direction === 3) {
+            // LEFT
+            return b.x - a.x;
+        }
+        return 0;
+    });
+
+    let studentsToAdd = [];
+
+    studentsIds.forEach((id) => {
+        studentData = getStudentData(id);
+        if (
+            studentData.group == selectedGroup &&
+            !getAddedStudents().includes(id)
+        ) {
+            studentsToAdd.push(studentData);
+        }
+    });
+
+    if (shuffleStudentsToggle.checked) {
+        for (let i = studentsToAdd.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [studentsToAdd[i], studentsToAdd[j]] = [
+                studentsToAdd[j],
+                studentsToAdd[i],
+            ];
+        }
+    }
+
+    while (
+        (validSeats.length > 0 && studentsToAdd.length > 0) ||
+        (validSeats.length > 0 && empty)
+    ) {
+        const seat = validSeats.shift();
+
+        let labelStr = "";
+        if (!empty) {
+            const student = studentsToAdd.shift();
+            if (displayGroup) {
+                labelStr = `${student.lastName}\n${student.firstName}\n${student.group}`;
+            } else {
+                labelStr = `${student.lastName}\n${student.firstName}`;
+            }
+        }
+
+        const type = seat.element.type;
+        const id = seat.element.id;
+
+        if (type === "table") {
+            updateElement({
+                type: "table",
+                id: id,
+                config: {
+                    color: seat.element.color,
+                    label: labelStr,
+                },
+            });
+        } else if (type === "desk") {
+            updateElement({
+                type: "desk",
+                id: id,
+                config: {
+                    label: labelStr,
+                },
+            });
+        } else if (type === "doubletable") {
+            if (seat.isFirstLabel) {
+                updateElement({
+                    type: "doubletable",
+                    id: id,
+                    config: {
+                        color: seat.element.color,
+                        label1: labelStr,
+                        label2: seat.element.label2,
+                    },
+                });
+            } else {
+                updateElement({
+                    type: "doubletable",
+                    id: id,
+                    config: {
+                        color: seat.element.color,
+                        label1: seat.element.label1,
+                        label2: labelStr,
+                    },
+                });
+            }
+        }
+        updateStudentsList();
+    }
+
+    return;
+}

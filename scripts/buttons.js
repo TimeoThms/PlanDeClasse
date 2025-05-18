@@ -211,7 +211,9 @@ heightInput.addEventListener("change", function () {
 // Placement group/students switch
 const studentsListBtn = document.getElementById("students-list-btn");
 const groupsListBtn = document.getElementById("groups-list-btn");
-const studentsListContainer = document.getElementById("students-list-container");
+const studentsListContainer = document.getElementById(
+    "students-list-container"
+);
 const groupsListContainer = document.getElementById("groups-list-container");
 
 studentsListBtn.addEventListener("click", () => {
@@ -221,7 +223,7 @@ groupsListBtn.addEventListener("click", () => {
     switchListType(false);
 });
 
-var isStudentsListMode;
+var isStudentsListMode = true;
 function switchListType(studentsListMode) {
     if (studentsListMode === isStudentsListMode) return;
 
@@ -250,3 +252,21 @@ function switchListType(studentsListMode) {
         }, 1);
     });
 }
+
+// Direction of groups button
+const directionBtn = document.getElementById("direction-btn");
+const directionArrow = document.getElementById("direction-arrow");
+
+// 0 = up
+// 1 = right
+// 2 = down
+// 3 = left
+
+let direction = 1;
+
+directionBtn.addEventListener("click", () => {
+    direction = (direction + 1) % 4;
+    directionArrow.style = `transform: rotate(${
+        ((direction - 1) % 4) * 90
+    }deg);`;
+});
