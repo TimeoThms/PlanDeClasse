@@ -216,8 +216,11 @@ input[type="file"] {
 
 .element-top {
     display: flex;
-    margin-bottom: 8px;
     justify-content: space-between;
+}
+
+.element-top .separator {
+    margin-top: 8px;
 }
 
 .element-top .btn {

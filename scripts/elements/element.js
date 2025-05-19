@@ -1,7 +1,7 @@
 const elementEditor = document.getElementById("element-editor");
 const sizeDisplay = document.getElementById("size-display");
 
-const notResizeableTypes = ["table", "doubletable", "desk"];
+const notResizeableTypes = ["table", "doubletable", "desk", "computer", "printer", "trashcan"];
 
 const horizontalResizeableTypes = ["door", "windows", "whiteboard"];
 
@@ -433,6 +433,12 @@ function createShape(type, config) {
             return createText(config);
         case "storage":
             return createStorage(config);
+        case "computer":
+            return createComputer(config);
+        case "printer":
+            return createPrinter(config);
+        case "trashcan":
+            return createTrashcan(config);
         default:
             console.warn("Unknown type:", type);
             return null;
@@ -463,7 +469,6 @@ function syncEditorValues(type, config) {
         case "storage":
             return syncStorageEditor(config);
         default:
-            console.warn("Unknown type:", type);
             return null;
     }
 }
