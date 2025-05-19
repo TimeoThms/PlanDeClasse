@@ -5,7 +5,7 @@ function createTrashcan({ }) {
     const imageObj = new Image();
     imageObj.crossOrigin = "anonymous";
     imageObj.src =
-        "https://timeothms.github.io/PlanDeClasse/ressources/images/trashcan.svg";
+        "https://timeothms.github.io/PlanDeClasse/ressources/images/trashcan.png";
     const icon = new Konva.Image({
         x: 0,
         y: 0,
