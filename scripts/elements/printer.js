@@ -5,7 +5,7 @@ function createPrinter({ }) {
     const imageObj = new Image();
     imageObj.crossOrigin = "anonymous";
     imageObj.src =
-        "https://timeothms.github.io/PlanDeClasse/ressources/images/printer.svg";
+        "https://timeothms.github.io/PlanDeClasse/ressources/images/printer.png";
     const icon = new Konva.Image({
         x: 0,
         y: 0,

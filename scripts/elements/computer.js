@@ -5,7 +5,7 @@ function createComputer({ }) {
     const imageObj = new Image();
     imageObj.crossOrigin = "anonymous";
     imageObj.src =
-        "https://timeothms.github.io/PlanDeClasse/ressources/images/computer.svg";
+        "https://timeothms.github.io/PlanDeClasse/ressources/images/computer.png";
     const icon = new Konva.Image({
         x: 0,
         y: 0,
