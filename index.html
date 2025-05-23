@@ -510,8 +510,8 @@
                             </div>
                         </div>
 
-                         <!-- PRINTER -->
-                         <div class="element">
+                        <!-- PRINTER -->
+                        <div class="element">
                             <div class="element-top">
                                 <h3>Imprimante</h3>
                                 <button class="btn" id="add-printer-btn">
@@ -520,13 +520,562 @@
                             </div>
                         </div>
 
-                         <!-- TRASHCAN -->
-                         <div class="element">
+                        <!-- TRASHCAN -->
+                        <div class="element">
                             <div class="element-top">
                                 <h3>Poubelle</h3>
                                 <button class="btn" id="add-trashcan-btn">
                                     Ajouter
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <h2 onclick="this.nextElementSibling.classList.toggle('open')">
+                    Statistiques
+                </h2>
+                <div class="menu-tab">
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>Places</h3>
+                            <div class="counter-container">
+                                <svg
+                                    class="counter-btn"
+                                    id="minus-seats"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <p id="count-seats">0</p>
+                                <svg
+                                    class="counter-btn"
+                                    id="plus-seats"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24.00 24.00"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    stroke="#000000"
+                                    stroke-width="0.00024000000000000003"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13 9C13 8.44772 12.5523 8 12 8C11.4477 8 11 8.44772 11 9V11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H11V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H13V9ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <svg
+                                    class="counter-btn"
+                                    id="reset-seats"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    stroke="#9d4848"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    width="30px"
+                                    height="30px"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line
+                                        x1="14.5"
+                                        y1="9.5"
+                                        x2="9.5"
+                                        y2="14.5"
+                                    />
+                                    <line
+                                        x1="14.5"
+                                        y1="14.5"
+                                        x2="9.5"
+                                        y2="9.5"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <h3>Ordinateur</h3>
+                            <div class="counter-container">
+                                <svg
+                                    class="counter-btn"
+                                    id="minus-computer"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <p id="count-computer">0</p>
+                                <svg
+                                    class="counter-btn"
+                                    id="plus-computer"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24.00 24.00"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    stroke="#000000"
+                                    stroke-width="0.00024000000000000003"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13 9C13 8.44772 12.5523 8 12 8C11.4477 8 11 8.44772 11 9V11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H11V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H13V9ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <svg
+                                    class="counter-btn"
+                                    id="reset-computer"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    stroke="#9d4848"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    width="30px"
+                                    height="30px"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line
+                                        x1="14.5"
+                                        y1="9.5"
+                                        x2="9.5"
+                                        y2="14.5"
+                                    />
+                                    <line
+                                        x1="14.5"
+                                        y1="14.5"
+                                        x2="9.5"
+                                        y2="9.5"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <h3>Vidéo Projecteur</h3>
+                            <div class="counter-container">
+                                <svg
+                                    class="counter-btn"
+                                    id="minus-projector"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <p id="count-projector">0</p>
+                                <svg
+                                    class="counter-btn"
+                                    id="plus-projector"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24.00 24.00"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    stroke="#000000"
+                                    stroke-width="0.00024000000000000003"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13 9C13 8.44772 12.5523 8 12 8C11.4477 8 11 8.44772 11 9V11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H11V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H13V9ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <svg
+                                    class="counter-btn"
+                                    id="reset-projector"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    stroke="#9d4848"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    width="30px"
+                                    height="30px"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line
+                                        x1="14.5"
+                                        y1="9.5"
+                                        x2="9.5"
+                                        y2="14.5"
+                                    />
+                                    <line
+                                        x1="14.5"
+                                        y1="14.5"
+                                        x2="9.5"
+                                        y2="9.5"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <h3>Imprimante</h3>
+                            <div class="counter-container">
+                                <svg
+                                    class="counter-btn"
+                                    id="minus-printer"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <p id="count-printer">0</p>
+                                <svg
+                                    class="counter-btn"
+                                    id="plus-printer"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24.00 24.00"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    stroke="#000000"
+                                    stroke-width="0.00024000000000000003"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13 9C13 8.44772 12.5523 8 12 8C11.4477 8 11 8.44772 11 9V11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H11V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H13V9ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <svg
+                                    class="counter-btn"
+                                    id="reset-printer"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    stroke="#9d4848"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    width="30px"
+                                    height="30px"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line
+                                        x1="14.5"
+                                        y1="9.5"
+                                        x2="9.5"
+                                        y2="14.5"
+                                    />
+                                    <line
+                                        x1="14.5"
+                                        y1="14.5"
+                                        x2="9.5"
+                                        y2="9.5"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <h3>Poubelle</h3>
+                            <div class="counter-container">
+                                <svg
+                                    class="counter-btn"
+                                    id="minus-trashcan"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <p id="count-trashcan">0</p>
+                                <svg
+                                    class="counter-btn"
+                                    id="plus-trashcan"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24.00 24.00"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    stroke="#000000"
+                                    stroke-width="0.00024000000000000003"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13 9C13 8.44772 12.5523 8 12 8C11.4477 8 11 8.44772 11 9V11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H11V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H13V9ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <svg
+                                    class="counter-btn"
+                                    id="reset-trashcan"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    stroke="#9d4848"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    width="30px"
+                                    height="30px"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line
+                                        x1="14.5"
+                                        y1="9.5"
+                                        x2="9.5"
+                                        y2="14.5"
+                                    />
+                                    <line
+                                        x1="14.5"
+                                        y1="14.5"
+                                        x2="9.5"
+                                        y2="9.5"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <h3>Balai</h3>
+                            <div class="counter-container">
+                                <svg
+                                    class="counter-btn"
+                                    id="minus-broom"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <p id="count-broom">0</p>
+                                <svg
+                                    class="counter-btn"
+                                    id="plus-broom"
+                                    width="28px"
+                                    height="28px"
+                                    viewBox="0 0 24.00 24.00"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    stroke="#000000"
+                                    stroke-width="0.00024000000000000003"
+                                >
+                                    <g
+                                        id="SVGRepo_bgCarrier"
+                                        stroke-width="0"
+                                    ></g>
+                                    <g
+                                        id="SVGRepo_tracerCarrier"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                        <path
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                            d="M13 9C13 8.44772 12.5523 8 12 8C11.4477 8 11 8.44772 11 9V11H9C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H11V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H13V9ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z"
+                                            fill="#415a77"
+                                        ></path>
+                                    </g>
+                                </svg>
+                                <svg
+                                    class="counter-btn"
+                                    id="reset-broom"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    stroke="#9d4848"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    width="30px"
+                                    height="30px"
+                                >
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line
+                                        x1="14.5"
+                                        y1="9.5"
+                                        x2="9.5"
+                                        y2="14.5"
+                                    />
+                                    <line
+                                        x1="14.5"
+                                        y1="14.5"
+                                        x2="9.5"
+                                        y2="9.5"
+                                    />
+                                </svg>
                             </div>
                         </div>
                     </div>

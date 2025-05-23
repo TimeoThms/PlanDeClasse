@@ -219,7 +219,7 @@ input[type="file"] {
     justify-content: space-between;
 }
 
-.element-top .separator {
+.element .separator {
     margin-top: 8px;
 }
 
@@ -615,4 +615,40 @@ input:checked + .slider::before {
 .unavailable:hover {
     background-color: #eee;
     cursor: default;
+}
+
+.stat {
+    background-color: #eee;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.counter-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.counter-container p {
+    margin: 0px;
+}
+
+.counter-container p {
+    color: #333;
+}
+
+.counter-btn {
+    cursor: pointer;
+}
+
+.counter-btn:hover {
+    scale: 1.02;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }

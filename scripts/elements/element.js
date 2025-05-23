@@ -1,9 +1,18 @@
 const elementEditor = document.getElementById("element-editor");
 const sizeDisplay = document.getElementById("size-display");
 
-const notResizeableTypes = ["table", "doubletable", "desk", "computer", "printer", "trashcan"];
+const notResizeableTypes = [
+    "table",
+    "doubletable",
+    "desk",
+    "computer",
+    "printer",
+    "trashcan",
+];
 
 const horizontalResizeableTypes = ["door", "windows", "whiteboard"];
+
+const noEditorTypes = ["computer", "printer", "trashcan"];
 
 function addElement({ type, id, x, y, rotation = 0, config = {} }) {
     let group = new Konva.Group({
@@ -499,7 +508,12 @@ function displayEditor() {
             )
         );
 
-        syncEditorValues(element.type, config);
+        if (!noEditorTypes.includes(element.type)) {
+            elementEditor.style.top = "8px";
+            syncEditorValues(element.type, config);
+        } else {
+            elementEditor.style.top = "-100px";
+        }
 
         if (!notResizeableTypes.includes(element.type)) {
             if (elementEditor.style.top == "8px") {
@@ -517,7 +531,6 @@ function displayEditor() {
             }
             sizeDisplay.style.top = "-100px";
         }
-        elementEditor.style.top = "8px";
     } else {
         elementEditor.style.top = "-100px";
         if (elementEditor.style.top == "8px") {
