@@ -73,6 +73,7 @@ resetBtn.addEventListener("click", () => {
         height: stage.height(),
         walls: [],
         elements: [],
+        countsOffsets: {},
     };
 
     stage.width(projectData.width);

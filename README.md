@@ -9,6 +9,7 @@
     - [Grille](#grille)
     - [Murs](#murs)
     - [Éléments](#éléments)
+    - [Statistiques](#statistiques)
   - [B. Éditions des éléments insérés](#b-éditions-des-éléments-insérés)
 - [🎯 IV. Mode placement](#-iv-mode-placement)
   - [A. Ajout d'élèves](#a-ajout-délèves)
@@ -125,6 +126,18 @@ Il y a 9 éléments différents :
 -   Tableau
 -   Rectangle
 -   Cercle
+
+<details>
+    <summary><strong>🖼️ Onglet Éléments (table)</strong></summary>
+    <img src="https://i.postimg.cc/3JNTZgtv/image.png" alt="Onglet éléments (table)" width="300"/> <br>
+</details>
+
+---
+
+### Statistiques
+
+Dans ce menu, vous pouvez visionner quelques statistiques à propos du plan de classe actuel, notamment le nombre de places disponibles.
+Il est possible d'incrémenter ou de décrémenter le nombre affiché artificiellement grâce aux boutons + et -. Le troisième bouton sert à réinitialiser la valeur au nombre d'élément réellement placés sur le plan.
 
 <details>
     <summary><strong>🖼️ Onglet Éléments (table)</strong></summary>

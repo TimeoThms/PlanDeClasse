@@ -628,15 +628,21 @@ input:checked + .slider::before {
 .counter-container {
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 
 .counter-container p {
     margin: 0px;
+    width: 24px;
+    text-align: center;
+    overflow: visible;
 }
 
 .counter-container p {
     color: #333;
+}
+
+.counter-container svg:last-of-type {
+    margin-left: 8px;
 }
 
 .counter-btn {

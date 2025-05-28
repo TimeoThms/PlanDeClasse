@@ -70,10 +70,25 @@ window.addEventListener("beforeunload", (e) => {
 
 window.addEventListener("load", () => {
     try {
-        const savedProject = localStorage.getItem("projectData");
-        if (savedProject) {
-            projectData = JSON.parse(savedProject);
+        const savedProjectStr = localStorage.getItem("projectData");
+        const savedProject = JSON.parse(savedProjectStr);
+        const requiredKeys = [
+            "filename",
+            "width",
+            "height",
+            "walls",
+            "elements",
+            "countsOffsets",
+        ];
+
+        if (
+            savedProject &&
+            requiredKeys.every((key) => savedProject.hasOwnProperty(key))
+        ) {
+            projectData = savedProject;
             loadProject();
+        } else {
+            localStorage.clear(); // Clears if the stored data in not compatible
         }
     } catch (error) {
         console.error("Error parsing projectData:", error);

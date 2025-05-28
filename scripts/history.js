@@ -51,6 +51,8 @@ function pushStateSnapshot() {
     dataHistory.snapshots.push(snapshot);
     dataHistory.currentIndex++;
     unsavedChanges = true;
+
+    updateCountsDisplays();
 }
 
 function undo() {
@@ -120,6 +122,8 @@ function applySnapshot(snapshot) {
 
         layer.batchDraw();
         elementsLayer.batchDraw();
+
+        updateCountsDisplays();
     }
     if (snapshot.studentsData != getStudentsListData()) {
         studentsIds.forEach((id) => deleteStudent(id));

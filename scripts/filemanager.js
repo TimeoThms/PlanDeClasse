@@ -9,6 +9,7 @@ let projectData = {
     height: stage.height(),
     walls: [],
     elements: [],
+    countsOffsets: {}
 };
 
 fileInput.addEventListener("input", function (event) {
