@@ -2,15 +2,26 @@ const fileInput = document.getElementById("input-file");
 const filenameInput = document.getElementById("input-filename");
 const exportBtn = document.getElementById("btn-export");
 
+function ensureDefaults(data = {}) {
+    const defaultConfig = {
+        filename: "",
+        width: stage.width(),
+        height: stage.height(),
+        walls: [],
+        elements: [],
+        countsOffsets: {},
+    };
+
+    for (const key in defaultConfig) {
+        if (!(key in data)) {
+            data[key] = defaultConfig[key];
+        }
+    }
+    return data;
+}
+
 // Default, empty project data
-let projectData = {
-    filename: "",
-    width: stage.width(),
-    height: stage.height(),
-    walls: [],
-    elements: [],
-    countsOffsets: {}
-};
+let projectData = ensureDefaults();
 
 fileInput.addEventListener("input", function (event) {
     const file = event.target.files[0]; // Fetch file
@@ -76,6 +87,8 @@ exportBtn.addEventListener("click", () => {
 });
 
 function loadProject() {
+    projectData = ensureDefaults(projectData);
+
     // Delete all elements
     elements.forEach((e) => {
         if (e && e.destroy) {

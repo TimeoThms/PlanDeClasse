@@ -23,12 +23,18 @@ statsIds.forEach(function (id) {
     const resetButton = document.querySelector(`#reset-${id}`);
 
     plusButton.addEventListener("click", () => {
+        if (!projectData.countsOffsets[id]) {
+            projectData.countsOffsets[id] = 0;
+        }
         projectData.countsOffsets[id]++;
         pushStateSnapshot();
     });
 
     // Écouteur d'événements pour le bouton - (décrément)
     minusButton.addEventListener("click", () => {
+        if (!projectData.countsOffsets[id]) {
+            projectData.countsOffsets[id] = 0;
+        }
         projectData.countsOffsets[id]--;
         pushStateSnapshot();
     });

@@ -72,18 +72,9 @@ window.addEventListener("load", () => {
     try {
         const savedProjectStr = localStorage.getItem("projectData");
         const savedProject = JSON.parse(savedProjectStr);
-        const requiredKeys = [
-            "filename",
-            "width",
-            "height",
-            "walls",
-            "elements",
-            "countsOffsets",
-        ];
 
         if (
-            savedProject &&
-            requiredKeys.every((key) => savedProject.hasOwnProperty(key))
+            savedProject
         ) {
             projectData = savedProject;
             loadProject();

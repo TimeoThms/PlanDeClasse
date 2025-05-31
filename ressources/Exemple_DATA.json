@@ -372,5 +372,13 @@
             "color": "#415a77",
             "label": ""
         }
-    ]
+    ],
+    "countsOffsets": {
+        "projector": 1,
+        "seats": 0,
+        "trashcan": 1,
+        "broom": 2,
+        "computer": 0,
+        "printer": 0
+    }
 }
