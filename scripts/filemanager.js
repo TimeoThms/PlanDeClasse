@@ -121,15 +121,27 @@ function loadProject() {
 }
 
 function writeLabelValue(doc, label, value, x, y) {
-    doc.setFont("helvetica");
-
-    doc.setFont(undefined, "bold");
+    doc.setTextColor("#000");
+    doc.setFontType("bold");
     doc.text(label, x, y);
 
     const labelWidth = doc.getTextWidth(label);
 
-    doc.setFont(undefined, "normal");
+    doc.setFontType("normal");
     doc.text(value, x + labelWidth, y);
+
+    if (value.endsWith(`${projectData.filename}_DATA.json `)) {
+        let parts = value.split("Salle de Permanence_DATA.json");
+        const lineX = doc.getTextWidth(label + parts[0]) + 15;
+
+        doc.setLineWidth(0.3);
+        doc.line(
+            lineX,
+            y + 1,
+            lineX + doc.getTextWidth(`${projectData.filename}_DATA.json`),
+            y + 1
+        );
+    }
 }
 
 function downloadToPDF() {
@@ -192,13 +204,14 @@ function downloadToPDF() {
 
     doc.addImage(dataURL, "JPEG", x, margin, newWidth, newHeight);
 
+    // SECOND PAGE
+    doc.setFont("Inter");
     doc.addPage("a4", "portrait");
 
-    // STATS
-
     // Titles
+
+    doc.setFontType("bold");
     doc.setFontSize(24);
-    doc.setFontStyle("bold");
     doc.setTextColor("#415a77");
 
     doc.text("Informations", 15, 20);
@@ -210,8 +223,9 @@ function downloadToPDF() {
     doc.setFontSize(14);
 
     writeLabelValue(doc, "Nom : ", projectData.filename, 15, 30);
-    writeLabelValue(doc, "Largeur : ", `${projectData.width / 100} m`, 15, 38);
-    writeLabelValue(doc, "Hauteur : ", `${projectData.height / 100} m`, 15, 46);
+    writeLabelValue(doc, "Version : ", new Date().toLocaleString(), 15, 38);
+    writeLabelValue(doc, "Largeur : ", `${projectData.width / 100} m`, 15, 46);
+    writeLabelValue(doc, "Hauteur : ", `${projectData.height / 100} m`, 15, 54);
 
     writeLabelValue(doc, "Places : ", `${getCountById("seats")}`, 100, 30);
     writeLabelValue(
@@ -223,7 +237,7 @@ function downloadToPDF() {
     );
     writeLabelValue(
         doc,
-        "Vidéo Projecteur : ",
+        "Vidéoprojecteur : ",
         `${getCountById("projector")}`,
         100,
         46
@@ -244,10 +258,25 @@ function downloadToPDF() {
     writeLabelValue(
         doc,
         "1. ",
-        `Téléchargez le fichier ${projectData.filename}_DATA.pdf `,
+        `Téléchargez le fichier ${projectData.filename}_DATA.json `,
         15,
         100
     );
+
+    doc.setTextColor("#0b68d4");
+    const base64 = btoa(encodeURIComponent(JSON.stringify(projectData)));
+    doc.textWithLink(
+        "en cliquant ici.",
+        15 +
+            doc.getTextWidth(
+                `1. Téléchargez le fichier ${projectData.filename}_DATA.pdf   `
+            ),
+        100,
+        {
+            url: `https://timeothms.github.io/PlanDeClasse/download.html#data=${base64}`,
+        }
+    );
+
     writeLabelValue(
         doc,
         "2. ",
@@ -265,21 +294,6 @@ function downloadToPDF() {
     writeLabelValue(doc, "4. ", `Modifiez le projet à votre guise.`, 15, 124);
 
     doc.setTextColor("#0b68d4");
-
-    const base64 = btoa(encodeURIComponent(JSON.stringify(projectData)));
-
-    doc.textWithLink(
-        "en cliquant ici.",
-        15 +
-            doc.getTextWidth(
-                `1. Téléchargez le fichier ${projectData.filename}_DATA.pdf   `
-            ),
-        100,
-        {
-            url: `https://timeothms.github.io/PlanDeClasse/download.html#data=${base64}`,
-        }
-    );
-
     doc.textWithLink(
         "Lien vers la documentation",
         15 + doc.getTextWidth("4. Modifiez le projet à votre guise. "),
