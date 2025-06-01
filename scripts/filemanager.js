@@ -37,22 +37,6 @@ fileInput.addEventListener("input", function (event) {
 
                 projectData = JSON.parse(e.target.result);
 
-                const requiredKeys = [
-                    "filename",
-                    "width",
-                    "height",
-                    "walls",
-                    "elements",
-                ];
-
-                const isValid = requiredKeys.every((key) => key in projectData);
-
-                if (!isValid) {
-                    throw new Error(
-                        "Le fichier JSON ne contient pas toutes les clés requises !"
-                    );
-                }
-
                 loadProject();
             } catch (error) {
                 console.error("Erreur dans le fichier json :", error);
@@ -134,4 +118,176 @@ function loadProject() {
     updateStudentsList();
 
     pushStateSnapshot();
+}
+
+function writeLabelValue(doc, label, value, x, y) {
+    doc.setFont("helvetica");
+
+    doc.setFont(undefined, "bold");
+    doc.text(label, x, y);
+
+    const labelWidth = doc.getTextWidth(label);
+
+    doc.setFont(undefined, "normal");
+    doc.text(value, x + labelWidth, y);
+}
+
+function downloadToPDF() {
+    // Hide useless elements
+    selectionRectangle.visible(false);
+    pointsHandles.forEach(function (circle) {
+        circle.visible(false);
+    });
+    gridLines.forEach(function (line) {
+        line.visible(false);
+    });
+    lengthDisplays.forEach(function (label) {
+        label.visible(false);
+    });
+    transformer.visible(false);
+
+    // Generate image
+    const dataURL = stage.toDataURL({
+        pixelRatio: 2, // On the canvas, 1px = 1cm, on export, the resolution is doubled
+    });
+
+    // Show elements again if needed
+    if (isArrangementMode) {
+        pointsHandles.forEach(function (circle) {
+            circle.visible(true);
+        });
+        gridLines.forEach(function (line) {
+            line.visible(true);
+        });
+        lengthDisplays.forEach(function (label) {
+            label.visible(true);
+        });
+        transformer.visible(true);
+    }
+
+    const imgRatio = stage.width() / stage.height();
+
+    const orientation =
+        stage.width() > stage.height() ? "landscape" : "portrait";
+
+    var doc = new jsPDF({ orientation: orientation, unit: "mm", format: "a4" });
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    const margin = 5;
+
+    const maxWidth = pageWidth - margin * 2;
+    const maxHeight = pageHeight - margin * 2;
+
+    let newWidth = maxWidth;
+    let newHeight = newWidth / imgRatio;
+
+    if (newHeight > maxHeight) {
+        newHeight = maxHeight;
+        newWidth = newHeight * imgRatio;
+    }
+
+    const x = (pageWidth - newWidth) / 2;
+
+    doc.addImage(dataURL, "JPEG", x, margin, newWidth, newHeight);
+
+    doc.addPage("a4", "portrait");
+
+    // STATS
+
+    // Titles
+    doc.setFontSize(24);
+    doc.setFontStyle("bold");
+    doc.setTextColor("#415a77");
+
+    doc.text("Informations", 15, 20);
+    doc.text("Statistiques", 100, 20);
+    doc.text("Modifications", 15, 90);
+
+    // Corps
+    doc.setTextColor("#000");
+    doc.setFontSize(14);
+
+    writeLabelValue(doc, "Nom : ", projectData.filename, 15, 30);
+    writeLabelValue(doc, "Largeur : ", `${projectData.width / 100} m`, 15, 38);
+    writeLabelValue(doc, "Hauteur : ", `${projectData.height / 100} m`, 15, 46);
+
+    writeLabelValue(doc, "Places : ", `${getCountById("seats")}`, 100, 30);
+    writeLabelValue(
+        doc,
+        "Ordinateurs : ",
+        `${getCountById("computers")}`,
+        100,
+        38
+    );
+    writeLabelValue(
+        doc,
+        "Vidéo Projecteur : ",
+        `${getCountById("projector")}`,
+        100,
+        46
+    );
+    writeLabelValue(
+        doc,
+        "Imprimante : ",
+        `${getCountById("printer")}`,
+        100,
+        54
+    );
+    writeLabelValue(doc, "Poubelle : ", `${getCountById("trashcan")}`, 100, 62);
+    writeLabelValue(doc, "Balai : ", `${getCountById("broom")}`, 100, 70);
+
+    // Edition section
+    doc.setFontSize(12);
+
+    writeLabelValue(
+        doc,
+        "1. ",
+        `Téléchargez le fichier ${projectData.filename}_DATA.pdf `,
+        15,
+        100
+    );
+    writeLabelValue(
+        doc,
+        "2. ",
+        `Vous serez automatiquement redirigé vers l'éditeur`,
+        15,
+        108
+    );
+    writeLabelValue(
+        doc,
+        "3. ",
+        `Cliquez sur le bouton "Importer" et sélectionnez le fichier téléchargé`,
+        15,
+        116
+    );
+    writeLabelValue(doc, "4. ", `Modifiez le projet à votre guise.`, 15, 124);
+
+    doc.setTextColor("#0b68d4");
+
+    const base64 = btoa(encodeURIComponent(JSON.stringify(projectData)));
+
+    doc.textWithLink(
+        "en cliquant ici.",
+        15 +
+            doc.getTextWidth(
+                `1. Téléchargez le fichier ${projectData.filename}_DATA.pdf   `
+            ),
+        100,
+        {
+            url: `https://timeothms.github.io/PlanDeClasse/download.html#data=${base64}`,
+        }
+    );
+
+    doc.textWithLink(
+        "Lien vers la documentation",
+        15 + doc.getTextWidth("4. Modifiez le projet à votre guise. "),
+        124,
+        {
+            url: `https://github.com/TimeoThms/PlanDeClasse/blob/main/README.md`,
+        }
+    );
+
+    doc.save(`${projectData.filename}_IMG.pdf`);
 }

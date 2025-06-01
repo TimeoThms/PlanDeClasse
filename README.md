@@ -35,6 +35,7 @@
   - [B. Librairies utilisées](#b-librairies-utilisées)
     - [KonvaJS](#konvajs)
     - [XLSX](#xlsx)
+    - [jsPDF](#jspdf)
   - [C. Sécurité](#c-sécurité)
   - [D. Limitations](#d-limitations)
 
@@ -277,6 +278,11 @@ Les langages utilisés sont donc **HTML**, **CSS**, et **JavaScript**
 ### XLSX
 
 -   Pour les fichier Excel XLSX et les fichier CSV, la librairie XLSX a été utilisée afin de faciliter le développement.
+
+### jsPDF
+
+-   Pour l'édition du fichier PDF exporté via le bouton "Télécharger l'image", la librairie jsPDF est légère et permet l'édition de fichiers PDF simples.
+
 
 ## C. Sécurité
 

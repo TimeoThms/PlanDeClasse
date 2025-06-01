@@ -1,0 +1,36 @@
+<!-- This page is opened when you click the download link in the PDF.
+It retrieves the projectData from the base64 encoded string, generate the JSON file and downloads it.
+Then, it sends the user back to the editor. -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <style>
+            body {
+                background-color: black;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            const hash = window.location.hash;
+            const match = hash.match(/data=([^&]+)/);
+            if (match) {
+                const decoded = JSON.parse(decodeURIComponent(atob(match[1])));
+
+                let a = document.createElement("a");
+                a.href =
+                    "data:text/plain;charset=utf-8," +
+                    encodeURIComponent(JSON.stringify(decoded));
+                a.download = decoded.filename + "_DATA.json";
+                a.click();
+
+                window.location.href =
+                    "https://timeothms.github.io/PlanDeClasse";
+            }
+        </script>
+    </body>
+</html>

@@ -4,40 +4,7 @@ const downloadBtn = document.getElementById("downloadBtn");
 var unsavedChanges = false;
 
 downloadBtn.addEventListener("click", () => {
-    selectionRectangle.visible(false);
-    pointsHandles.forEach(function (circle) {
-        circle.visible(false);
-    });
-    gridLines.forEach(function (line) {
-        line.visible(false);
-    });
-    lengthDisplays.forEach(function (label) {
-        label.visible(false);
-    });
-    transformer.visible(false);
-
-    const dataURL = stage.toDataURL({
-        pixelRatio: 2, // On the canvas, 1px = 1cm, on export, the resolution is doubled
-    });
-
-    // Create link and click it
-    const a = document.createElement("a");
-    a.href = dataURL;
-    a.download = projectData.filename + "_IMG.png"; // Filename
-    a.click();
-
-    if (isArrangementMode) {
-        pointsHandles.forEach(function (circle) {
-            circle.visible(true);
-        });
-        gridLines.forEach(function (line) {
-            line.visible(true);
-        });
-        lengthDisplays.forEach(function (label) {
-            label.visible(true);
-        });
-        transformer.visible(true);
-    }
+    downloadToPDF();
 });
 
 // Reset
