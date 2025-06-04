@@ -1,7 +1,7 @@
 const addPrinterBtn = document.getElementById("add-printer-btn");
 
 // Returns the list of shapes used to make the printer
-function createPrinter({ }) {
+function createPrinter({}) {
     const imageObj = new Image();
     imageObj.crossOrigin = "anonymous";
     imageObj.src =
@@ -21,7 +21,7 @@ addPrinterBtn.addEventListener("click", () => {
         type: "printer",
         id: generateId(),
         rotation: 0,
-        config: { },
+        config: {},
     });
     pushStateSnapshot();
 });

@@ -116,17 +116,22 @@ Le bouton `Supprimer` permet de supprimer les murs créés.
 ### Éléments
 
 Ce menu est probablement le plus important. Il permet l'ajout d'éléments dans la salle auxquels vous pouvez modifier différents attributs. La modification des attributs dans ce menu modifieront les attributs pour tous les éléments de ce type ajoutés avec le bouton `Ajouter`. Une fois les éléments ajoutés, vous pourrez toujours modifier leurs attributs individuellement (voir plus bas).<br>
-Il y a 9 éléments différents :
+Il y a 14 éléments différents :
 
 -   Table
 -   Table double
 -   Porte
+-   Fenêtre
 -   Bureau professeur
 -   Texte
 -   Stockage
 -   Tableau
 -   Rectangle
 -   Cercle
+-   Ordinateur
+-   Imprimante
+-   Poubelle
+-   Prise de courant
 
 <details>
     <summary><strong>🖼️ Onglet Éléments (table)</strong></summary>

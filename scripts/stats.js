@@ -5,6 +5,7 @@ const statsIds = [
     "printer",
     "trashcan",
     "broom",
+    "outlet",
 ];
 
 const typesWithStats = [
@@ -13,11 +14,11 @@ const typesWithStats = [
     { type: "computer", statId: "computer", increment: 1 },
     { type: "printer", statId: "printer", increment: 1 },
     { type: "trashcan", statId: "trashcan", increment: 1 },
+    { type: "outlet", statId: "outlet", increment: 1 },
 ];
 
 statsIds.forEach(function (id) {
     projectData.countsOffsets[id] = 0;
-    const countElement = document.querySelector(`#count-${id}`);
     const plusButton = document.querySelector(`#plus-${id}`);
     const minusButton = document.querySelector(`#minus-${id}`);
     const resetButton = document.querySelector(`#reset-${id}`);

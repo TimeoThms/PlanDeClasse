@@ -8,11 +8,12 @@ const notResizeableTypes = [
     "computer",
     "printer",
     "trashcan",
+    "outlet",
 ];
 
 const horizontalResizeableTypes = ["door", "windows", "whiteboard"];
 
-const noEditorTypes = ["computer", "printer", "trashcan"];
+const noEditorTypes = ["computer", "printer", "trashcan", "outlet"];
 
 function addElement({ type, id, x, y, rotation = 0, config = {} }) {
     let group = new Konva.Group({
@@ -448,6 +449,8 @@ function createShape(type, config) {
             return createPrinter(config);
         case "trashcan":
             return createTrashcan(config);
+        case "outlet":
+            return createOutlet(config);
         default:
             console.warn("Unknown type:", type);
             return null;

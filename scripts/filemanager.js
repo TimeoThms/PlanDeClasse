@@ -131,7 +131,7 @@ function writeLabelValue(doc, label, value, x, y) {
     doc.text(value, x + labelWidth, y);
 
     if (value.endsWith(`${projectData.filename}_DATA.json `)) {
-        let parts = value.split("Salle de Permanence_DATA.json");
+        let parts = value.split(`${projectData.filename}_DATA.json`);
         const lineX = doc.getTextWidth(label + parts[0]) + 15;
 
         doc.setLineWidth(0.3);
@@ -237,20 +237,33 @@ function downloadToPDF() {
     );
     writeLabelValue(
         doc,
-        "Vidéoprojecteur : ",
+        "Vidéoprojecteurs : ",
         `${getCountById("projector")}`,
         100,
         46
     );
     writeLabelValue(
         doc,
-        "Imprimante : ",
+        "Imprimantes : ",
         `${getCountById("printer")}`,
         100,
         54
     );
-    writeLabelValue(doc, "Poubelle : ", `${getCountById("trashcan")}`, 100, 62);
-    writeLabelValue(doc, "Balai : ", `${getCountById("broom")}`, 100, 70);
+    writeLabelValue(
+        doc,
+        "Poubelles : ",
+        `${getCountById("trashcan")}`,
+        100,
+        62
+    );
+    writeLabelValue(
+        doc,
+        "Prises de courant : ",
+        `${getCountById("outlet")}`,
+        100,
+        70
+    );
+    writeLabelValue(doc, "Balais : ", `${getCountById("broom")}`, 100, 78);
 
     // Edition section
     doc.setFontSize(12);
@@ -260,7 +273,7 @@ function downloadToPDF() {
         "1. ",
         `Téléchargez le fichier ${projectData.filename}_DATA.json `,
         15,
-        100
+        108
     );
 
     doc.setTextColor("#0b68d4");
@@ -271,7 +284,7 @@ function downloadToPDF() {
             doc.getTextWidth(
                 `1. Téléchargez le fichier ${projectData.filename}_DATA.pdf   `
             ),
-        100,
+        108,
         {
             url: `https://timeothms.github.io/PlanDeClasse/download.html#data=${base64}`,
         }
@@ -282,22 +295,22 @@ function downloadToPDF() {
         "2. ",
         `Vous serez automatiquement redirigé vers l'éditeur`,
         15,
-        108
+        116
     );
     writeLabelValue(
         doc,
         "3. ",
         `Cliquez sur le bouton "Importer" et sélectionnez le fichier téléchargé`,
         15,
-        116
+        124
     );
-    writeLabelValue(doc, "4. ", `Modifiez le projet à votre guise.`, 15, 124);
+    writeLabelValue(doc, "4. ", `Modifiez le projet à votre guise.`, 15, 132);
 
     doc.setTextColor("#0b68d4");
     doc.textWithLink(
         "Lien vers la documentation",
         15 + doc.getTextWidth("4. Modifiez le projet à votre guise. "),
-        124,
+        132,
         {
             url: `https://github.com/TimeoThms/PlanDeClasse/blob/main/README.md`,
         }
