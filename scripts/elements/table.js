@@ -61,6 +61,32 @@ addTableBtn.addEventListener("click", () => {
     pushStateSnapshot();
 });
 
+// SUPER EDITOR: allow changing multiple tables color at once
+const editorSuperTableColorInput = document.getElementById(
+    "editor-super-table-color"
+);
+const editorSuperTableColorLabel = document.getElementById(
+    "editor-super-table-color-label"
+);
+editorSuperTableColorInput.addEventListener("input", (event) => {
+    const selectedColor = event.target.value;
+    editorSuperTableColorLabel.style.backgroundColor = selectedColor;
+
+    const tables = transformer.nodes();
+    tables.forEach((table) => {
+        updateElement({
+            type: "table",
+            id: table.id(),
+            config: {
+                color: editorSuperTableColorInput.value,
+            },
+        });
+    });
+    
+    updateStudentsList();
+});
+
+
 // EDITOR
 
 const editorTableColorInput = document.getElementById("editor-table-color");

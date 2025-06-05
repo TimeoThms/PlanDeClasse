@@ -535,13 +535,44 @@ function displayEditor() {
             sizeDisplay.style.top = "-100px";
         }
     } else {
-        elementEditor.style.top = "-100px";
-        if (elementEditor.style.top == "8px") {
-            sizeDisplay.style.transition = "none";
+        let addedTypes = transformer
+            .nodes()
+            .map(
+                (node) =>
+                    projectData.elements.find((el) => el.id === node.id()).type
+            );
+        if (
+            addedTypes.length > 0 &&
+            addedTypes.length ===
+                addedTypes.filter(
+                    (type) => type == "table" || type == "doubletable"
+                ).length
+        ) {
+            // Hide all currently shown attributes
+            document
+                .querySelectorAll("#element-editor .attribute")
+                .forEach((attr) => {
+                    attr.hidden = true;
+                });
+
+            editorSuperTableColorInput.value = "#415a77";
+            editorSuperTableColorLabel.style.backgroundColor = "#415a77";
+
+            document.querySelector(
+                `#element-editor .super-table-attribute`
+            ).hidden = false;
+
+            elementEditor.style.top = "8px";
+            sizeDisplay.style.top = "-100px";
         } else {
-            sizeDisplay.style.transition = "top 0.2s ease-in-out";
+            elementEditor.style.top = "-100px";
+            if (elementEditor.style.top == "8px") {
+                sizeDisplay.style.transition = "none";
+            } else {
+                sizeDisplay.style.transition = "top 0.2s ease-in-out";
+            }
+            sizeDisplay.style.top = "-100px";
         }
-        sizeDisplay.style.top = "-100px";
     }
 }
 

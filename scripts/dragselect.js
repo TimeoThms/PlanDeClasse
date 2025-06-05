@@ -67,4 +67,5 @@ window.addEventListener("mouseup", (e) => {
         selectionRectangle.visible(false);
         topLayer.batchDraw();
     });
+    displayEditor();
 });
